@@ -11,8 +11,7 @@
  *   - Section index "06 / 06 — VISIT"
  *   - Massive Fraunces closing headline (slightly larger than the hero)
  *   - ONE primary CTA + quiet phone link
- *   - Mono colophon row: address · hours · phone (across the bottom)
- *   - Final hairline (the last rule on the page before the footer)
+ *   - No repeated address/hours colophon; the footer owns practice details.
  *
  * Why we stay on cream (no dark-band invert):
  *   The whole page commits to a single tonal world. Inverting at the end
@@ -93,51 +92,6 @@ import { BOOKING_URL, PRACTICE } from '../../consts';
             {PRACTICE.phone.display}
           </span>
         </a>
-      </div>
-    </div>
-
-    <!-- Colophon row. The practice's "publishing imprint" at the bottom of
-         the page. Mono throughout, one line on desktop, stacks on mobile. -->
-    <div
-      class="mt-20 md:mt-28 lg:mt-36 pt-8 border-t border-border-soft grid gap-8 md:grid-cols-12 md:gap-8"
-      style="--reveal-delay: 480ms;"
-      data-reveal
-    >
-      <!-- Address -->
-      <div class="md:col-span-4">
-        <p class="eyebrow mb-3">Address</p>
-        <p class="text-text-strong text-[15px] leading-[1.55]">
-          {PRACTICE.address.line1}<br />
-          {PRACTICE.address.locality} {PRACTICE.address.postalCode}
-        </p>
-      </div>
-
-      <!-- Hours -->
-      <div class="md:col-span-4">
-        <p class="eyebrow mb-3">Hours</p>
-        <p class="text-text-strong text-[15px] leading-[1.55]">
-          {PRACTICE.hours.weekdays}<br />
-          <span class="text-text-muted">{PRACTICE.hours.weekends}</span>
-        </p>
-      </div>
-
-      <!-- Telephone -->
-      <div class="md:col-span-4">
-        <p class="eyebrow mb-3">Telephone</p>
-        <a
-          href={PRACTICE.phone.href}
-          class="text-text-strong text-[15px] hover:text-accent-600 transition-colors"
-        >
-          {PRACTICE.phone.display}
-        </a>
-        <p class="mt-1">
-          <a
-            href={PRACTICE.email.href}
-            class="text-text-muted text-[14px] hover:text-accent-600 transition-colors"
-          >
-            {PRACTICE.email.display}
-          </a>
-        </p>
       </div>
     </div>
 
