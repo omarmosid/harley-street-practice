@@ -1,0 +1,43 @@
+---
+/**
+ * /services/[slug] — service detail page.
+ *
+ * Renders an entry from the `services` content collection through the
+ * ServiceLayout shell. The MDX body is the long editorial copy. Frontmatter
+ * supplies structured fields (tier groups, FAQs, support line) used by
+ * the layout's optional sections.
+ */
+import { getCollection, render } from 'astro:content';
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const services = await getCollection('services');
+const total = services.length;
+---
+
+<ServiceLayout
+  title={entry.data.title}
+  shortTitle={entry.data.shortTitle}
+  lede={entry.data.lede}
+  seoTitle={entry.data.seoTitle}
+  seoDescription={entry.data.seoDescription}
+  supportLine={entry.data.supportLine}
+  tierGroups={entry.data.tierGroups}
+  faqs={entry.data.faqs}
+  showVisaCountries={entry.data.showVisaCountries}
+  slug={entry.id}
+  serviceNumber={entry.data.order}
+  serviceTotal={total}
+>
+  <Content />
+</ServiceLayout>

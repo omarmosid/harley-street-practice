@@ -1,0 +1,95 @@
+---
+/**
+ * FAQList — accordion of question/answer pairs for a service page.
+ *
+ * Uses native <details>/<summary> for full accessibility + zero JS. The
+ * styling keeps the magazine rhythm: each row is a hairline-separated
+ * editorial block. Open state turns the question bronze and reveals the
+ * answer with a subtle motion.
+ */
+import Container from '../ui/Container.astro';
+
+type Faq = {
+  question: string;
+  answer: string;
+};
+
+type Props = {
+  index: string;
+  eyebrow: string;
+  heading?: string;
+  faqs: Faq[];
+};
+
+const { index, eyebrow, heading = 'Common questions', faqs } = Astro.props;
+---
+
+{faqs.length > 0 && (
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+
+      <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16">
+
+        <aside class="md:col-span-4 lg:col-span-4 mb-10 md:mb-0">
+          <div class="flex md:block items-baseline gap-4 mb-6 md:mb-0">
+            <span
+              class="font-mono text-text-meta block"
+              style="font-size: 11px; letter-spacing: 0.16em;"
+              data-reveal
+            >{index}</span>
+            <p
+              class="eyebrow md:mt-3"
+              style="--reveal-delay: 80ms;"
+              data-reveal
+            >{eyebrow}</p>
+          </div>
+
+          <h2
+            class="md:mt-8 font-display tracking-[-0.02em] leading-[1.05] text-text-strong max-w-[14ch]"
+            style="font-size: clamp(1.875rem, 2.4vw + 1rem, 2.75rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; --reveal-delay: 160ms;"
+            data-reveal
+          >{heading}</h2>
+        </aside>
+
+        <div class="md:col-span-8 lg:col-span-8" role="list">
+          {faqs.map((faq, i) => (
+            <details
+              class="faq group border-t border-border-soft last:border-b last:border-b-border-soft py-6 md:py-7"
+              data-reveal
+              style={`--reveal-delay: ${280 + i * 60}ms;`}
+            >
+              <summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
+                <span
+                  class="font-display text-text-strong tracking-[-0.015em] leading-[1.2] transition-colors duration-200 group-open:text-accent-600"
+                  style="font-size: clamp(1.125rem, 0.8vw + 0.875rem, 1.375rem); font-weight: 380; font-variation-settings: 'opsz' 60, 'SOFT' 40;"
+                >{faq.question}</span>
+                <span
+                  class="faq-icon shrink-0 mt-2 text-text-meta transition-colors duration-200 group-open:text-accent-600"
+                  aria-hidden="true"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M7 1.5V12.5M1.5 7H12.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-4 text-ink-700 max-w-[60ch]" style="font-size: clamp(1rem, 0.3vw + 0.95rem, 1.0625rem); line-height: 1.65;">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+
+      </div>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+
+    </Container>
+  </section>
+)}
+
+<style>
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq[open] .faq-icon svg path:first-child { display: none; }
+  .faq summary { transition: opacity 200ms; }
+  .faq summary:hover { opacity: 0.85; }
+</style>

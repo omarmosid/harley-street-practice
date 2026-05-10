@@ -1,0 +1,126 @@
+---
+/**
+ * /services — index of all top-level services.
+ *
+ * Editorial layout: a magazine table-of-contents page. Each service is a
+ * full-bleed row with number, large Fraunces name, lede, and arrow. This is
+ * the same TOC pattern as the homepage's WhatWeTreat section, but used
+ * standalone with more breathing room and a proper hero.
+ *
+ * Sourced from the `services` content collection (one MDX entry per service).
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Icon from '../../components/ui/Icon.astro';
+import BookingBand from '../../components/sections/BookingBand.astro';
+import { SITE_NAME, SITE_URL } from '../../consts';
+
+const services = (await getCollection('services')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const title = 'Services — London Harley Street Practice';
+const description =
+  'Six core services from a single Marylebone clinic: private GP, health checks, visa medicals, musculoskeletal care, counselling, and online consultations.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Services',
+  url: `${SITE_URL}/services`,
+  isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE_URL },
+  hasPart: services.map((s) => ({
+    '@type': 'MedicalService',
+    name: s.data.title,
+    url: `${SITE_URL}/services/${s.id}`,
+    description: s.data.lede,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <!-- Hero. -->
+  <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="flex items-baseline gap-4 mb-10 md:mb-14">
+        <span
+          class="font-mono text-text-meta block"
+          style="font-size: 11px; letter-spacing: 0.16em;"
+          data-reveal
+        >00 / 06</span>
+        <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Services</p>
+      </div>
+
+      <h1
+        class="font-display tracking-[-0.035em] leading-[0.96] text-text-strong"
+        style="font-size: clamp(2.5rem, 7vw, 6.5rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;"
+        data-reveal
+      >
+        One clinic.<br />
+        Six disciplines<span class="text-accent-400">.</span>
+      </h1>
+
+      <p
+        class="mt-8 md:mt-10 max-w-[58ch] text-ink-700"
+        style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.55; --reveal-delay: 280ms;"
+        data-reveal
+      >
+        Each service runs from the same Marylebone address, sharing one record, one team, and one
+        standard of care. Choose where to start.
+      </p>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <!-- TOC of services. -->
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <ol role="list">
+        {services.map((s, i) => (
+          <li data-reveal style={`--reveal-delay: ${120 + i * 70}ms;`}>
+            <a
+              href={`/services/${s.id}`}
+              class="service-row group block py-8 md:py-12 border-t border-border-soft last:border-b last:border-b-border-soft hover:border-t-ink-900"
+            >
+              <div class="grid grid-cols-12 gap-3 md:gap-6 items-baseline">
+                <span
+                  class="col-span-2 md:col-span-1 font-mono text-text-meta tabular-nums pt-1 md:pt-3"
+                  style="font-size: 12px; letter-spacing: 0.08em;"
+                >{String(s.data.order).padStart(2, '0')}</span>
+
+                <span
+                  class="col-span-9 md:col-span-5 font-display text-text-strong tracking-[-0.025em] leading-[1.02] block transition-colors duration-300 group-hover:text-accent-600"
+                  style="font-size: clamp(2rem, 3.5vw + 1rem, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40;"
+                >{s.data.title}</span>
+
+                <span
+                  class="hidden md:block md:col-span-5 text-text-muted self-center"
+                  style="font-size: 15px; line-height: 1.55;"
+                >{s.data.lede}</span>
+
+                <span class="col-span-1 justify-self-end self-center text-text-muted transition-all duration-300 group-hover:text-accent-600 group-hover:translate-x-1 group-hover:-translate-y-0.5">
+                  <Icon name="arrow-up-right" size={24} />
+                </span>
+              </div>
+
+              <p
+                class="md:hidden mt-3 text-text-muted pl-[calc(8.333%+0.75rem)]"
+                style="font-size: 14px; line-height: 1.55;"
+              >{s.data.lede}</p>
+            </a>
+          </li>
+        ))}
+      </ol>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <BookingBand />
+</BaseLayout>
+
+<style>
+  .service-row { transition: border-color 300ms var(--ease-out-quint); }
+</style>

@@ -1,0 +1,78 @@
+---
+/**
+ * /services/visa-medicals/[country] — preserved country-specific visa pages.
+ *
+ * The original site had one destination URL per visa medical. These pages keep
+ * that long-tail SEO coverage while moving every destination into a consistent
+ * editorial template.
+ */
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ServiceHero from '../../../components/service/ServiceHero.astro';
+import ProseSection from '../../../components/service/ProseSection.astro';
+import BookingBand from '../../../components/sections/BookingBand.astro';
+import { SITE_NAME, SITE_URL } from '../../../consts';
+
+export async function getStaticPaths() {
+  const countries = await getCollection('visaCountries');
+  return countries.map((entry) => ({
+    params: { country: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const canonical = `${SITE_URL}/services/visa-medicals/${entry.id}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalService',
+  name: `${entry.data.country} visa medical`,
+  description: entry.data.summary,
+  provider: {
+    '@type': 'MedicalBusiness',
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+  url: canonical,
+};
+---
+
+<BaseLayout
+  title={entry.data.seoTitle}
+  description={entry.data.seoDescription}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <ServiceHero
+    index="VISA"
+    eyebrow={entry.data.country}
+    title={`${entry.data.country} visa medical`}
+    lede={entry.data.summary}
+    supportLine={[entry.data.fee, entry.data.duration].filter(Boolean).join('. ')}
+  />
+
+  <ProseSection index="01 / 01" eyebrow="At the appointment">
+    <Content />
+
+    <h2>What to bring</h2>
+    <p>
+      Please bring your passport or another form of photo ID, plus any paperwork supplied by the destination authority.
+      Stay well hydrated before your appointment and avoid coffee. There is usually no need to fast.
+    </p>
+
+    <h2>What happens next</h2>
+    <p>
+      Your appointment with an FCDO-registered doctor normally includes a short medical history, physical examination,
+      and the required same-day tests. Where a chest x-ray is required, we arrange this with a nearby radiology centre.
+    </p>
+
+    <p>
+      Reports can be collected in person, scanned securely by email where accepted, or posted to you. Royal Mail Special
+      Delivery is available for an additional fee.
+    </p>
+  </ProseSection>
+
+  <BookingBand />
+</BaseLayout>

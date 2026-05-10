@@ -1,0 +1,207 @@
+---
+/**
+ * ServiceLayout — wraps a service detail page.
+ *
+ * Composition:
+ *   1. ServiceHero          (eyebrow, title, lede, CTA)
+ *   2. (optional) TierGrid  (rendered when frontmatter has tierGroups)
+ *   3. ProseSection         (the MDX body)
+ *   4. (optional) FAQList   (rendered when frontmatter has faqs)
+ *   5. BookingBand          (closing conversion moment, reused from homepage)
+ *
+ * Section indices ("01 / 04", "02 / 04") are calculated based on which
+ * optional blocks are present so the magazine numbering always feels
+ * consistent.
+ */
+import BaseLayout from './BaseLayout.astro';
+import ServiceHero from '../components/service/ServiceHero.astro';
+import TierGrid from '../components/service/TierGrid.astro';
+import ProseSection from '../components/service/ProseSection.astro';
+import FAQList from '../components/service/FAQList.astro';
+import VisaCountryGrid from '../components/service/VisaCountryGrid.astro';
+import BookingBand from '../components/sections/BookingBand.astro';
+import { getCollection } from 'astro:content';
+import { SITE_NAME, SITE_URL } from '../consts';
+
+type Tier = {
+  name: string;
+  price: string;
+  duration?: string;
+  description?: string;
+  includes: string[];
+  featured: boolean;
+  anchor?: string;
+};
+
+type Group = {
+  heading?: string;
+  lede?: string;
+  tiers: Tier[];
+};
+
+type Props = {
+  title: string;
+  shortTitle?: string;
+  lede: string;
+  seoTitle: string;
+  seoDescription: string;
+  supportLine?: string;
+  tierGroups?: Group[];
+  faqs?: { question: string; answer: string }[];
+  /** Slug used for canonical URL. */
+  slug: string;
+  /** Index used in the eyebrow numbering, e.g. 1 for first service. */
+  serviceNumber: number;
+  /** Total number of top-level services (for the eyebrow denominator). */
+  serviceTotal?: number;
+  /** Whether to render the visa country grid below the prose body. */
+  showVisaCountries?: boolean;
+};
+
+const {
+  title,
+  shortTitle,
+  lede,
+  seoTitle,
+  seoDescription,
+  supportLine,
+  tierGroups = [],
+  faqs = [],
+  slug,
+  serviceNumber,
+  serviceTotal = 6,
+  showVisaCountries = false,
+} = Astro.props;
+
+const visaCountries = showVisaCountries
+  ? (await getCollection('visaCountries')).sort((a, b) =>
+      a.data.country.localeCompare(b.data.country, 'en-GB'),
+    )
+  : [];
+
+/* ---- numbering ----
+ * The hero is always section 01.
+ * If we have tier groups, they take section 02.
+ * The MDX prose then gets the next number.
+ * FAQs get the one after.
+ */
+const sections: { kind: 'hero' | 'tiers' | 'prose' | 'countries' | 'faqs'; index: string; eyebrow: string }[] = [];
+
+let n = 0;
+const total =
+  1 /* hero */ +
+  (tierGroups.length > 0 ? 1 : 0) +
+  1 /* prose */ +
+  (showVisaCountries ? 1 : 0) +
+  (faqs.length > 0 ? 1 : 0);
+
+const pad = (i: number) => String(i).padStart(2, '0');
+const denom = pad(total);
+
+n += 1;
+sections.push({ kind: 'hero', index: `${pad(n)} / ${denom}`, eyebrow: shortTitle ?? title });
+
+if (tierGroups.length > 0) {
+  n += 1;
+  sections.push({ kind: 'tiers', index: `${pad(n)} / ${denom}`, eyebrow: 'Choose your check' });
+}
+
+n += 1;
+sections.push({ kind: 'prose', index: `${pad(n)} / ${denom}`, eyebrow: 'In detail' });
+
+if (showVisaCountries) {
+  n += 1;
+  sections.push({ kind: 'countries', index: `${pad(n)} / ${denom}`, eyebrow: 'Destinations' });
+}
+
+if (faqs.length > 0) {
+  n += 1;
+  sections.push({ kind: 'faqs', index: `${pad(n)} / ${denom}`, eyebrow: 'Questions' });
+}
+
+const heroSection = sections.find((s) => s.kind === 'hero')!;
+const tiersSection = sections.find((s) => s.kind === 'tiers');
+const proseSection = sections.find((s) => s.kind === 'prose')!;
+const countriesSection = sections.find((s) => s.kind === 'countries');
+const faqsSection = sections.find((s) => s.kind === 'faqs');
+
+/* ---- Top-level service eyebrow shows the global numbering, e.g. 02 / 06 ---- */
+const globalEyebrow = `${pad(serviceNumber)} / ${pad(serviceTotal)}`;
+
+const canonical = `${SITE_URL}/services/${slug}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalService',
+  name: title,
+  description: lede,
+  provider: {
+    '@type': 'MedicalBusiness',
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+  url: canonical,
+  ...(faqs.length > 0 && {
+    mainEntityOfPage: {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    },
+  }),
+};
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  canonical={canonical}
+  jsonLd={jsonLd}
+>
+  <!-- 1. Hero. We override the hero's local eyebrow with the global service
+       numbering so visitors orient quickly ("page 02 of 06"). -->
+  <ServiceHero
+    index={globalEyebrow}
+    eyebrow={shortTitle ?? title}
+    title={title}
+    lede={lede}
+    supportLine={supportLine}
+  />
+
+  <!-- 2. Tier grid (optional). -->
+  {tiersSection && (
+    <TierGrid
+      index={tiersSection.index}
+      eyebrow={tiersSection.eyebrow}
+      groups={tierGroups}
+    />
+  )}
+
+  <!-- 3. Prose body (MDX). -->
+  <ProseSection index={proseSection.index} eyebrow={proseSection.eyebrow}>
+    <slot />
+  </ProseSection>
+
+  <!-- 4. Visa country grid (optional). -->
+  {countriesSection && (
+    <VisaCountryGrid
+      index={countriesSection.index}
+      eyebrow={countriesSection.eyebrow}
+      countries={visaCountries}
+    />
+  )}
+
+  <!-- 5. FAQs (optional). -->
+  {faqsSection && (
+    <FAQList
+      index={faqsSection.index}
+      eyebrow={faqsSection.eyebrow}
+      faqs={faqs}
+    />
+  )}
+
+  <!-- 6. Closing booking band. -->
+  <BookingBand />
+</BaseLayout>

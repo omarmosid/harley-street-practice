@@ -1,0 +1,175 @@
+---
+/**
+ * TierGrid — renders one or more groups of price tiers.
+ *
+ * Used most heavily by Health Checks (16 tiers across 2 groups: standard +
+ * specialist). The visual model is a grid of editorial "cards" with very
+ * little chrome — each tier is one bordered cell with name, price, duration,
+ * description, and a list of inclusions. Hover deepens the top hairline,
+ * mirroring the homepage's services TOC.
+ *
+ * Featured tiers get a subtle bronze top hairline + bronze price.
+ *
+ * Why a grid (not a list): when you have 8+ comparable items, a list feels
+ * exhausting. A 2-up or 3-up grid lets the reader scan price differentiation.
+ */
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+import { BOOKING_URL } from '../../consts';
+
+type Tier = {
+  name: string;
+  price: string;
+  duration?: string;
+  description?: string;
+  includes: string[];
+  featured: boolean;
+  anchor?: string;
+};
+
+type Group = {
+  heading?: string;
+  lede?: string;
+  tiers: Tier[];
+};
+
+type Props = {
+  /** Section index e.g. "02 / 04". */
+  index: string;
+  /** Section eyebrow label. */
+  eyebrow: string;
+  /** Optional section heading (Fraunces). */
+  heading?: string;
+  groups: Group[];
+};
+
+const { index, eyebrow, heading, groups } = Astro.props;
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+
+    <!-- Section index. -->
+    <div class="flex items-baseline gap-4 mb-10 md:mb-14">
+      <span
+        class="font-mono text-text-meta block"
+        style="font-size: 11px; letter-spacing: 0.16em;"
+        data-reveal
+      >{index}</span>
+      <p
+        class="eyebrow"
+        style="--reveal-delay: 80ms;"
+        data-reveal
+      >{eyebrow}</p>
+    </div>
+
+    {heading && (
+      <h2
+        class="font-display tracking-[-0.025em] leading-[1.02] text-text-strong max-w-[20ch] mb-12 md:mb-20"
+        style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance; --reveal-delay: 160ms;"
+        data-reveal
+      >{heading}</h2>
+    )}
+
+    {groups.map((group, gi) => (
+      <div class={gi > 0 ? 'mt-20 md:mt-32' : ''}>
+        {group.heading && (
+          <div class="mb-10 md:mb-14 max-w-[60ch]">
+            <h3
+              class="font-display tracking-[-0.02em] leading-[1.05] text-text-strong"
+              style="font-size: clamp(1.5rem, 2vw + 0.75rem, 2.25rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;"
+              data-reveal
+            >{group.heading}</h3>
+            {group.lede && (
+              <p
+                class="mt-4 text-ink-700"
+                style="font-size: clamp(1rem, 0.4vw + 0.95rem, 1.125rem); line-height: 1.55; --reveal-delay: 80ms;"
+                data-reveal
+              >{group.lede}</p>
+            )}
+          </div>
+        )}
+
+        <ul role="list" class="grid gap-px bg-border-soft md:grid-cols-2 lg:grid-cols-3 border border-border-soft">
+          {group.tiers.map((tier, ti) => (
+            <li
+              id={tier.anchor}
+              class="group relative bg-bg p-7 md:p-9 flex flex-col"
+              data-reveal
+              style={`--reveal-delay: ${200 + ti * 60}ms;`}
+            >
+              {tier.featured && (
+                <span
+                  aria-hidden="true"
+                  class="absolute top-0 left-0 right-0 h-px bg-accent-400"
+                ></span>
+              )}
+
+              <!-- Header row: name + featured tag. -->
+              <div class="flex items-start justify-between gap-3">
+                <h4
+                  class="font-display text-text-strong tracking-[-0.015em] leading-[1.1]"
+                  style="font-size: clamp(1.375rem, 1vw + 1rem, 1.75rem); font-weight: 360; font-variation-settings: 'opsz' 60, 'SOFT' 40;"
+                >{tier.name}</h4>
+                {tier.featured && (
+                  <span class="font-mono text-accent-600 shrink-0 mt-1.5" style="font-size: 10px; letter-spacing: 0.16em;">
+                    RECOMMENDED
+                  </span>
+                )}
+              </div>
+
+              <!-- Price + duration row. -->
+              <div class="mt-4 flex items-baseline gap-3 flex-wrap">
+                <span
+                  class={`font-display tabular-nums ${tier.featured ? 'text-accent-600' : 'text-text-strong'}`}
+                  style="font-size: clamp(1.5rem, 1.5vw + 0.875rem, 2rem); font-weight: 340; font-variation-settings: 'opsz' 60;"
+                >{tier.price}</span>
+                {tier.duration && (
+                  <span class="font-mono text-text-meta" style="font-size: 11px; letter-spacing: 0.12em;">
+                    {tier.duration.toUpperCase()}
+                  </span>
+                )}
+              </div>
+
+              {tier.description && (
+                <p class="mt-4 text-text-muted" style="font-size: 14px; line-height: 1.6;">
+                  {tier.description}
+                </p>
+              )}
+
+              {tier.includes.length > 0 && (
+                <ul role="list" class="mt-5 space-y-2.5">
+                  {tier.includes.map((item) => (
+                    <li class="flex gap-3 text-text-muted" style="font-size: 13.5px; line-height: 1.5;">
+                      <span class="text-accent-400 shrink-0 mt-[3px]" aria-hidden="true">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                          <path d="M1.5 5.5L4 8L8.5 2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <!-- CTA pinned to bottom of cell. -->
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-7 pt-5 border-t border-border-soft inline-flex items-center justify-between gap-3 text-text-strong transition-colors duration-200 hover:text-accent-600"
+                style="font-size: 13px; letter-spacing: 0.06em;"
+              >
+                <span class="uppercase font-medium tracking-[0.08em]">Book this check</span>
+                <Icon name="arrow-up-right" size={14} class="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+
+    <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+
+  </Container>
+</section>

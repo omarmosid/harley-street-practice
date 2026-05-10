@@ -1,0 +1,82 @@
+---
+/**
+ * VisaCountryGrid — alphabetised index of preserved country visa pages.
+ *
+ * The original Squarespace site had one URL per destination. We preserve that
+ * long-tail SEO shape under /services/visa-medicals/[country], but present the
+ * hub as a tight editorial index rather than flag tiles.
+ */
+import type { CollectionEntry } from 'astro:content';
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+
+type Props = {
+  index: string;
+  eyebrow: string;
+  countries: CollectionEntry<'visaCountries'>[];
+};
+
+const { index, eyebrow, countries } = Astro.props;
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+    <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16">
+      <aside class="md:col-span-4 lg:col-span-4 mb-10 md:mb-0">
+        <div class="flex md:block items-baseline gap-4 mb-6 md:mb-0">
+          <span
+            class="font-mono text-text-meta block"
+            style="font-size: 11px; letter-spacing: 0.16em;"
+            data-reveal
+          >{index}</span>
+          <p class="eyebrow md:mt-3" style="--reveal-delay: 80ms;" data-reveal>{eyebrow}</p>
+        </div>
+
+        <p
+          class="md:mt-8 max-w-[28ch] text-ink-700"
+          style="font-size: clamp(1rem, 0.4vw + 0.95rem, 1.1875rem); line-height: 1.55; --reveal-delay: 160ms;"
+          data-reveal
+        >
+          Country-specific pages preserve the original visa medical routes and make fees easy to scan.
+        </p>
+      </aside>
+
+      <ol class="md:col-span-8 lg:col-span-8 grid gap-px bg-border-soft border border-border-soft md:grid-cols-2" role="list">
+        {countries.map((entry, i) => (
+          <li
+            class="bg-bg"
+            data-reveal
+            style={`--reveal-delay: ${240 + i * 30}ms;`}
+          >
+            <a
+              href={`/services/visa-medicals/${entry.id}`}
+              class="group block p-6 md:p-7 min-h-full transition-colors duration-300 hover:bg-surface"
+            >
+              <div class="flex items-start justify-between gap-5">
+                <div>
+                  <h3
+                    class="font-display text-text-strong tracking-[-0.015em] leading-[1.1] transition-colors duration-300 group-hover:text-accent-600"
+                    style="font-size: clamp(1.25rem, 0.8vw + 1rem, 1.625rem); font-weight: 360; font-variation-settings: 'opsz' 60, 'SOFT' 40;"
+                  >{entry.data.country}</h3>
+                  <p class="mt-3 text-text-muted" style="font-size: 13.5px; line-height: 1.5;">
+                    {entry.data.summary}
+                  </p>
+                </div>
+                <span class="text-text-meta transition-all duration-300 group-hover:text-accent-600 group-hover:translate-x-1 group-hover:-translate-y-0.5">
+                  <Icon name="arrow-up-right" size={18} />
+                </span>
+              </div>
+
+              <div class="mt-5 pt-4 border-t border-border-soft flex flex-wrap gap-x-5 gap-y-2 font-mono text-text-meta" style="font-size: 10px; letter-spacing: 0.12em;">
+                {entry.data.fee && <span>{entry.data.fee.toUpperCase()}</span>}
+                {entry.data.duration && <span>{entry.data.duration.toUpperCase()}</span>}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+  </Container>
+</section>

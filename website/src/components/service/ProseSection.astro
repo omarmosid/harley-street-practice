@@ -1,0 +1,207 @@
+---
+/**
+ * ProseSection — wraps the MDX body of a service page.
+ *
+ * The MDX content authors free-form copy (paragraphs, lists, tables, etc.).
+ * We render it inside a narrow editorial column with proper typographic
+ * defaults — same Fraunces/Inter system as the rest of the page.
+ *
+ * Heading scale (matches design.md):
+ *   h2 → display-md
+ *   h3 → display-sm
+ *   h4 → body large
+ */
+import Container from '../ui/Container.astro';
+
+type Props = {
+  index: string;
+  eyebrow: string;
+};
+
+const { index, eyebrow } = Astro.props;
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+
+    <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16">
+
+      <aside class="md:col-span-4 lg:col-span-4 mb-10 md:mb-0">
+        <div class="flex md:block items-baseline gap-4 md:sticky md:top-24">
+          <span
+            class="font-mono text-text-meta block"
+            style="font-size: 11px; letter-spacing: 0.16em;"
+            data-reveal
+          >{index}</span>
+          <p
+            class="eyebrow md:mt-3"
+            style="--reveal-delay: 80ms;"
+            data-reveal
+          >{eyebrow}</p>
+        </div>
+      </aside>
+
+      <div class="md:col-span-8 lg:col-span-7 service-prose" data-reveal style="--reveal-delay: 200ms;">
+        <slot />
+      </div>
+
+    </div>
+
+    <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+
+  </Container>
+</section>
+
+<style>
+  /*
+   * Editorial typography for MDX content. Designed to read like a long-form
+   * magazine column. Spacing and contrast match the homepage rhythm.
+   */
+  .service-prose :global(p) {
+    color: var(--ink-700);
+    font-size: clamp(1.0625rem, 0.4vw + 0.95rem, 1.1875rem);
+    line-height: 1.65;
+    margin-bottom: 1.4em;
+    text-wrap: pretty;
+  }
+
+  .service-prose :global(h2) {
+    font-family: var(--font-display);
+    color: var(--ink-900);
+    font-size: clamp(1.875rem, 2.4vw + 1rem, 2.75rem);
+    font-weight: 340;
+    font-variation-settings: 'opsz' 144, 'SOFT' 40;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+    text-wrap: balance;
+  }
+
+  .service-prose :global(h3) {
+    font-family: var(--font-display);
+    color: var(--ink-900);
+    font-size: clamp(1.375rem, 1vw + 1rem, 1.75rem);
+    font-weight: 360;
+    font-variation-settings: 'opsz' 96, 'SOFT' 40;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    text-wrap: balance;
+  }
+
+  .service-prose :global(h4) {
+    font-family: var(--font-display);
+    color: var(--ink-900);
+    font-size: 1.125rem;
+    font-weight: 400;
+    font-variation-settings: 'opsz' 30, 'SOFT' 50;
+    line-height: 1.3;
+    margin-top: 1.75em;
+    margin-bottom: 0.5em;
+  }
+
+  .service-prose :global(strong) {
+    color: var(--ink-900);
+    font-weight: 500;
+  }
+
+  .service-prose :global(a) {
+    color: var(--ink-900);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-300);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 200ms;
+  }
+  .service-prose :global(a:hover) {
+    text-decoration-color: var(--accent-400);
+  }
+
+  .service-prose :global(ul),
+  .service-prose :global(ol) {
+    margin: 0 0 1.4em 0;
+    padding: 0;
+    list-style: none;
+  }
+  .service-prose :global(ul li),
+  .service-prose :global(ol li) {
+    color: var(--ink-700);
+    font-size: clamp(1rem, 0.3vw + 0.95rem, 1.125rem);
+    line-height: 1.6;
+    padding-left: 1.5em;
+    position: relative;
+    margin-bottom: 0.5em;
+  }
+  .service-prose :global(ul li::before) {
+    content: '';
+    position: absolute;
+    left: 0.25em;
+    top: 0.7em;
+    width: 0.5em;
+    height: 1px;
+    background: var(--accent-400);
+  }
+  .service-prose :global(ol) {
+    counter-reset: prose-list;
+  }
+  .service-prose :global(ol li) {
+    counter-increment: prose-list;
+  }
+  .service-prose :global(ol li::before) {
+    content: counter(prose-list, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    color: var(--accent-600);
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    letter-spacing: 0.08em;
+  }
+
+  .service-prose :global(blockquote) {
+    border-left: 1px solid var(--accent-400);
+    padding: 0.25em 0 0.25em 1.5em;
+    margin: 2em 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 1vw + 1rem, 1.5rem);
+    font-weight: 340;
+    font-variation-settings: 'opsz' 60, 'SOFT' 50;
+    line-height: 1.4;
+    color: var(--ink-900);
+    text-wrap: balance;
+  }
+
+  .service-prose :global(hr) {
+    border: 0;
+    border-top: 1px solid var(--border-soft);
+    margin: 2.5em 0;
+  }
+
+  .service-prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2em 0;
+    font-size: 0.9375rem;
+  }
+  .service-prose :global(th),
+  .service-prose :global(td) {
+    text-align: left;
+    padding: 1em 1.25em 1em 0;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--ink-700);
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  .service-prose :global(th) {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-500);
+    border-bottom-color: var(--ink-900);
+    padding-bottom: 0.875em;
+  }
+</style>
