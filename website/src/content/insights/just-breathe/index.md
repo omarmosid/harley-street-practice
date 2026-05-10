@@ -3,6 +3,8 @@ title: "Just Breathe..."
 lede: "A reminder that deep, controlled breathing can support stress reduction, cardiovascular health, respiratory function, clarity, and pain management."
 pubDate: 2024-08-05
 author: "London Harley Street Practice"
+heroImage: "./hero.jpg"
+heroImageAlt: "Calm outdoor scene representing slow breathing and wellbeing"
 tags: ["Breathing", "Stress", "Respiratory health", "Wellbeing"]
 seoTitle: "Just Breathe | London Harley Street Practice"
 seoDescription: "Explore why full, slow breathing matters for stress, respiratory function, cardiovascular health, focus, and overall wellbeing."

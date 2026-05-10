@@ -3,6 +3,8 @@ title: "Self-Help Tips for Anxiety"
 lede: "Practical self-help approaches for anxiety, including unhelpful thought patterns, problem-solving, worry time, and lifestyle habits."
 pubDate: 2024-07-22
 author: "Ayesha Aslam"
+heroImage: "./hero.jpg"
+heroImageAlt: "Notebook and calm setting representing practical anxiety self-help"
 tags: ["Anxiety", "Self-help", "Counselling", "Psychotherapy"]
 seoTitle: "Self-Help Tips for Anxiety | London Harley Street Practice"
 seoDescription: "Practical self-help tips for anxiety from London Harley Street Practice, including thought patterns, worry time, lifestyle changes, and when to seek support."

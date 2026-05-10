@@ -3,6 +3,8 @@ title: "Feeling Anxious?"
 lede: "Understand more about anxiety, how it can affect daily life, and when confidential psychological support may help."
 pubDate: 2024-07-22
 author: "Ayesha Aslam"
+heroImage: "./hero.jpg"
+heroImageAlt: "Quiet interior view representing anxiety and reflective psychological support"
 tags: ["Anxiety", "Counselling", "Psychotherapy", "Mental health"]
 seoTitle: "Feeling Anxious? | London Harley Street Practice"
 seoDescription: "Understand more about anxiety, common symptoms, and confidential counselling support at London Harley Street Practice."

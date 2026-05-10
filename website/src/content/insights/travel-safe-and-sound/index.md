@@ -3,6 +3,8 @@ title: "Travel Safe and Sound"
 lede: "Practical travel safety reminders, especially around road traffic risks, preparation, and decision-making abroad."
 pubDate: 2024-07-29
 author: "London Harley Street Practice"
+heroImage: "./hero.jpg"
+heroImageAlt: "Open road landscape representing travel safety"
 tags: ["Travel", "Travel advice", "Safety"]
 seoTitle: "Travel Safe and Sound | London Harley Street Practice"
 seoDescription: "Practical travel safety advice from London Harley Street Practice, including road traffic awareness and preparation before travelling abroad."

@@ -3,6 +3,8 @@ title: "Back to Basics: Essential Tips for a Healthy Spine"
 lede: "Five practical tips for spinal health, posture, lifting, movement, sleep, and preventative care."
 pubDate: 2024-08-01
 author: "Justin Holmes"
+heroImage: "./hero.jpg"
+heroImageAlt: "Person stretching to support back and spine health"
 tags: ["Back pain", "Spine health", "Chiropractic", "Musculoskeletal"]
 seoTitle: "Back to Basics: Essential Tips for a Healthy Spine | London Harley Street Practice"
 seoDescription: "Five practical tips for spinal health from London Harley Street Practice, covering posture, lifting, movement, sleep, and preventative musculoskeletal care."

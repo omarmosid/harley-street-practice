@@ -3,6 +3,8 @@ title: "The Sunshine Vitamin"
 lede: "Vitamin D, why it matters for bone and immune health, who is at risk of deficiency, and when testing may help."
 pubDate: 2024-11-22
 author: "Dr S Cumbers"
+heroImage: "./hero.jpg"
+heroImageAlt: "Sunlight over a calm landscape representing vitamin D"
 tags: ["Vitamin D", "Blood tests", "Health checks", "Wellbeing"]
 seoTitle: "The Sunshine Vitamin | London Harley Street Practice"
 seoDescription: "Learn why vitamin D matters for bone and immune health, who may be at risk of deficiency, and when blood testing can help."

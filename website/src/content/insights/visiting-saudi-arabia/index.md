@@ -3,6 +3,8 @@ title: "Visiting Saudi Arabia?"
 lede: "Cultural and practical considerations for people travelling to Saudi Arabia, including etiquette, modesty, prayer times, and visa medicals."
 pubDate: 2024-07-26
 author: "Dr Ahmed Bachelani"
+heroImage: "./hero.jpg"
+heroImageAlt: "Desert landscape in Saudi Arabia"
 tags: ["Travel", "Saudi Arabia", "Visa medicals", "Travel advice"]
 seoTitle: "Visiting Saudi Arabia? | London Harley Street Practice"
 seoDescription: "Practical travel and cultural considerations for visiting Saudi Arabia, including etiquette, safety, and visa medical support."

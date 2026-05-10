@@ -3,6 +3,8 @@ title: "Winter Wellness: Snow Big Deal"
 lede: "Simple non-medicinal ways to support health during winter, from daylight and fresh air to exercise, sleep, hydration, and social connection."
 pubDate: 2026-01-12
 author: "London Harley Street Practice"
+heroImage: "./hero.jpg"
+heroImageAlt: "Snowy winter landscape representing winter wellness"
 tags: ["Winter wellness", "Lifestyle", "Immune health", "Wellbeing"]
 seoTitle: "Winter Wellness: Snow Big Deal | London Harley Street Practice"
 seoDescription: "Practical winter wellness advice from London Harley Street Practice, including fresh air, daylight, exercise, sleep, hydration, and stress management."

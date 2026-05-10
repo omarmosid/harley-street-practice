@@ -3,6 +3,8 @@ title: "Overcoming Winter Blues: A Systemic Approach to Well-Being"
 lede: "A systemic therapy perspective on winter blues, relationships, environment, cultural expectations, and when to seek support."
 pubDate: 2026-02-04
 author: "Ayesha Aslam"
+heroImage: "./hero.jpg"
+heroImageAlt: "Winter landscape representing seasonal low mood"
 tags: ["Winter blues", "SAD", "Psychotherapy", "Mental health"]
 seoTitle: "Overcoming Winter Blues | London Harley Street Practice"
 seoDescription: "A systemic therapy view of winter blues, seasonal mood changes, relationships, environment, and when professional support can help."

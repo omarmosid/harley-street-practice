@@ -3,6 +3,8 @@ title: "A Flash of Wisdom: Navigating the Hormone Rollercoaster"
 lede: "A practical guide to pre-menopause, perimenopause, menopause, and post-menopause, with reminders on symptoms, screening, and long-term health."
 pubDate: 2025-12-11
 author: "Dr Claudia Tailor"
+heroImage: "./hero.jpg"
+heroImageAlt: "Calm portrait-style image representing menopause and hormone health"
 tags: ["Menopause", "Women's health", "Hormones", "Health checks"]
 seoTitle: "Navigating the Hormone Rollercoaster | London Harley Street Practice"
 seoDescription: "Understand pre-menopause, perimenopause, menopause, and post-menopause, including symptoms, screening, and long-term health considerations."

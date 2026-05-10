@@ -3,6 +3,8 @@ title: "Heart Health 101"
 lede: "What cardiovascular risk means, how it is measured, and the lifestyle and clinical steps that can reduce long-term risk."
 pubDate: 2026-01-28
 author: "London Harley Street Practice"
+heroImage: "./hero.jpg"
+heroImageAlt: "Cardiovascular health assessment imagery"
 tags: ["Heart health", "Cardiovascular risk", "Health checks", "Cholesterol"]
 seoTitle: "Heart Health 101 | London Harley Street Practice"
 seoDescription: "Understand cardiovascular risk, QRISK, advanced blood tests, calcium scoring, and how health checks can help protect long-term heart health."
