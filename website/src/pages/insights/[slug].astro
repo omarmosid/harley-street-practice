@@ -1,0 +1,243 @@
+---
+/**
+ * /insights/[slug] - individual clinical insight article.
+ */
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import BookingBand from '../../components/sections/BookingBand.astro';
+import Icon from '../../components/ui/Icon.astro';
+import { BOOKING_URL, SITE_NAME, SITE_URL } from '../../consts';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('insights');
+  return articles
+    .filter((entry) => !entry.data.draft)
+    .map((entry) => ({
+      params: { slug: entry.id },
+      props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const articles = (await getCollection('insights'))
+  .filter((article) => !article.data.draft && article.id !== entry.id)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const related = articles
+  .filter((article) => article.data.tags.some((tag) => entry.data.tags.includes(tag)))
+  .slice(0, 3);
+
+const fallbackRelated = related.length > 0 ? related : articles.slice(0, 3);
+
+const canonical = `${SITE_URL}/insights/${entry.id}`;
+const title = entry.data.seoTitle ?? `${entry.data.title} | London Harley Street Practice`;
+const description = entry.data.seoDescription ?? entry.data.lede;
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: entry.data.title,
+  description: entry.data.lede,
+  datePublished: entry.data.pubDate.toISOString(),
+  ...(entry.data.updatedDate && { dateModified: entry.data.updatedDate.toISOString() }),
+  author: {
+    '@type': 'Person',
+    name: entry.data.author ?? SITE_NAME,
+  },
+  publisher: {
+    '@type': 'MedicalBusiness',
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+  mainEntityOfPage: canonical,
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd}>
+  <article>
+    <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+      <Container class="max-w-[var(--container-page)]">
+        <div class="flex items-baseline gap-4 mb-10 md:mb-14">
+          <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>INSIGHT</span>
+          <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>{formatDate(entry.data.pubDate)}</p>
+        </div>
+
+        <h1
+          class="font-display tracking-[-0.035em] leading-[0.96] text-text-strong max-w-[13ch]"
+          style="font-size: clamp(2.5rem, 7vw, 6.5rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;"
+          data-reveal
+        >
+          {entry.data.title}<span class="text-accent-400">.</span>
+        </h1>
+
+        <p
+          class="mt-8 md:mt-10 max-w-[62ch] text-ink-700"
+          style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.55; text-wrap: pretty; --reveal-delay: 280ms;"
+          data-reveal
+        >
+          {entry.data.lede}
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-text-meta" style="font-size: 13px;" data-reveal>
+          <span>By {entry.data.author ?? SITE_NAME}</span>
+          {entry.data.tags.length > 0 && (
+            <span class="font-mono uppercase" style="font-size: 11px; letter-spacing: 0.12em;">{entry.data.tags.slice(0, 3).join(' · ')}</span>
+          )}
+        </div>
+
+        <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+      </Container>
+    </section>
+
+    <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+      <Container class="max-w-[var(--container-page)]">
+        <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16">
+          <aside class="md:col-span-4 lg:col-span-4 mb-10 md:mb-0">
+            <div class="flex md:block items-baseline gap-4 md:sticky md:top-24">
+              <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>01 / 02</span>
+              <p class="eyebrow md:mt-3" style="--reveal-delay: 80ms;" data-reveal>Article</p>
+            </div>
+          </aside>
+
+          <div class="md:col-span-8 lg:col-span-7 insight-prose" data-reveal style="--reveal-delay: 200ms;">
+            <Content />
+          </div>
+        </div>
+
+        <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+      </Container>
+    </section>
+  </article>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="flex items-baseline gap-4 mb-12 md:mb-16">
+        <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>02 / 02</span>
+        <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Read next</p>
+      </div>
+
+      <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-3">
+        {fallbackRelated.map((article, i) => (
+          <a href={`/insights/${article.id}`} class="group bg-bg p-7 md:p-8" data-reveal style={`--reveal-delay: ${160 + i * 80}ms;`}>
+            <p class="font-mono text-text-meta mb-8" style="font-size: 11px; letter-spacing: 0.14em;">{formatDate(article.data.pubDate).toUpperCase()}</p>
+            <h2 class="font-display text-text-strong tracking-[-0.02em] leading-[1.05] group-hover:text-accent-600 transition-colors" style="font-size: clamp(1.5rem, 2vw + 0.75rem, 2.25rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40; text-wrap: balance;">{article.data.title}</h2>
+            <p class="mt-5 text-text-muted" style="font-size: 14px; line-height: 1.6; text-wrap: pretty;">{article.data.lede}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-12 flex flex-wrap items-center gap-x-10 gap-y-5" data-reveal>
+        <a href="/insights" class="group inline-flex items-center gap-3 text-text-strong hover:text-accent-600 transition-colors">
+          <Icon name="caret-right" size={15} class="rotate-180" />
+          <span class="font-medium underline decoration-1 underline-offset-[6px] decoration-ink-300 group-hover:decoration-accent-400">Back to insights</span>
+        </a>
+        <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[14px] font-medium tracking-[0.02em] uppercase transition-colors duration-300 hover:bg-accent-600">
+          <span>Book an appointment</span>
+          <Icon name="arrow-up-right" size={16} />
+        </a>
+      </div>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <BookingBand />
+</BaseLayout>
+
+<style>
+  .insight-prose :global(p) {
+    color: var(--ink-700);
+    font-size: clamp(1.0625rem, 0.4vw + 0.95rem, 1.1875rem);
+    line-height: 1.65;
+    margin-bottom: 1.4em;
+    text-wrap: pretty;
+  }
+
+  .insight-prose :global(h2) {
+    font-family: var(--font-display);
+    color: var(--ink-900);
+    font-size: clamp(1.875rem, 2.4vw + 1rem, 2.75rem);
+    font-weight: 340;
+    font-variation-settings: 'opsz' 144, 'SOFT' 40;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-top: 2.5em;
+    margin-bottom: 0.75em;
+    text-wrap: balance;
+  }
+
+  .insight-prose :global(h3) {
+    font-family: var(--font-display);
+    color: var(--ink-900);
+    font-size: clamp(1.375rem, 1vw + 1rem, 1.75rem);
+    font-weight: 360;
+    font-variation-settings: 'opsz' 96, 'SOFT' 40;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    text-wrap: balance;
+  }
+
+  .insight-prose :global(strong) {
+    color: var(--ink-900);
+    font-weight: 500;
+  }
+
+  .insight-prose :global(a) {
+    color: var(--ink-900);
+    text-decoration: underline;
+    text-decoration-color: var(--ink-300);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 200ms;
+  }
+  .insight-prose :global(a:hover) { text-decoration-color: var(--accent-400); }
+
+  .insight-prose :global(ul),
+  .insight-prose :global(ol) {
+    margin: 0 0 1.4em 0;
+    padding: 0;
+    list-style: none;
+  }
+  .insight-prose :global(ul li),
+  .insight-prose :global(ol li) {
+    color: var(--ink-700);
+    font-size: clamp(1rem, 0.3vw + 0.95rem, 1.125rem);
+    line-height: 1.6;
+    padding-left: 1.5em;
+    position: relative;
+    margin-bottom: 0.5em;
+  }
+  .insight-prose :global(ul li::before) {
+    content: '';
+    position: absolute;
+    left: 0.25em;
+    top: 0.7em;
+    width: 0.5em;
+    height: 1px;
+    background: var(--accent-400);
+  }
+  .insight-prose :global(ol) { counter-reset: prose-list; }
+  .insight-prose :global(ol li) { counter-increment: prose-list; }
+  .insight-prose :global(ol li::before) {
+    content: counter(prose-list, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    color: var(--accent-600);
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    letter-spacing: 0.08em;
+  }
+</style>

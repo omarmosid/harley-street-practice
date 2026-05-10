@@ -1,0 +1,121 @@
+---
+/**
+ * /insights - clinical insights and practice blog article index.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import BookingBand from '../../components/sections/BookingBand.astro';
+import Icon from '../../components/ui/Icon.astro';
+import { SITE_NAME, SITE_URL } from '../../consts';
+
+const articles = (await getCollection('insights'))
+  .filter((article) => !article.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const title = 'Health Insights & Advice | London Harley Street Practice';
+const description =
+  'Clinical insights, health advice, and practice blog articles from London Harley Street Practice on private GP care, health checks, mental wellbeing, travel medicine, and prevention.';
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Clinical insights',
+  url: `${SITE_URL}/insights`,
+  isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE_URL },
+  description,
+  hasPart: articles.map((article) => ({
+    '@type': 'BlogPosting',
+    headline: article.data.title,
+    url: `${SITE_URL}/insights/${article.id}`,
+    datePublished: article.data.pubDate.toISOString(),
+    author: {
+      '@type': 'Person',
+      name: article.data.author ?? SITE_NAME,
+    },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} canonical={`${SITE_URL}/insights`} jsonLd={jsonLd}>
+  <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="flex items-baseline gap-4 mb-10 md:mb-14">
+        <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>00 / {String(articles.length).padStart(2, '0')}</span>
+        <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Insights</p>
+      </div>
+
+      <h1
+        class="font-display tracking-[-0.035em] leading-[0.96] text-text-strong max-w-[12ch]"
+        style="font-size: clamp(2.5rem, 7vw, 6.5rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;"
+        data-reveal
+      >
+        Clinical insights<span class="text-accent-400">.</span>
+      </h1>
+
+      <p
+        class="mt-8 md:mt-10 max-w-[62ch] text-ink-700"
+        style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.55; text-wrap: pretty; --reveal-delay: 280ms;"
+        data-reveal
+      >
+        Read our latest clinical insights, health advice, and practice blog articles from the London Harley Street Practice team.
+      </p>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <ol role="list">
+        {articles.map((article, i) => (
+          <li data-reveal style={`--reveal-delay: ${120 + i * 60}ms;`}>
+            <a
+              href={`/insights/${article.id}`}
+              class="insight-row group block py-8 md:py-12 border-t border-border-soft last:border-b last:border-b-border-soft hover:border-t-ink-900"
+            >
+              <div class="grid grid-cols-12 gap-3 md:gap-6 items-baseline">
+                <span class="col-span-2 md:col-span-1 font-mono text-text-meta tabular-nums pt-1 md:pt-3" style="font-size: 12px; letter-spacing: 0.08em;">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+
+                <span class="col-span-9 md:col-span-5 font-display text-text-strong tracking-[-0.025em] leading-[1.02] block transition-colors duration-300 group-hover:text-accent-600" style="font-size: clamp(2rem, 3.5vw + 1rem, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;">
+                  {article.data.title}
+                </span>
+
+                <span class="hidden md:block md:col-span-5 text-text-muted self-center" style="font-size: 15px; line-height: 1.55;">
+                  <span class="block font-mono text-text-meta mb-3" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;">{formatDate(article.data.pubDate)} · {article.data.author ?? SITE_NAME}</span>
+                  {article.data.lede}
+                </span>
+
+                <span class="col-span-1 justify-self-end self-center text-text-muted transition-all duration-300 group-hover:text-accent-600 group-hover:translate-x-1 group-hover:-translate-y-0.5">
+                  <Icon name="arrow-up-right" size={24} />
+                </span>
+              </div>
+
+              <p class="md:hidden mt-4 text-text-muted pl-[calc(8.333%+0.75rem)]" style="font-size: 14px; line-height: 1.55;">
+                <span class="block font-mono text-text-meta mb-2" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;">{formatDate(article.data.pubDate)}</span>
+                {article.data.lede}
+              </p>
+            </a>
+          </li>
+        ))}
+      </ol>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <BookingBand />
+</BaseLayout>
+
+<style>
+  .insight-row { transition: border-color 300ms var(--ease-out-quint); }
+</style>
