@@ -3,9 +3,11 @@
  * /about — practice page sourced from content-cache/pages/about.md.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 import Container from '../components/ui/Container.astro';
 import BookingBand from '../components/sections/BookingBand.astro';
 import Icon from '../components/ui/Icon.astro';
+import harleyStreet from '../assets/images/harley-street.jpg';
 import { SITE_NAME, SITE_URL, PRACTICE } from '../consts';
 
 const title = 'About the practice — London Harley Street Practice';
@@ -145,6 +147,22 @@ const jsonLd = {
             <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>04 / 04</span>
             <p class="eyebrow md:mt-3" style="--reveal-delay: 80ms;" data-reveal>Location</p>
           </div>
+
+          <figure class="hidden md:block mt-10" data-reveal style="--reveal-delay: 160ms;">
+            <div class="relative aspect-[4/5] overflow-hidden border border-border-soft bg-bg-soft">
+              <Image
+                src={harleyStreet}
+                alt="Harley Street in London"
+                class="h-full w-full object-cover grayscale-[12%]"
+                loading="lazy"
+                widths={[360, 520, 720]}
+                sizes="(min-width: 1024px) 28vw, 36vw"
+              />
+            </div>
+            <figcaption class="mt-3 font-mono text-text-meta" style="font-size: 10px; letter-spacing: 0.12em;">
+              HARLEY STREET · W1G
+            </figcaption>
+          </figure>
         </aside>
 
         <div class="md:col-span-8 lg:col-span-7" data-reveal style="--reveal-delay: 180ms;">
@@ -157,6 +175,22 @@ const jsonLd = {
             Situated in the heart of London's premier medical district, we offer a seamless experience from advanced diagnostics to trusted specialist referrals. The aim is simple: timely, accurate care in a supportive and professional environment.
           </p>
 
+          <figure class="md:hidden mt-10" data-reveal style="--reveal-delay: 220ms;">
+            <div class="relative aspect-[16/11] overflow-hidden border border-border-soft bg-bg-soft">
+              <Image
+                src={harleyStreet}
+                alt="Harley Street in London"
+                class="h-full w-full object-cover grayscale-[12%]"
+                loading="lazy"
+                widths={[360, 520, 720]}
+                sizes="100vw"
+              />
+            </div>
+            <figcaption class="mt-3 font-mono text-text-meta" style="font-size: 10px; letter-spacing: 0.12em;">
+              HARLEY STREET · W1G
+            </figcaption>
+          </figure>
+
           <div class="mt-10 grid gap-6 md:grid-cols-3 border-t border-border-soft pt-8">
             <div>
               <p class="eyebrow mb-3">Address</p>
@@ -168,8 +202,16 @@ const jsonLd = {
             </div>
             <div>
               <p class="eyebrow mb-3">Contact</p>
-              <a href={PRACTICE.phone.href} class="text-text-strong text-[15px] hover:text-accent-600 transition-colors">{PRACTICE.phone.display}</a>
-              <p class="mt-1"><a href={PRACTICE.email.href} class="text-text-muted text-[14px] hover:text-accent-600 transition-colors">{PRACTICE.email.display}</a></p>
+              <p>
+                <a href={PRACTICE.phone.href} class="text-text-strong text-[15px] leading-[1.55] hover:text-accent-600 transition-colors">
+                  {PRACTICE.phone.display}
+                </a>
+              </p>
+              <p class="mt-1">
+                <a href={PRACTICE.email.href} class="text-text-muted text-[14px] leading-[1.55] hover:text-accent-600 transition-colors">
+                  {PRACTICE.email.display}
+                </a>
+              </p>
             </div>
           </div>
 

@@ -2,12 +2,11 @@
 /**
  * /team — editorial roster of clinical and practice staff.
  *
- * Source: content-cache/pages/team.md. Credentials and bios are preserved from
- * cached source content. The page is type-led instead of image-led because the
- * current local asset set has uneven individual portraits; this keeps the page
- * premium and consistent.
+ * Source: content-cache/pages/team.md. Credentials, portraits, and bios are
+ * preserved from cached source content.
  */
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
 import BookingBand from '../components/sections/BookingBand.astro';
@@ -82,20 +81,35 @@ const jsonLd = {
         {people.map(({ entry, Content }, i) => (
           <li data-reveal style={`--reveal-delay: ${120 + i * 60}ms;`}>
             <details class="team-row group border-t border-border-soft last:border-b last:border-b-border-soft py-8 md:py-10">
-              <summary class="grid grid-cols-12 gap-4 md:gap-8 cursor-pointer list-none items-baseline">
-                <span class="col-span-2 md:col-span-1 font-mono text-text-meta tabular-nums" style="font-size: 12px; letter-spacing: 0.08em;">
+              <summary class="grid grid-cols-12 gap-4 md:gap-8 cursor-pointer list-none items-start md:items-center">
+                <span class="col-span-2 md:col-span-1 font-mono text-text-meta tabular-nums pt-2" style="font-size: 12px; letter-spacing: 0.08em;">
                   {String(entry.data.order).padStart(2, '0')}
                 </span>
 
-                <span class="col-span-10 md:col-span-4">
+                <span class="col-span-10 md:col-span-2 block">
+                  {entry.data.portrait && (
+                    <span class="block relative aspect-[4/5] overflow-hidden bg-bg-soft border border-border-soft">
+                      <Image
+                        src={entry.data.portrait}
+                        alt={entry.data.portraitAlt ?? entry.data.name}
+                        class="h-full w-full object-cover grayscale-[15%] transition-transform duration-700 group-hover:scale-[1.025]"
+                        loading={i < 3 ? 'eager' : 'lazy'}
+                        widths={[240, 360, 520]}
+                        sizes="(min-width: 768px) 16vw, 80vw"
+                      />
+                    </span>
+                  )}
+                </span>
+
+                <span class="col-span-10 col-start-3 md:col-span-3 md:col-start-auto pt-2 md:pt-0">
                   <span
                     class="block font-display text-text-strong tracking-[-0.025em] leading-[1.02] transition-colors duration-300 group-open:text-accent-600 group-hover:text-accent-600"
-                    style="font-size: clamp(1.875rem, 2.4vw + 1rem, 3.25rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40;"
+                    style="font-size: clamp(1.875rem, 2vw + 0.875rem, 3rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40;"
                   >{entry.data.name}</span>
                   <span class="mt-3 block eyebrow">{entry.data.role}</span>
                 </span>
 
-                <span class="col-span-10 col-start-3 md:col-span-3 md:col-start-auto font-mono text-text-meta" style="font-size: 11px; line-height: 1.7; letter-spacing: 0.1em;">
+                <span class="col-span-10 col-start-3 md:col-span-2 md:col-start-auto font-mono text-text-meta pt-1 md:pt-0" style="font-size: 11px; line-height: 1.7; letter-spacing: 0.1em;">
                   {entry.data.credentials.length > 0 ? entry.data.credentials.join(' · ') : entry.data.specialties.slice(0, 2).join(' · ')}
                 </span>
 
@@ -103,7 +117,7 @@ const jsonLd = {
                   {entry.data.summary}
                 </span>
 
-                <span class="col-span-1 justify-self-end text-text-meta transition-colors duration-300 group-open:text-accent-600 group-hover:text-accent-600" aria-hidden="true">
+                <span class="col-span-1 justify-self-end text-text-meta transition-colors duration-300 group-open:text-accent-600 group-hover:text-accent-600 pt-2" aria-hidden="true">
                   <svg class="team-plus" width="18" height="18" viewBox="0 0 18 18" fill="none">
                     <path d="M9 3V15M3 9H15" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
                   </svg>
@@ -111,7 +125,7 @@ const jsonLd = {
               </summary>
 
               <div class="md:grid md:grid-cols-12 md:gap-8 mt-7 md:mt-10">
-                <div class="md:col-span-4 md:col-start-3">
+                <div class="md:col-span-3 md:col-start-4">
                   <p class="md:hidden text-text-muted mb-6" style="font-size: 14px; line-height: 1.55;">{entry.data.summary}</p>
                   {entry.data.specialties.length > 0 && (
                     <ul role="list" class="flex flex-wrap gap-2">
