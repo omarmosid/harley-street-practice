@@ -94,8 +94,7 @@ const jsonLd = {
 <BaseLayout title={title} description={description} canonical={`${SITE_URL}/membership`} jsonLd={jsonLd}>
   <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
     <Container class="max-w-[var(--container-page)]">
-      <div class="flex items-baseline gap-4 mb-10 md:mb-14">
-        <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>01 / 04</span>
+      <div class="mb-10 md:mb-14">
         <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Membership</p>
       </div>
 
@@ -139,8 +138,7 @@ const jsonLd = {
       <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16">
         <aside class="md:col-span-4 mb-10 md:mb-0">
           <div class="flex md:block items-baseline gap-4">
-            <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>02 / 04</span>
-            <p class="eyebrow md:mt-3" style="--reveal-delay: 80ms;" data-reveal>Why join</p>
+            <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Why join</p>
           </div>
         </aside>
 
@@ -152,7 +150,6 @@ const jsonLd = {
           <div class="mt-12 grid gap-px bg-border-soft border border-border-soft md:grid-cols-2">
             {benefits.map((benefit, i) => (
               <article class="bg-bg p-7 md:p-8" data-reveal style={`--reveal-delay: ${220 + i * 70}ms;`}>
-                <p class="font-mono text-text-meta mb-6" style="font-size: 11px; letter-spacing: 0.14em;">{String(i + 1).padStart(2, '0')}</p>
                 <p class="text-text-strong" style="font-size: 16px; line-height: 1.6; text-wrap: pretty;">{benefit}</p>
               </article>
             ))}
@@ -166,15 +163,13 @@ const jsonLd = {
 
   <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
     <Container class="max-w-[var(--container-page)]">
-      <div class="flex items-baseline gap-4 mb-12 md:mb-16">
-        <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>03 / 04</span>
+      <div class="mb-12 md:mb-16">
         <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Plans</p>
       </div>
 
       <div class="grid gap-px bg-border-soft border border-border-soft lg:grid-cols-3">
         {plans.map((plan, i) => (
           <article class="bg-bg p-7 md:p-9 flex flex-col" data-reveal style={`--reveal-delay: ${160 + i * 90}ms;`}>
-            <p class="font-mono text-text-meta mb-8" style="font-size: 11px; letter-spacing: 0.14em;">{String(i + 1).padStart(2, '0')}</p>
             <h2 class="font-display text-text-strong tracking-[-0.02em] leading-[1.05]" style="font-size: clamp(2rem, 2vw + 1rem, 3rem); font-weight: 340; font-variation-settings: 'opsz' 120, 'SOFT' 40;">{plan.name}</h2>
             <p class="mt-4 font-mono text-accent-600" style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;">{plan.price}</p>
             <p class="mt-6 text-text-muted" style="font-size: 15px; line-height: 1.65; text-wrap: pretty;">{plan.summary}</p>
@@ -203,8 +198,7 @@ const jsonLd = {
       <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16 items-start">
         <aside class="md:col-span-4 mb-10 md:mb-0">
           <div class="flex md:block items-baseline gap-4">
-            <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>04 / 04</span>
-            <p class="eyebrow md:mt-3" style="--reveal-delay: 80ms;" data-reveal>Application</p>
+            <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Application</p>
           </div>
         </aside>
 

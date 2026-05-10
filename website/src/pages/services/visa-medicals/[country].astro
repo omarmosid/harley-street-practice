@@ -46,14 +46,13 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <ServiceHero
-    index="VISA"
     eyebrow={entry.data.country}
     title={`${entry.data.country} visa medical`}
     lede={entry.data.summary}
     supportLine={[entry.data.fee, entry.data.duration].filter(Boolean).join('. ')}
   />
 
-  <ProseSection index="01 / 01" eyebrow="At the appointment">
+  <ProseSection eyebrow="At the appointment">
     <Content />
 
     <h2>What to bring</h2>

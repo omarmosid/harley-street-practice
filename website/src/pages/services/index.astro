@@ -43,12 +43,7 @@ const jsonLd = {
   <!-- Hero. -->
   <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
     <Container class="max-w-[var(--container-page)]">
-      <div class="flex items-baseline gap-4 mb-10 md:mb-14">
-        <span
-          class="font-mono text-text-meta block"
-          style="font-size: 11px; letter-spacing: 0.16em;"
-          data-reveal
-        >00 / 06</span>
+      <div class="mb-10 md:mb-14">
         <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Services</p>
       </div>
 
@@ -86,12 +81,7 @@ const jsonLd = {
             >
               <div class="grid grid-cols-12 gap-3 md:gap-6 items-baseline">
                 <span
-                  class="col-span-2 md:col-span-1 font-mono text-text-meta tabular-nums pt-1 md:pt-3"
-                  style="font-size: 12px; letter-spacing: 0.08em;"
-                >{String(s.data.order).padStart(2, '0')}</span>
-
-                <span
-                  class="col-span-9 md:col-span-5 font-display text-text-strong tracking-[-0.025em] leading-[1.02] block transition-colors duration-300 group-hover:text-accent-600"
+                  class="col-span-11 md:col-span-6 font-display text-text-strong tracking-[-0.025em] leading-[1.02] block transition-colors duration-300 group-hover:text-accent-600"
                   style="font-size: clamp(2rem, 3.5vw + 1rem, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40;"
                 >{s.data.title}</span>
 
@@ -106,7 +96,7 @@ const jsonLd = {
               </div>
 
               <p
-                class="md:hidden mt-3 text-text-muted pl-[calc(8.333%+0.75rem)]"
+                class="md:hidden mt-3 text-text-muted"
                 style="font-size: 14px; line-height: 1.55;"
               >{s.data.lede}</p>
             </a>

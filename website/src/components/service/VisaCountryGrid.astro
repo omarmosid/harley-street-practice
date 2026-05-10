@@ -11,12 +11,11 @@ import Container from '../ui/Container.astro';
 import Icon from '../ui/Icon.astro';
 
 type Props = {
-  index: string;
   eyebrow: string;
   countries: CollectionEntry<'visaCountries'>[];
 };
 
-const { index, eyebrow, countries } = Astro.props;
+const { eyebrow, countries } = Astro.props;
 ---
 
 <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
@@ -24,12 +23,7 @@ const { index, eyebrow, countries } = Astro.props;
     <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16">
       <aside class="md:col-span-4 lg:col-span-4 mb-10 md:mb-0">
         <div class="flex md:block items-baseline gap-4 mb-6 md:mb-0">
-          <span
-            class="font-mono text-text-meta block"
-            style="font-size: 11px; letter-spacing: 0.16em;"
-            data-reveal
-          >{index}</span>
-          <p class="eyebrow md:mt-3" style="--reveal-delay: 80ms;" data-reveal>{eyebrow}</p>
+          <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>{eyebrow}</p>
         </div>
 
         <p

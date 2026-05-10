@@ -2,9 +2,8 @@
 /**
  * ServiceHero — masthead for a service detail page.
  *
- * Mirrors the homepage hero rhythm but with the page's own numbering
- * ("01 / 06 — PRIVATE GP"). One CTA, one quiet phone link, one mono
- * support line.
+ * Mirrors the homepage hero rhythm with one CTA, one quiet phone link, and one
+ * mono support line.
  *
  * Why no image: most services don't earn one. The page already commits
  * to type. If a service genuinely needs imagery (e.g. a clinic photo),
@@ -15,8 +14,6 @@ import Icon from '../ui/Icon.astro';
 import { BOOKING_URL, PRACTICE } from '../../consts';
 
 type Props = {
-  /** Eyebrow numbering shown left of the label, e.g. "01 / 06". */
-  index: string;
   /** Eyebrow label, e.g. "Private GP". */
   eyebrow: string;
   /** Page H1, set in Fraunces. */
@@ -27,21 +24,13 @@ type Props = {
   supportLine?: string;
 };
 
-const { index, eyebrow, title, lede, supportLine } = Astro.props;
+const { eyebrow, title, lede, supportLine } = Astro.props;
 ---
 
 <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
   <Container class="max-w-[var(--container-page)]">
 
-    <!-- Eyebrow row.
-         Same pattern as the homepage sections so the page reads as part
-         of the same publication. -->
-    <div class="flex items-baseline gap-4 mb-10 md:mb-14">
-      <span
-        class="font-mono text-text-meta block"
-        style="font-size: 11px; letter-spacing: 0.16em;"
-        data-reveal
-      >{index}</span>
+    <div class="mb-10 md:mb-14">
       <p
         class="eyebrow"
         style="--reveal-delay: 80ms;"

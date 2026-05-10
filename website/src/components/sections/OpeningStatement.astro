@@ -7,7 +7,7 @@
  * anything. Like the editor's letter at the front of a magazine.
  *
  * Architecture (12-col grid on desktop):
- *   col 1     → vertical mono index (number + section label)
+ *   col 1     → section label
  *   col 2-12  → editorial body (drop-cap'd paragraph, second paragraph,
  *               then a quiet signature)
  *
@@ -21,7 +21,7 @@
  *     so it reads as serene editorial prose, not display poster type.
  *   - Drop-cap is opsz 144 (display) for stroke contrast at large size.
  *
- * Motion: index, paragraphs, signature fade-up with stagger.
+ * Motion: label, paragraphs, signature fade-up with stagger.
  */
 import Container from '../ui/Container.astro';
 ---
@@ -34,17 +34,11 @@ import Container from '../ui/Container.astro';
          Desktop: 12-col, narrow left index col + wider body. -->
     <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16">
 
-      <!-- Left index column (sticky-feeling, but not actually sticky).
-           Contains a quiet number + the section label. -->
+      <!-- Left label column (sticky-feeling, but not actually sticky). -->
       <aside class="md:col-span-3 lg:col-span-3 mb-10 md:mb-0">
-        <div class="flex md:block items-baseline gap-4">
-          <span
-            class="font-mono text-text-meta block"
-            style="font-size: 11px; letter-spacing: 0.16em;"
-            data-reveal
-          >02 / 06</span>
+        <div>
           <p
-            class="eyebrow md:mt-3"
+            class="eyebrow"
             style="--reveal-delay: 80ms;"
             data-reveal
           >On the practice</p>

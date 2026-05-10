@@ -47,10 +47,7 @@ const jsonLd = {
   <!-- Hero. -->
   <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
     <Container class="max-w-[var(--container-page)]">
-      <div class="flex items-baseline gap-4 mb-10 md:mb-14">
-        <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>
-          00 / {String(people.length).padStart(2, '0')}
-        </span>
+      <div class="mb-10 md:mb-14">
         <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Team</p>
       </div>
 
@@ -82,11 +79,7 @@ const jsonLd = {
           <li data-reveal style={`--reveal-delay: ${120 + i * 60}ms;`}>
             <details class="team-row group border-t border-border-soft last:border-b last:border-b-border-soft py-8 md:py-10">
               <summary class="grid grid-cols-12 gap-4 md:gap-8 cursor-pointer list-none items-start md:items-center">
-                <span class="col-span-2 md:col-span-1 font-mono text-text-meta tabular-nums pt-2" style="font-size: 12px; letter-spacing: 0.08em;">
-                  {String(entry.data.order).padStart(2, '0')}
-                </span>
-
-                <span class="col-span-10 md:col-span-2 block">
+                <span class="col-span-12 md:col-span-2 block">
                   {entry.data.portrait && (
                     <span class="block relative aspect-[4/5] overflow-hidden bg-bg-soft border border-border-soft">
                       <Image
@@ -101,7 +94,7 @@ const jsonLd = {
                   )}
                 </span>
 
-                <span class="col-span-10 col-start-3 md:col-span-3 md:col-start-auto pt-2 md:pt-0">
+                <span class="col-span-12 md:col-span-3 pt-2 md:pt-0">
                   <span
                     class="block font-display text-text-strong tracking-[-0.025em] leading-[1.02] transition-colors duration-300 group-open:text-accent-600 group-hover:text-accent-600"
                     style="font-size: clamp(1.875rem, 2vw + 0.875rem, 3rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40;"

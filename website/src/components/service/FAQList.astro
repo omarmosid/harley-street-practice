@@ -15,13 +15,12 @@ type Faq = {
 };
 
 type Props = {
-  index: string;
   eyebrow: string;
   heading?: string;
   faqs: Faq[];
 };
 
-const { index, eyebrow, heading = 'Common questions', faqs } = Astro.props;
+const { eyebrow, heading = 'Common questions', faqs } = Astro.props;
 ---
 
 {faqs.length > 0 && (
@@ -32,13 +31,8 @@ const { index, eyebrow, heading = 'Common questions', faqs } = Astro.props;
 
         <aside class="md:col-span-4 lg:col-span-4 mb-10 md:mb-0">
           <div class="flex md:block items-baseline gap-4 mb-6 md:mb-0">
-            <span
-              class="font-mono text-text-meta block"
-              style="font-size: 11px; letter-spacing: 0.16em;"
-              data-reveal
-            >{index}</span>
             <p
-              class="eyebrow md:mt-3"
+              class="eyebrow"
               style="--reveal-delay: 80ms;"
               data-reveal
             >{eyebrow}</p>

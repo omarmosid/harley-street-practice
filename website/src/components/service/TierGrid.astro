@@ -34,8 +34,6 @@ type Group = {
 };
 
 type Props = {
-  /** Section index e.g. "02 / 04". */
-  index: string;
   /** Section eyebrow label. */
   eyebrow: string;
   /** Optional section heading (Fraunces). */
@@ -43,19 +41,13 @@ type Props = {
   groups: Group[];
 };
 
-const { index, eyebrow, heading, groups } = Astro.props;
+const { eyebrow, heading, groups } = Astro.props;
 ---
 
 <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
   <Container class="max-w-[var(--container-page)]">
 
-    <!-- Section index. -->
-    <div class="flex items-baseline gap-4 mb-10 md:mb-14">
-      <span
-        class="font-mono text-text-meta block"
-        style="font-size: 11px; letter-spacing: 0.16em;"
-        data-reveal
-      >{index}</span>
+    <div class="mb-10 md:mb-14">
       <p
         class="eyebrow"
         style="--reveal-delay: 80ms;"

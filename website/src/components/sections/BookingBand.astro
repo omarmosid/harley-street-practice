@@ -8,7 +8,6 @@
  * not pushed.
  *
  * Architecture:
- *   - Section index "06 / 06 — VISIT"
  *   - Massive Fraunces closing headline (slightly larger than the hero)
  *   - ONE primary CTA + quiet phone link
  *   - No repeated address/hours colophon; the footer owns practice details.
@@ -18,7 +17,7 @@
  *   would feel like a different design appended to this one. Restraint
  *   here is the entire luxury proposition.
  *
- * Motion: index → headline → CTA → colophon, with stagger.
+ * Motion: label → headline → CTA, with stagger.
  */
 import Container from '../ui/Container.astro';
 import Icon from '../ui/Icon.astro';
@@ -28,13 +27,7 @@ import { BOOKING_URL, PRACTICE } from '../../consts';
 <section class="relative bg-bg pt-16 md:pt-28 lg:pt-40 pb-12 md:pb-20 lg:pb-24">
   <Container class="max-w-[var(--container-page)]">
 
-    <!-- Section index. -->
-    <div class="flex items-baseline gap-4 mb-12 md:mb-16">
-      <span
-        class="font-mono text-text-meta block"
-        style="font-size: 11px; letter-spacing: 0.16em;"
-        data-reveal
-      >06 / 06</span>
+    <div class="mb-12 md:mb-16">
       <p
         class="eyebrow"
         style="--reveal-delay: 80ms;"
