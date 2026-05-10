@@ -1,0 +1,48 @@
+---
+/**
+ * FinalCTA — bottom-of-page navy band with the primary booking CTA.
+ * Reusable across pages.
+ */
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Button from '../ui/Button.astro';
+import { BOOKING_URL, PRACTICE } from '../../consts';
+
+type Props = {
+  heading?: string;
+  lead?: string;
+};
+const {
+  heading = 'Ready to see a doctor today?',
+  lead = 'Book online in under two minutes, or call us and speak to our team.',
+} = Astro.props;
+---
+
+<Section tone="dark" size="md">
+  <Container class="text-center">
+    <h2 class="font-display text-text-invert max-w-2xl mx-auto">{heading}</h2>
+    <p class="mt-5 text-lg text-text-invert/75 max-w-xl mx-auto leading-relaxed">{lead}</p>
+
+    <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <Button
+        href={BOOKING_URL}
+        variant="primary"
+        size="lg"
+        icon="calendar-check"
+        external
+        class="bg-accent-400 text-brand-900 hover:bg-accent-100"
+      >
+        Book an appointment
+      </Button>
+      <Button
+        href={PRACTICE.phone.href}
+        variant="ghost"
+        size="lg"
+        icon="phone"
+        class="bg-text-invert/10 text-text-invert hover:bg-text-invert/20 hover:text-text-invert"
+      >
+        {PRACTICE.phone.display}
+      </Button>
+    </div>
+  </Container>
+</Section>

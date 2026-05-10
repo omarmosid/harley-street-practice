@@ -1,0 +1,44 @@
+---
+/**
+ * MobileStickyCTA — fixed bottom bar on small viewports.
+ *
+ * Single primary action (Book) + a quiet phone link.
+ * Hidden on /contact and /book (CTAs are already prominent there).
+ *
+ * Editorial styling: cream pill on cream bar, ink-on-cream button. No noise.
+ */
+import Icon from '../ui/Icon.astro';
+import { PRACTICE, BOOKING_URL } from '../../consts';
+
+const path = Astro.url.pathname;
+const hide = path.startsWith('/contact');
+---
+
+{!hide && (
+  <div
+    class="lg:hidden fixed inset-x-0 bottom-0 z-30 bg-bg border-t border-border shadow-[0_-4px_20px_rgb(74_52_29_/_0.06)]"
+    style="padding-bottom: env(safe-area-inset-bottom);"
+    role="region"
+    aria-label="Quick contact"
+  >
+    <div class="flex items-center gap-3 px-4 py-3">
+      <a
+        href={PRACTICE.phone.href}
+        class="inline-flex items-center justify-center h-11 w-11 rounded-[2px] border border-border text-text-strong hover:text-accent-600 hover:border-accent-400 transition-colors"
+        aria-label={`Call ${PRACTICE.phone.display}`}
+      >
+        <Icon name="phone" size={16} />
+      </a>
+
+      <a
+        href={BOOKING_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group flex-1 inline-flex items-center justify-center gap-2 bg-ink-900 text-bg h-11 rounded-[2px] text-[12px] font-medium tracking-[0.04em] uppercase"
+      >
+        <span>Book an appointment</span>
+        <Icon name="arrow-up-right" size={13} />
+      </a>
+    </div>
+  </div>
+)}

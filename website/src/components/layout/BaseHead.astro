@@ -1,0 +1,82 @@
+---
+/**
+ * BaseHead — every <head> tag the site needs.
+ * Place inside <head> of every page (BaseLayout does this for you).
+ *
+ * Pass `jsonLd` as a single object or array to inject JSON-LD schemas.
+ */
+import { Font } from 'astro:assets';
+import { SITE_NAME, SITE_URL } from '../../consts';
+import { pageTitle, absoluteUrl, DEFAULT_DESCRIPTION } from '../../lib/seo';
+import '../../styles/global.css';
+
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string; // OG image URL (absolute or path)
+  noindex?: boolean;
+  canonical?: string;
+  jsonLd?: object | object[];
+};
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  image = '/og-default.png',
+  noindex = false,
+  canonical,
+  jsonLd,
+} = Astro.props;
+
+const fullTitle = pageTitle(title);
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, SITE_URL).toString();
+const ogImage = absoluteUrl(image);
+
+const schemas = !jsonLd ? [] : Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+---
+
+<!-- Charset / viewport -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Primary -->
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content="en_GB" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Sitemap -->
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Fonts -->
+<Font cssVariable="--font-inter" preload />
+<Font cssVariable="--font-fraunces" preload />
+
+<!-- Theme color (matches body bg + brand) -->
+<meta name="theme-color" content="#FBFAF7" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0F1B36" media="(prefers-color-scheme: dark)" />
+
+<!-- JSON-LD -->
+{schemas.map((schema) => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

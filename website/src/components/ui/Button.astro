@@ -1,0 +1,92 @@
+---
+/**
+ * Button — renders <a> if href provided, else <button>.
+ * Variants: primary, secondary, ghost, link.
+ * Sizes: sm, md (default), lg.
+ *
+ * External links automatically get target=_blank + rel + an "external" icon.
+ *
+ * Usage:
+ *   <Button href="/contact">Contact</Button>
+ *   <Button href={BOOKING_URL} variant="primary" external icon="calendar-check">Book appointment</Button>
+ *   <Button variant="ghost" size="sm">Learn more</Button>
+ */
+import Icon from './Icon.astro';
+import { cn } from '../../lib/cn';
+
+type Variant = 'primary' | 'secondary' | 'ghost' | 'link';
+type Size = 'sm' | 'md' | 'lg';
+
+type Props = {
+  href?: string;
+  variant?: Variant;
+  size?: Size;
+  external?: boolean;
+  icon?: Parameters<typeof Icon>[0]['name'];
+  iconRight?: Parameters<typeof Icon>[0]['name'];
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  'aria-label'?: string;
+};
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  external,
+  icon,
+  iconRight,
+  type = 'button',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 font-medium tracking-tight rounded-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-700/20 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap';
+
+const variants: Record<Variant, string> = {
+  primary:
+    'bg-brand-700 text-text-invert shadow-sm hover:bg-brand-900 hover:shadow-md active:translate-y-px',
+  secondary:
+    'bg-surface text-brand-700 border border-brand-100 hover:bg-brand-50 hover:border-brand-300',
+  ghost:
+    'bg-transparent text-brand-700 hover:bg-brand-50',
+  link:
+    'bg-transparent text-brand-700 underline underline-offset-4 hover:text-brand-900 px-0 py-0',
+};
+
+const sizes: Record<Size, string> = {
+  sm: 'h-9 px-3 text-sm',
+  md: 'h-11 px-5 text-[15px]',
+  lg: 'h-12 px-6 text-base',
+};
+
+// `link` variant shouldn't have height/padding from the size scale
+const sizeClass = variant === 'link' ? '' : sizes[size];
+
+// Use cn (tailwind-merge) so the caller's `class` prop can cleanly
+// override variant tokens (e.g. bg-* color) without duplication.
+const classes = cn(base, variants[variant], sizeClass, className);
+
+const isExternal =
+  external ?? (typeof href === 'string' && /^https?:\/\//.test(href) && !href.includes('londonhspractice.co.uk'));
+
+const externalAttrs = isExternal && href ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+
+const iconSize = size === 'sm' ? 16 : size === 'lg' ? 22 : 18;
+---
+
+{href ? (
+  <a href={href} class={classes} {...externalAttrs} {...rest}>
+    {icon && <Icon name={icon} size={iconSize} />}
+    <slot />
+    {iconRight && <Icon name={iconRight} size={iconSize} />}
+    {isExternal && !iconRight && <Icon name="arrow-up-right" size={iconSize} class="opacity-70" />}
+  </a>
+) : (
+  <button type={type} class={classes} {...rest}>
+    {icon && <Icon name={icon} size={iconSize} />}
+    <slot />
+    {iconRight && <Icon name={iconRight} size={iconSize} />}
+  </button>
+)}

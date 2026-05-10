@@ -1,0 +1,30 @@
+---
+/**
+ * TrustStrip — horizontal row of credibility points just below the hero.
+ */
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+
+const items = [
+  { icon: 'clock' as const,         label: '30-minute appointments' },
+  { icon: 'calendar-check' as const, label: 'Same-day availability' },
+  { icon: 'shield-check' as const,   label: 'CQC-regulated clinic' },
+  { icon: 'stethoscope' as const,    label: 'Multidisciplinary team' },
+  { icon: 'map-pin' as const,        label: '66 Harley Street, W1G' },
+];
+---
+
+<section class="bg-surface border-y border-border">
+  <Container class="py-6 md:py-8">
+    <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+      {items.map((item) => (
+        <li class="flex items-center gap-3 text-sm md:text-[15px] text-text-muted">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-brand-50 text-brand-700">
+            <Icon name={item.icon} size={18} />
+          </span>
+          <span class="font-medium text-text">{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</section>

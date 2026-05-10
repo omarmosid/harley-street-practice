@@ -1,0 +1,51 @@
+---
+/**
+ * BaseLayout — wraps every page with <head>, header, footer, mobile CTA.
+ *
+ * Pages should pass title, description, image, and (optionally) jsonLd.
+ *   ---
+ *   import BaseLayout from '../layouts/BaseLayout.astro';
+ *   ---
+ *   <BaseLayout title="..." description="..." jsonLd={...}>
+ *     ...page sections...
+ *   </BaseLayout>
+ */
+import BaseHead from '../components/layout/BaseHead.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import MobileStickyCTA from '../components/layout/MobileStickyCTA.astro';
+
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  canonical?: string;
+  jsonLd?: object | object[];
+  /** Add bottom padding so mobile sticky CTA doesn't cover content */
+  hasMobileCTA?: boolean;
+};
+
+const { hasMobileCTA = true, ...head } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <BaseHead {...head} />
+  </head>
+  <body class={hasMobileCTA ? 'pb-20 lg:pb-0' : ''}>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    {hasMobileCTA && <MobileStickyCTA />}
+
+    <!-- Reveal-on-scroll observer (whisper-quiet motion) -->
+    <script>
+      import '../lib/reveal';
+    </script>
+  </body>
+</html>

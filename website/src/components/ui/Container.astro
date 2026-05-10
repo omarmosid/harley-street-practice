@@ -1,0 +1,30 @@
+---
+/**
+ * Container — page-width wrapper. Default 1200px max-width with responsive gutters.
+ *
+ * Usage:
+ *   <Container>...</Container>          // default page width
+ *   <Container size="prose">...</>       // narrow article (65ch)
+ *   <Container size="wide">...</>        // wide hero / showcase
+ */
+type Size = 'prose' | 'narrow' | 'page' | 'wide';
+
+type Props = {
+  size?: Size;
+  as?: string;
+  class?: string;
+};
+
+const { size = 'page', as: Tag = 'div', class: className = '' } = Astro.props;
+
+const sizes: Record<Size, string> = {
+  prose:  'max-w-[var(--container-prose)]',
+  narrow: 'max-w-[var(--container-narrow)]',
+  page:   'max-w-[var(--container-page)]',
+  wide:   'max-w-[var(--container-wide)]',
+};
+---
+
+<Tag class={`mx-auto w-full px-4 md:px-6 lg:px-12 ${sizes[size]} ${className}`}>
+  <slot />
+</Tag>

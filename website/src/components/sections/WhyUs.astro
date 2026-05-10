@@ -1,0 +1,67 @@
+---
+/**
+ * WhyUs — three-column "why choose us" feature list with icons.
+ */
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Icon from '../ui/Icon.astro';
+
+const features = [
+  {
+    icon: 'stethoscope' as const,
+    title: 'Time to listen',
+    body: 'Standard 30-minute appointments mean detailed assessment, clear diagnosis, and a treatment plan you understand.',
+  },
+  {
+    icon: 'flask' as const,
+    title: 'Rapid diagnostics',
+    body: 'On-site blood tests and same-day access to ultrasound, MRI, and CT scans through our Harley Street network.',
+  },
+  {
+    icon: 'shield-check' as const,
+    title: 'Confidential by design',
+    body: 'CQC-regulated care with discretion at every stage, from consultation to specialist referral.',
+  },
+  {
+    icon: 'heart' as const,
+    title: 'Multidisciplinary team',
+    body: 'GPs, musculoskeletal specialists, and psychological therapists working together for joined-up care.',
+  },
+  {
+    icon: 'calendar-check' as const,
+    title: 'Same-day access',
+    body: 'Same-day private GP appointments and direct booking — no queues, no waiting lists.',
+  },
+  {
+    icon: 'arrow-up-right' as const,
+    title: 'Trusted referrals',
+    body: 'Established links with leading Harley Street specialists for fast onward referrals when you need them.',
+  },
+];
+---
+
+<Section tone="alt" size="md">
+  <Container>
+    <SectionHeading
+      eyebrow="Why London Harley Street Practice"
+      title="The standard of care you'd expect from Harley Street, made simple."
+      align="center"
+      class="mx-auto"
+    />
+
+    <ul class="mt-14 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+      {features.map((feat) => (
+        <li class="flex gap-4">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-brand-700 text-text-invert shadow-sm">
+            <Icon name={feat.icon} size={22} />
+          </span>
+          <div>
+            <h3 class="font-display text-lg font-medium text-text-strong">{feat.title}</h3>
+            <p class="mt-2 text-[15px] text-text-muted leading-relaxed">{feat.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</Section>

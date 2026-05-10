@@ -1,0 +1,44 @@
+---
+/**
+ * Testimonials — grid of patient reviews. Sourced from Google Reviews.
+ */
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Icon from '../ui/Icon.astro';
+import data from '../../data/testimonials.json';
+
+const items = data.testimonials;
+---
+
+<Section size="md">
+  <Container>
+    <SectionHeading
+      eyebrow="Patient testimonials"
+      title="What our patients say"
+      lead="Verified Google reviews from patients across our services."
+      align="center"
+      class="mx-auto"
+    />
+
+    <ul class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {items.slice(0, 6).map((t) => (
+        <li class="rounded-xl bg-surface border border-border/60 p-7 shadow-sm flex flex-col">
+          <Icon name="quotes" size={28} class="text-accent-400" />
+          <blockquote class="mt-4 font-display text-lg leading-snug text-text-strong">
+            &ldquo;{t.text}&rdquo;
+          </blockquote>
+          <footer class="mt-6 pt-5 border-t border-border/60 flex items-center gap-3">
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-50 text-brand-700 font-semibold text-sm" aria-hidden="true">
+              {t.author.split(' ').map((p) => p[0]).slice(0, 2).join('').toUpperCase()}
+            </span>
+            <span>
+              <span class="block text-sm font-medium text-text-strong capitalize">{t.author}</span>
+              <span class="block text-xs text-text-muted">Google review · {t.when}</span>
+            </span>
+          </footer>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</Section>

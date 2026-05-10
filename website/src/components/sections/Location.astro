@@ -1,0 +1,78 @@
+---
+/**
+ * Location — clinic address, hours, transport notes, with a static map iframe.
+ */
+import { Image } from 'astro:assets';
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { PRACTICE } from '../../consts';
+import streetImage from '../../assets/images/harley-street.jpg';
+
+const mapEmbedSrc =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2481.9!2d-0.1480!3d51.5210!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNjbCsCBIYXJsZXkgU3RyZWV0!5e0!3m2!1sen!2suk!4v1700000000000';
+---
+
+<Section tone="alt" size="md">
+  <Container class="grid gap-10 lg:gap-14 lg:grid-cols-12 items-center">
+    <div class="lg:col-span-5">
+      <SectionHeading
+        eyebrow="Visit the clinic"
+        title="Our clinic in the heart of Harley Street"
+      />
+      <ul class="mt-8 space-y-5 text-[15px]">
+        <li class="flex gap-3">
+          <Icon name="map-pin" size={20} class="text-brand-700 mt-0.5 shrink-0" />
+          <span class="text-text">
+            {PRACTICE.address.line1},<br />
+            {PRACTICE.address.locality} {PRACTICE.address.postalCode}
+          </span>
+        </li>
+        <li class="flex gap-3">
+          <Icon name="clock" size={20} class="text-brand-700 mt-0.5 shrink-0" />
+          <span class="text-text">
+            {PRACTICE.hours.weekdays}<br />
+            <span class="text-text-muted">{PRACTICE.hours.weekends}</span>
+          </span>
+        </li>
+        <li class="flex gap-3">
+          <Icon name="phone" size={20} class="text-brand-700 mt-0.5 shrink-0" />
+          <a href={PRACTICE.phone.href} class="text-text hover:text-brand-900">
+            {PRACTICE.phone.display}
+          </a>
+        </li>
+      </ul>
+
+      <p class="mt-8 text-[15px] text-text-muted leading-relaxed">
+        We are 5–10 minutes' walk from Bond Street (Jubilee, Central),
+        Oxford Circus (Central), Regent's Park (Bakerloo), and Great Portland Street
+        (Hammersmith &amp; City). Appointment-only access.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button href="/contact" variant="primary" icon="envelope">Get in touch</Button>
+        <Button
+          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${PRACTICE.address.line1}, ${PRACTICE.address.locality} ${PRACTICE.address.postalCode}`)}`}
+          variant="secondary"
+          external
+        >
+          Open in Google Maps
+        </Button>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7">
+      <div class="relative rounded-xl overflow-hidden shadow-lg ring-1 ring-brand-100 bg-surface">
+        <Image
+          src={streetImage}
+          alt="The exterior of 66 Harley Street"
+          widths={[600, 900, 1200]}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          class="aspect-[4/3] w-full object-cover"
+        />
+      </div>
+    </div>
+  </Container>
+</Section>

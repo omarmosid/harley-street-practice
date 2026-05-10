@@ -1,0 +1,41 @@
+---
+/**
+ * Logo — original wordmark provided by the practice.
+ *
+ * Two variants:
+ *   - dark  → used on cream / light backgrounds (header). Black wordmark.
+ *   - light → used on dark / image backgrounds. Gold wordmark.
+ *
+ * Source files in src/assets/brand/. Astro's <Image> handles optimisation.
+ */
+import { Image } from 'astro:assets';
+import { cn } from '../../lib/cn';
+import logoDark from '../../assets/brand/logo-dark.png';
+import logoGold from '../../assets/brand/logo-gold.png';
+
+type Props = {
+  variant?: 'light' | 'dark';
+  /** Visual height of the wordmark in px. Default: 40 (header). */
+  height?: number;
+  class?: string;
+};
+const { variant = 'dark', height = 40, class: className = '' } = Astro.props;
+
+const src = variant === 'light' ? logoGold : logoDark;
+---
+
+<a
+  href="/"
+  class={cn('inline-flex items-center', className)}
+  aria-label="London Harley Street Practice — home"
+>
+  <Image
+    src={src}
+    alt="London Harley Street Practice"
+    height={height}
+    widths={[height * 2, height * 3, height * 4]}
+    sizes={`${height * 4}px`}
+    style={`height: ${height}px; width: auto;`}
+    loading="eager"
+  />
+</a>

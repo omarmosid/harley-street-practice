@@ -1,0 +1,33 @@
+---
+/**
+ * Home page composition.
+ *
+ * NOTE: We're rebuilding section-by-section in editorial direction.
+ * Old sections (TrustStrip, ServicesGrid, WhyUs, Testimonials, Location,
+ * FinalCTA) are intentionally NOT rendered here while the new architecture
+ * is under construction. They still exist in /components/sections for now.
+ *
+ * Architecture (Editorial — section by section):
+ *   1. Hero                ✓
+ *   2. Opening statement   (todo)
+ *   3. What we treat       (typographic index — todo)
+ *   4. The doctor          (portrait + quote — todo)
+ *   5. For who             (split block — todo)
+ *   6. Booking band        (todo)
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import { medicalBusinessSchema, websiteSchema } from '../lib/jsonld';
+
+const title = 'Private health checks & GP — Harley Street, London';
+const description =
+  'Comprehensive, doctor-led private health checks at 66 Harley Street. Same-day GP appointments, executive screening, visa medicals, and multidisciplinary care.';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  jsonLd={[medicalBusinessSchema(), websiteSchema()]}
+>
+  <Hero />
+</BaseLayout>

@@ -1,0 +1,39 @@
+---
+/**
+ * Section — vertical rhythm + optional background tone.
+ * Wraps content in a <section> with consistent top/bottom padding.
+ *
+ * Usage:
+ *   <Section>...</>                       // default surface
+ *   <Section tone="alt">...</>            // surface-alt band
+ *   <Section tone="dark">...</>           // brand-900 band (used for final CTA)
+ *   <Section size="sm">...</>             // tighter padding
+ */
+type Tone = 'default' | 'alt' | 'dark';
+type Size = 'sm' | 'md' | 'lg';
+
+type Props = {
+  tone?: Tone;
+  size?: Size;
+  id?: string;
+  class?: string;
+};
+
+const { tone = 'default', size = 'md', id, class: className = '' } = Astro.props;
+
+const tones: Record<Tone, string> = {
+  default: 'bg-bg text-text',
+  alt: 'bg-surface-alt text-text',
+  dark: 'bg-brand-900 text-text-invert',
+};
+
+const sizes: Record<Size, string> = {
+  sm: 'py-12 md:py-16',
+  md: 'py-16 md:py-24',
+  lg: 'py-20 md:py-32',
+};
+---
+
+<section id={id} class={`${tones[tone]} ${sizes[size]} ${className}`}>
+  <slot />
+</section>

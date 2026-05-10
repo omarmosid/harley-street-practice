@@ -1,0 +1,26 @@
+---
+/**
+ * SectionHeading — Eyebrow + h2 + optional lead paragraph.
+ * Used at the top of most page sections for consistent rhythm.
+ */
+import Eyebrow from './Eyebrow.astro';
+
+type Props = {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  align?: 'left' | 'center';
+  as?: 'h1' | 'h2' | 'h3';
+  class?: string;
+};
+
+const { eyebrow, title, lead, align = 'left', as: Tag = 'h2', class: className = '' } = Astro.props;
+
+const alignClass = align === 'center' ? 'text-center mx-auto' : 'text-left';
+---
+
+<header class={`max-w-3xl ${alignClass} ${className}`}>
+  {eyebrow && <Eyebrow class={align === 'center' ? '' : ''}>{eyebrow}</Eyebrow>}
+  <Tag class="mt-3 text-text-strong">{title}</Tag>
+  {lead && <p class="mt-4 text-lg text-text-muted leading-relaxed">{lead}</p>}
+</header>

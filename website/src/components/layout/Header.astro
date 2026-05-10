@@ -1,0 +1,185 @@
+---
+/**
+ * Header — editorial, deliberately quiet.
+ *
+ * Single thin row: wordmark · primary nav · book button.
+ * No utility top-bar (the hero handles credibility on its own).
+ * Mobile: wordmark + hamburger + Book button.
+ *
+ * Sticks on scroll with a subtle blur. No drop-shadow until the user scrolls.
+ */
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+import Logo from './Logo.astro';
+import { NAV, PRACTICE, BOOKING_URL } from '../../consts';
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath === href || currentPath.startsWith(href + '/');
+}
+---
+
+<header
+  id="site-header"
+  class="sticky top-0 z-40 bg-bg/80 backdrop-blur-md border-b border-border-soft transition-shadow duration-300"
+  data-elevated="false"
+>
+  <Container class="flex items-center justify-between gap-6 h-20 md:h-24">
+    <Logo height={56} />
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-7 text-[14px] tracking-tight" aria-label="Primary">
+      {NAV.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'relative py-1 transition-colors duration-200',
+            isActive(item.href)
+              ? 'text-text-strong'
+              : 'text-text-muted hover:text-text-strong',
+          ]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+          {isActive(item.href) && (
+            <span class="absolute -bottom-0.5 left-0 right-0 h-px bg-accent-400"></span>
+          )}
+        </a>
+      ))}
+    </nav>
+
+    <!-- CTA cluster -->
+    <div class="flex items-center gap-2 md:gap-3">
+      <a
+        href={PRACTICE.phone.href}
+        class="hidden md:inline-flex items-center gap-1.5 text-[13px] text-text-muted hover:text-text-strong transition-colors"
+      >
+        <Icon name="phone" size={14} class="text-accent-600" />
+        <span>{PRACTICE.phone.display}</span>
+      </a>
+      <a
+        href={BOOKING_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group inline-flex items-center gap-2 bg-ink-900 text-bg px-4 md:px-5 h-10 rounded-[2px] text-[12px] font-medium tracking-[0.04em] uppercase transition-colors duration-300 hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      >
+        <span>Book</span>
+        <Icon name="arrow-up-right" size={13} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button
+        type="button"
+        id="header-menu-toggle"
+        class="lg:hidden inline-flex items-center justify-center h-10 w-10 -mr-1 text-text-strong hover:text-accent-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 rounded"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+      >
+        <Icon name="list" size={22} />
+      </button>
+    </div>
+  </Container>
+</header>
+
+<!-- Mobile drawer -->
+<div
+  id="mobile-drawer"
+  class="fixed inset-0 z-50 hidden data-[open=true]:block lg:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site menu"
+>
+  <button
+    type="button"
+    class="absolute inset-0 bg-ink-900/40 backdrop-blur-sm"
+    data-drawer-close
+    aria-label="Close menu"
+  ></button>
+  <div class="absolute inset-y-0 right-0 w-[88%] max-w-sm bg-bg shadow-lg flex flex-col">
+    <div class="flex items-center justify-between p-5 border-b border-border-soft">
+      <Logo height={52} />
+      <button
+        type="button"
+        class="inline-flex items-center justify-center h-10 w-10 -mr-1 text-text-strong hover:text-accent-600 transition-colors"
+        data-drawer-close
+        aria-label="Close menu"
+      >
+        <Icon name="x" size={22} />
+      </button>
+    </div>
+    <nav class="flex-1 overflow-y-auto px-5 py-6" aria-label="Mobile primary">
+      <ul class="space-y-1">
+        {NAV.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                'block py-3 text-[18px] font-display tracking-tight transition-colors',
+                isActive(item.href)
+                  ? 'text-accent-600'
+                  : 'text-text-strong hover:text-accent-600',
+              ]}
+              style="font-weight: 380; font-variation-settings: 'opsz' 60, 'SOFT' 30;"
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="p-5 border-t border-border-soft space-y-3">
+      <a
+        href={BOOKING_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group flex items-center justify-center gap-2 w-full bg-ink-900 text-bg py-3.5 rounded-[2px] text-[12px] font-medium tracking-[0.04em] uppercase"
+      >
+        <span>Book an appointment</span>
+        <Icon name="arrow-up-right" size={14} />
+      </a>
+      <a
+        href={PRACTICE.phone.href}
+        class="flex items-center justify-center gap-2 w-full py-3 text-[14px] text-text-muted"
+      >
+        <Icon name="phone" size={14} class="text-accent-600" />
+        <span>{PRACTICE.phone.display}</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Drawer toggle.
+  const drawer = document.getElementById('mobile-drawer');
+  const toggle = document.getElementById('header-menu-toggle');
+  if (drawer && toggle) {
+    const open = () => {
+      drawer.dataset.open = 'true';
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    };
+    const close = () => {
+      drawer.dataset.open = 'false';
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
+    toggle.addEventListener('click', open);
+    drawer.querySelectorAll('[data-drawer-close]').forEach((el) => el.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer.dataset.open === 'true') close();
+    });
+  }
+
+  // Subtle elevation: add hairline shadow only after scroll.
+  const header = document.getElementById('site-header');
+  if (header) {
+    const onScroll = () => {
+      header.dataset.elevated = window.scrollY > 8 ? 'true' : 'false';
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>

@@ -1,0 +1,143 @@
+---
+/**
+ * Footer — editorial, ink-on-cream (NOT a dark band).
+ *
+ * One section, divided by hairlines. Two-column desktop:
+ *   left = brand + practice details
+ *   right = nav columns (services / practice / legal)
+ * Mobile: stacked.
+ *
+ * No social-media coloured panels, no gradient dividers.
+ * The footer should feel like the colophon of a magazine, not a CTA dump.
+ */
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+import Logo from './Logo.astro';
+import { PRACTICE, SITE_NAME } from '../../consts';
+
+const year = new Date().getFullYear();
+
+const services = [
+  { label: 'Private GP', href: '/services/private-gp' },
+  { label: 'Health checks', href: '/services/health-checks' },
+  { label: 'Visa medicals', href: '/services/visa-medicals' },
+  { label: 'Musculoskeletal', href: '/services/musculoskeletal' },
+  { label: 'Counselling', href: '/services/counselling' },
+  { label: 'Online doctor', href: '/services/online-doctor' },
+];
+
+const practice = [
+  { label: 'About', href: '/about' },
+  { label: 'Our team', href: '/team' },
+  { label: 'Membership', href: '/membership' },
+  { label: 'Corporate', href: '/corporate' },
+  { label: 'Insights', href: '/insights' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const legal = [
+  { label: 'Privacy', href: '/privacy' },
+  { label: 'Comments & complaints', href: '/comments-and-complaints' },
+  { label: 'Terms', href: '/membership/terms' },
+];
+---
+
+<footer class="bg-bg border-t border-border-soft">
+  <Container class="pt-20 md:pt-28 pb-10">
+
+    <!-- Top row: address mark + nav columns -->
+    <div class="grid gap-12 md:gap-16 md:grid-cols-12">
+
+      <!-- Brand / address -->
+      <div class="md:col-span-5">
+        <Logo height={64} />
+
+        <p class="mt-6 max-w-sm text-[15px] text-text-muted leading-[1.65]">
+          A doctor-led private practice on Harley Street. Same-day appointments, comprehensive health checks, and multidisciplinary care under one roof.
+        </p>
+
+        <ul class="mt-8 space-y-2.5 text-[14px] text-text">
+          <li>
+            <a href={PRACTICE.phone.href} class="inline-flex items-center gap-2 text-text-strong hover:text-accent-600 transition-colors">
+              <Icon name="phone" size={14} class="text-accent-600" />
+              {PRACTICE.phone.display}
+            </a>
+          </li>
+          <li>
+            <a href={PRACTICE.email.href} class="inline-flex items-center gap-2 text-text hover:text-accent-600 transition-colors">
+              <Icon name="envelope" size={14} class="text-accent-600" />
+              {PRACTICE.email.display}
+            </a>
+          </li>
+          <li class="inline-flex items-start gap-2 text-text-muted">
+            <Icon name="map-pin" size={14} class="text-accent-600 mt-1" />
+            <span>{PRACTICE.address.line1}<br />{PRACTICE.address.locality} {PRACTICE.address.postalCode}</span>
+          </li>
+        </ul>
+
+        <p class="mt-8 text-text-meta" style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;">
+          {PRACTICE.hours.weekdays.toUpperCase()}<br />
+          {PRACTICE.hours.weekends.toUpperCase()}
+        </p>
+      </div>
+
+      <!-- Nav columns -->
+      <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12">
+        <div>
+          <h3 class="eyebrow">Services</h3>
+          <ul class="mt-5 space-y-2.5 text-[14px]">
+            {services.map((item) => (
+              <li>
+                <a href={item.href} class="text-text-muted hover:text-text-strong transition-colors">
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="eyebrow">Practice</h3>
+          <ul class="mt-5 space-y-2.5 text-[14px]">
+            {practice.map((item) => (
+              <li>
+                <a href={item.href} class="text-text-muted hover:text-text-strong transition-colors">
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="eyebrow">Follow</h3>
+          <ul class="mt-5 space-y-2.5 text-[14px]">
+            <li>
+              <a href={PRACTICE.social.instagram} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-text-strong transition-colors">Instagram</a>
+            </li>
+            <li>
+              <a href={PRACTICE.social.twitter} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-text-strong transition-colors">X / Twitter</a>
+            </li>
+            <li>
+              <a href={PRACTICE.social.facebook} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-text-strong transition-colors">Facebook</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Hairline + meta row -->
+    <hr class="hairline mt-20" />
+    <div class="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[12px] text-text-meta">
+      <p>&copy; {year} {SITE_NAME}. Registered in England.</p>
+      <ul class="flex flex-wrap items-center gap-x-6 gap-y-2">
+        {legal.map((item) => (
+          <li>
+            <a href={item.href} class="hover:text-text-strong transition-colors">{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Container>
+</footer>

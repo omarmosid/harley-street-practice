@@ -1,0 +1,94 @@
+---
+/**
+ * Hero — editorial, type-led, no image.
+ *
+ * Architecture:
+ *   - Massive Fraunces headline split across two lines, with an accent-coloured
+ *     period as the single colour moment.
+ *   - Doctor-led health-check angle (the practice's strongest differentiator).
+ *   - One primary CTA (hard-edged ink rectangle) + a quiet phone link.
+ *   - Single mono support line under the CTA reduces friction (price + availability).
+ *   - Whisper-quiet fade-up reveal with stagger.
+ *
+ * Whitespace is the design.
+ */
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+import { BOOKING_URL, PRACTICE } from '../../consts';
+---
+
+<section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-16 md:pb-28 lg:pb-36">
+  <Container class="max-w-[var(--container-page)]">
+
+    <!-- Headline.
+         Two-line composition with deliberate line break. The trailing period
+         on "reimagined." is the only colour in the hero. -->
+    <h1
+      class="font-display tracking-[-0.035em] leading-[0.92] text-text-strong"
+      style="font-size: clamp(3.25rem, 8vw, 7.5rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50, 'WONK' 0; text-wrap: balance;"
+      data-reveal
+    >
+      <span class="block">The health check,</span>
+      <span class="block">reimagined<span class="text-accent-400">.</span></span>
+    </h1>
+
+    <!-- Sub-paragraph.
+         Generous gap from H1 (mt-14/16) so the two are clearly different
+         typographic registers, not crammed together. -->
+    <p
+      class="mt-8 md:mt-12 max-w-[58ch] text-ink-700 leading-[1.55]"
+      style="font-size: clamp(1.1875rem, 1vw + 1rem, 1.4375rem); --reveal-delay: 120ms;"
+      data-reveal
+    >
+      Comprehensive, doctor-led private health checks — designed to find what matters, before it matters.
+    </p>
+
+    <!-- CTA cluster.
+         Hard-edged ink rectangle (2px radius, almost square — editorial, not SaaS).
+         The phone is a quiet underline-on-hover text link. -->
+    <div
+      class="mt-10 md:mt-14 flex flex-wrap items-center gap-x-10 gap-y-7"
+      style="--reveal-delay: 220ms;"
+      data-reveal
+    >
+      <a
+        href={BOOKING_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[14px] font-medium tracking-[0.02em] uppercase transition-colors duration-300 hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-4 focus-visible:ring-offset-bg"
+      >
+        <span>Book an appointment</span>
+        <Icon name="arrow-up-right" size={16} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </a>
+
+      <a
+        href={PRACTICE.phone.href}
+        class="group inline-flex items-baseline gap-2 text-text-strong text-[15px] tracking-tight transition-colors duration-200 hover:text-accent-600"
+      >
+        <span class="text-text-meta">Or call</span>
+        <span class="font-medium underline decoration-1 underline-offset-[6px] decoration-ink-300 transition-[text-decoration-color] duration-200 group-hover:decoration-accent-400">
+          {PRACTICE.phone.display}
+        </span>
+      </a>
+    </div>
+
+    <!-- Support line.
+         Tiny, mono, muted. Removes the two pre-booking questions
+         (cost? availability?) without the page asking for them. -->
+    <p
+      class="mt-7 text-text-meta"
+      style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; --reveal-delay: 320ms;"
+      data-reveal
+    >
+      From £180. Same-day appointments available.
+    </p>
+
+    <!-- Hairline. Inset to the container — looks intentional, not decorative. -->
+    <hr
+      class="hairline mt-14 md:mt-28 lg:mt-32"
+      style="--reveal-delay: 420ms;"
+      data-reveal
+    />
+
+  </Container>
+</section>

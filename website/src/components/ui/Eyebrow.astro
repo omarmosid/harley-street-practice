@@ -1,0 +1,12 @@
+---
+/**
+ * Eyebrow — small uppercase label used above headings.
+ * Usage: <Eyebrow>Our services</Eyebrow>
+ */
+type Props = { class?: string };
+const { class: className = '' } = Astro.props;
+---
+
+<p class={`text-xs font-semibold uppercase tracking-[0.12em] text-accent-600 ${className}`}>
+  <slot />
+</p>

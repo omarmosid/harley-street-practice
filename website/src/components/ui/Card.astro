@@ -1,0 +1,29 @@
+---
+/**
+ * Card — surface container with subtle shadow.
+ * Pass `href` to make the whole card a link with hover state.
+ */
+type Props = {
+  href?: string;
+  class?: string;
+  as?: string;
+};
+
+const { href, class: className = '', as: Tag = 'div' } = Astro.props;
+
+const base =
+  'block rounded-xl bg-surface p-6 shadow-sm border border-border/40';
+const interactive = href
+  ? 'transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 hover:border-brand-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-700/20'
+  : '';
+---
+
+{href ? (
+  <a href={href} class={`${base} ${interactive} ${className}`}>
+    <slot />
+  </a>
+) : (
+  <Tag class={`${base} ${className}`}>
+    <slot />
+  </Tag>
+)}
