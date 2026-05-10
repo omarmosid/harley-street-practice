@@ -41,11 +41,9 @@ export default defineConfig({
     },
   ],
 
-  adapter: cloudflare(),
-
-  image: {
-    service: passthroughImageService(),
-  },
+  adapter: cloudflare({
+    imageService: "passthrough",
+  }),
 
   vite: {
     plugins: [tailwindcss()],
