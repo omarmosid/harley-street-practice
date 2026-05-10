@@ -1,0 +1,170 @@
+---
+/**
+ * /contact - practice contact and location page.
+ * Source: content-cache/pages/contact.md plus shared practice constants.
+ */
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import BookingBand from '../components/sections/BookingBand.astro';
+import Icon from '../components/ui/Icon.astro';
+import harleyStreet from '../assets/images/harley-street.jpg';
+import { BOOKING_URL, PRACTICE, SITE_NAME, SITE_URL } from '../consts';
+
+const title = 'Contact London Harley Street Practice';
+const description =
+  'Contact London Harley Street Practice at 66 Harley Street for private GP appointments, health checks, visa medicals, diagnostics, and medical enquiries.';
+
+const contactItems = [
+  {
+    label: 'Telephone',
+    href: PRACTICE.phone.href,
+    value: PRACTICE.phone.display,
+    icon: 'phone',
+  },
+  {
+    label: 'Email',
+    href: PRACTICE.email.href,
+    value: PRACTICE.email.display,
+    icon: 'envelope',
+  },
+  {
+    label: 'Address',
+    href: 'https://www.google.com/maps/search/?api=1&query=66%20Harley%20Street%20London%20W1G%207HD',
+    value: `${PRACTICE.address.line1}, ${PRACTICE.address.locality} ${PRACTICE.address.postalCode}`,
+    icon: 'map-pin',
+  },
+] as const;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact London Harley Street Practice',
+  url: `${SITE_URL}/contact`,
+  about: {
+    '@type': 'MedicalBusiness',
+    name: SITE_NAME,
+    telephone: PRACTICE.phone.display,
+    email: PRACTICE.email.display,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: PRACTICE.address.line1,
+      addressLocality: PRACTICE.address.locality,
+      postalCode: PRACTICE.address.postalCode,
+      addressCountry: PRACTICE.address.country,
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: PRACTICE.address.geo.latitude,
+      longitude: PRACTICE.address.geo.longitude,
+    },
+  },
+};
+---
+
+<BaseLayout title={title} description={description} canonical={`${SITE_URL}/contact`} jsonLd={jsonLd}>
+  <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16 items-end">
+        <div class="lg:col-span-7">
+          <div class="flex items-baseline gap-4 mb-10 md:mb-14">
+            <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>01 / 03</span>
+            <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Contact</p>
+          </div>
+
+          <h1 class="font-display tracking-[-0.035em] leading-[0.96] text-text-strong max-w-[11ch]" style="font-size: clamp(2.5rem, 7vw, 6.5rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
+            Plan your visit<span class="text-accent-400">.</span>
+          </h1>
+
+          <p class="mt-8 md:mt-10 max-w-[58ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.55; text-wrap: pretty; --reveal-delay: 280ms;" data-reveal>
+            Contact the practice for private GP appointments, health checks, visa medicals, diagnostics, and clinical enquiries from our Harley Street clinic.
+          </p>
+
+          <div class="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5" data-reveal style="--reveal-delay: 380ms;">
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[14px] font-medium tracking-[0.02em] uppercase transition-colors duration-300 hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-4 focus-visible:ring-offset-bg">
+              <span>Book an appointment</span>
+              <Icon name="arrow-up-right" size={16} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+            <a href={PRACTICE.phone.href} class="group inline-flex items-baseline gap-2 text-text-strong text-[15px] tracking-tight transition-colors duration-200 hover:text-accent-600">
+              <span class="text-text-meta">Or call</span>
+              <span class="font-medium underline decoration-1 underline-offset-[6px] decoration-ink-300 group-hover:decoration-accent-400">{PRACTICE.phone.display}</span>
+            </a>
+          </div>
+        </div>
+
+        <figure class="lg:col-span-5" data-reveal style="--reveal-delay: 260ms;">
+          <div class="relative aspect-[4/5] overflow-hidden border border-border-soft bg-bg-soft">
+            <Image
+              src={harleyStreet}
+              alt="Harley Street in London"
+              class="h-full w-full object-cover grayscale-[12%]"
+              loading="eager"
+              widths={[420, 640, 840]}
+              sizes="(min-width: 1024px) 34vw, 100vw"
+            />
+          </div>
+          <figcaption class="mt-3 font-mono text-text-meta" style="font-size: 10px; letter-spacing: 0.12em;">66 HARLEY STREET · W1G</figcaption>
+        </figure>
+      </div>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="flex items-baseline gap-4 mb-12 md:mb-16">
+        <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>02 / 03</span>
+        <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Details</p>
+      </div>
+
+      <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-3">
+        {contactItems.map((item, i) => (
+          <article class="bg-bg p-7 md:p-9" data-reveal style={`--reveal-delay: ${160 + i * 90}ms;`}>
+            <Icon name={item.icon} size={22} class="text-accent-600 mb-8" />
+            <p class="eyebrow mb-4">{item.label}</p>
+            <a href={item.href} target={item.label === 'Address' ? '_blank' : undefined} rel={item.label === 'Address' ? 'noopener noreferrer' : undefined} class="text-text-strong hover:text-accent-600 transition-colors" style="font-size: 15px; line-height: 1.55;">{item.value}</a>
+          </article>
+        ))}
+      </div>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16 items-start">
+        <aside class="md:col-span-4 mb-10 md:mb-0">
+          <div class="flex md:block items-baseline gap-4">
+            <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>03 / 03</span>
+            <p class="eyebrow md:mt-3" style="--reveal-delay: 80ms;" data-reveal>Location</p>
+          </div>
+        </aside>
+
+        <div class="md:col-span-8 lg:col-span-7" data-reveal style="--reveal-delay: 180ms;">
+          <h2 class="font-display text-text-strong tracking-[-0.025em] leading-[1.02] max-w-[18ch]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;">In the heart of London's medical district.</h2>
+          <p class="mt-8 max-w-[58ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.4vw + 0.95rem, 1.1875rem); line-height: 1.65; text-wrap: pretty;">
+            We are based at 66 Harley Street, close to Regent's Park, Oxford Circus, Bond Street, and Great Portland Street stations. If you have access needs, require a translator, or need support for hearing impairment, please contact us before your visit.
+          </p>
+
+          <div class="mt-10 grid gap-6 md:grid-cols-2 border-t border-border-soft pt-8">
+            <div>
+              <p class="eyebrow mb-3">Opening hours</p>
+              <p class="text-text-strong text-[15px] leading-[1.55]">{PRACTICE.hours.weekdays}<br /><span class="text-text-muted">{PRACTICE.hours.weekends}</span></p>
+            </div>
+            <div>
+              <p class="eyebrow mb-3">Map</p>
+              <a href="https://www.google.com/maps/search/?api=1&query=66%20Harley%20Street%20London%20W1G%207HD" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 text-text-strong text-[15px] hover:text-accent-600 transition-colors">
+                <span class="underline decoration-1 underline-offset-[6px] decoration-ink-300 group-hover:decoration-accent-400">Open in Google Maps</span>
+                <Icon name="arrow-up-right" size={14} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <BookingBand />
+</BaseLayout>

@@ -1,0 +1,138 @@
+---
+/**
+ * /corporate - corporate health services page.
+ * Source: content-cache/pages/corporate.md.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import BookingBand from '../components/sections/BookingBand.astro';
+import Icon from '../components/ui/Icon.astro';
+import { PRACTICE, SITE_NAME, SITE_URL } from '../consts';
+
+const title = 'Corporate health services - London Harley Street Practice';
+const description =
+  'Tailored corporate healthcare from London Harley Street Practice, including executive health screenings, rapid GP access, MSK support, mental health care, and occupational health assessments.';
+
+const services = [
+  {
+    title: 'Bespoke health screenings',
+    copy: 'Comprehensive assessments can include blood tests, ECG, lung function testing, advanced imaging, detailed reporting, and clinical follow-up. Corporate rates and bespoke packages can be arranged.',
+  },
+  {
+    title: 'Health promotion and wellbeing days',
+    copy: 'Interactive workshops and wellness events tailored to your workforce, covering nutrition, stress management, physical activity, and practical long-term health changes.',
+  },
+  {
+    title: 'MSK health and ergonomic support',
+    copy: 'Clinic-based or onsite assessment for back pain, joint problems, postural strain, and desk-related discomfort, with specialist referral or imaging when clinically appropriate.',
+  },
+  {
+    title: 'Mental health and resilience',
+    copy: 'Confidential support for stress, burnout, and anxiety with access to in-house psychological therapists online or in person.',
+  },
+  {
+    title: 'Rapid GP access',
+    copy: 'Priority appointments, same-day prescriptions, and fast-track referrals for employees and executives, with hotel or home visits available where appropriate.',
+  },
+  {
+    title: 'Occupational health assessments',
+    copy: 'Pre-employment screening, fitness-for-work assessments, and return-to-work planning delivered with clinical judgement and discretion.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Corporate health services',
+  provider: { '@type': 'MedicalBusiness', name: SITE_NAME, url: SITE_URL },
+  url: `${SITE_URL}/corporate`,
+  description,
+  areaServed: 'London',
+};
+---
+
+<BaseLayout title={title} description={description} canonical={`${SITE_URL}/corporate`} jsonLd={jsonLd}>
+  <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="flex items-baseline gap-4 mb-10 md:mb-14">
+        <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>01 / 03</span>
+        <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Corporate</p>
+      </div>
+
+      <h1 class="font-display tracking-[-0.035em] leading-[0.96] text-text-strong max-w-[14ch]" style="font-size: clamp(2.5rem, 7vw, 6.5rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
+        Healthcare for high-performing teams<span class="text-accent-400">.</span>
+      </h1>
+
+      <p class="mt-8 md:mt-10 max-w-[62ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.55; text-wrap: pretty; --reveal-delay: 280ms;" data-reveal>
+        Tailored corporate healthcare solutions for organisations that need discreet, efficient, GP-led support for workforce wellbeing, productivity, and resilience.
+      </p>
+
+      <div class="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5" data-reveal style="--reveal-delay: 380ms;">
+        <a href={PRACTICE.email.href} class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[14px] font-medium tracking-[0.02em] uppercase transition-colors duration-300 hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-4 focus-visible:ring-offset-bg">
+          <span>Discuss corporate care</span>
+          <Icon name="arrow-up-right" size={16} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </a>
+        <a href={PRACTICE.phone.href} class="group inline-flex items-baseline gap-2 text-text-strong text-[15px] tracking-tight transition-colors duration-200 hover:text-accent-600">
+          <span class="text-text-meta">Or call</span>
+          <span class="font-medium underline decoration-1 underline-offset-[6px] decoration-ink-300 group-hover:decoration-accent-400">{PRACTICE.phone.display}</span>
+        </a>
+      </div>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="flex items-baseline gap-4 mb-12 md:mb-16">
+        <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>02 / 03</span>
+        <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>Services</p>
+      </div>
+
+      <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-2">
+        {services.map((service, i) => (
+          <article class="bg-bg p-7 md:p-9" data-reveal style={`--reveal-delay: ${160 + i * 70}ms;`}>
+            <p class="font-mono text-text-meta mb-8" style="font-size: 11px; letter-spacing: 0.14em;">{String(i + 1).padStart(2, '0')}</p>
+            <h2 class="font-display text-text-strong tracking-[-0.02em] leading-[1.05]" style="font-size: clamp(1.5rem, 2vw + 0.75rem, 2.25rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{service.title}</h2>
+            <p class="mt-5 text-text-muted" style="font-size: 15px; line-height: 1.65; text-wrap: pretty;">{service.copy}</p>
+          </article>
+        ))}
+      </div>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section id="contact-us" class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16 items-start">
+        <aside class="md:col-span-4 mb-10 md:mb-0">
+          <div class="flex md:block items-baseline gap-4">
+            <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>03 / 03</span>
+            <p class="eyebrow md:mt-3" style="--reveal-delay: 80ms;" data-reveal>Enquiries</p>
+          </div>
+        </aside>
+
+        <div class="md:col-span-8 lg:col-span-7" data-reveal style="--reveal-delay: 180ms;">
+          <h2 class="font-display text-text-strong tracking-[-0.025em] leading-[1.02] max-w-[17ch]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;">A discreet route into clinical support.</h2>
+          <p class="mt-8 max-w-[58ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.4vw + 0.95rem, 1.1875rem); line-height: 1.65; text-wrap: pretty;">
+            Tell us the size of your organisation, the type of support required, and whether you need clinic-based, onsite, or remote care. We will respond with the most appropriate route.
+          </p>
+
+          <div class="mt-10 grid gap-6 md:grid-cols-2 border-t border-border-soft pt-8">
+            <div>
+              <p class="eyebrow mb-3">Email</p>
+              <a href={PRACTICE.email.href} class="text-text-strong text-[15px] leading-[1.55] hover:text-accent-600 transition-colors">{PRACTICE.email.display}</a>
+            </div>
+            <div>
+              <p class="eyebrow mb-3">Telephone</p>
+              <a href={PRACTICE.phone.href} class="text-text-strong text-[15px] leading-[1.55] hover:text-accent-600 transition-colors">{PRACTICE.phone.display}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <BookingBand />
+</BaseLayout>
