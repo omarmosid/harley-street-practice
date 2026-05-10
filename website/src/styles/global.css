@@ -43,11 +43,11 @@
    * Used for: eyebrow labels, hover underlines, primary CTA, decorative rules,
    * the occasional icon. Never for body text.
    */
-  --accent-50:   #F4ECDD;
-  --accent-100:  #E5D2AE;
-  --accent-400:  #A77B4A;  /* the brand colour */
-  --accent-600:  #7E5A33;  /* hover / dark variant */
-  --accent-900:  #4A341D;  /* deep, used as text on bronze surfaces */
+  --accent-50:   #F7F1E3;
+  --accent-100:  #EAD8A8;
+  --accent-400:  #C6A15B;  /* the brand colour */
+  --accent-600:  #9A742E;  /* hover / dark variant */
+  --accent-900:  #5A431B;  /* deep, used as text on gold surfaces */
 
   /* ---- Semantic ---- */
   --success: #4A6B3F;

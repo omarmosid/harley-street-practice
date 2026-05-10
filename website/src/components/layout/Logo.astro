@@ -2,15 +2,11 @@
 /**
  * Logo — original wordmark provided by the practice.
  *
- * Two variants:
- *   - dark  → used on cream / light backgrounds (header). Black wordmark.
- *   - light → used on dark / image backgrounds. Gold wordmark.
- *
- * Source files in src/assets/brand/. Astro's <Image> handles optimisation.
+ * The gold wordmark is used consistently across the site to preserve the
+ * practice's existing brand identity.
  */
 import { Image } from 'astro:assets';
 import { cn } from '../../lib/cn';
-import logoDark from '../../assets/brand/logo-dark.png';
 import logoGold from '../../assets/brand/logo-gold.png';
 
 type Props = {
@@ -19,9 +15,9 @@ type Props = {
   height?: number;
   class?: string;
 };
-const { variant = 'dark', height = 40, class: className = '' } = Astro.props;
+const { height = 40, class: className = '' } = Astro.props;
 
-const src = variant === 'light' ? logoGold : logoDark;
+const src = logoGold;
 ---
 
 <a
