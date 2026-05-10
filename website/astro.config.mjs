@@ -2,7 +2,6 @@
 import {
   defineConfig,
   fontProviders,
-  passthroughImageService,
 } from "astro/config";
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
@@ -42,12 +41,8 @@ export default defineConfig({
   ],
 
   adapter: cloudflare({
-    imageService: "passthrough",
+    imageService: "compile",
   }),
-
-  image: {
-    service: passthroughImageService(),
-  },
 
   vite: {
     plugins: [tailwindcss()],
