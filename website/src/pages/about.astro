@@ -1,0 +1,199 @@
+---
+/**
+ * /about — practice page sourced from content-cache/pages/about.md.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import BookingBand from '../components/sections/BookingBand.astro';
+import Icon from '../components/ui/Icon.astro';
+import { SITE_NAME, SITE_URL, PRACTICE } from '../consts';
+
+const title = 'About the practice — London Harley Street Practice';
+const description =
+  'Learn about London Harley Street Practice: our mission, multidisciplinary care, diagnostics, specialist referrals, accessibility, and chaperone policy.';
+
+const expectations = [
+  {
+    title: 'Experienced doctors',
+    copy: 'Our doctors are highly qualified with postgraduate qualifications from the Royal College of General Practitioners and the Royal College of Physicians. The team keeps abreast of evidence-based medicine and continuing professional development.',
+  },
+  {
+    title: 'Diagnostics and referrals',
+    copy: 'We can carry out rapid laboratory investigations and arrange diagnostic scans through neighbouring specialist facilities. We advise on what is necessary, interpret results, and initiate specialist review when needed.',
+  },
+  {
+    title: 'Access needs',
+    copy: 'If you require disabled access, a translator, or support for a hearing impairment, please call us beforehand so we can adapt the appointment appropriately.',
+  },
+  {
+    title: 'Chaperones',
+    copy: 'We are happy to provide a trained chaperone for any examination or consultation upon request. Your comfort, dignity, and safety are our priority.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About London Harley Street Practice',
+  url: `${SITE_URL}/about`,
+  about: {
+    '@type': 'MedicalBusiness',
+    name: SITE_NAME,
+    telephone: PRACTICE.phone.display,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: PRACTICE.address.line1,
+      addressLocality: PRACTICE.address.locality,
+      postalCode: PRACTICE.address.postalCode,
+      addressCountry: PRACTICE.address.country,
+    },
+  },
+};
+---
+
+<BaseLayout title={title} description={description} canonical={`${SITE_URL}/about`} jsonLd={jsonLd}>
+  <!-- Hero. -->
+  <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="flex items-baseline gap-4 mb-10 md:mb-14">
+        <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>01 / 04</span>
+        <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>About</p>
+      </div>
+
+      <h1
+        class="font-display tracking-[-0.035em] leading-[0.96] text-text-strong"
+        style="font-size: clamp(2.5rem, 7vw, 6.5rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;"
+        data-reveal
+      >
+        Calm medicine,<br />properly joined up<span class="text-accent-400">.</span>
+      </h1>
+
+      <p
+        class="mt-8 md:mt-10 max-w-[58ch] text-ink-700"
+        style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.55; text-wrap: pretty; --reveal-delay: 280ms;"
+        data-reveal
+      >
+        London Harley Street Practice is a multidisciplinary private clinic delivering accessible, comprehensive, confidential care from the heart of London's medical district.
+      </p>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <!-- Mission. -->
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16">
+        <aside class="md:col-span-4 mb-10 md:mb-0">
+          <div class="flex md:block items-baseline gap-4">
+            <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>02 / 04</span>
+            <p class="eyebrow md:mt-3" style="--reveal-delay: 80ms;" data-reveal>Mission & ethos</p>
+          </div>
+        </aside>
+
+        <div class="md:col-span-8 lg:col-span-7 about-prose" data-reveal style="--reveal-delay: 180ms;">
+          <p class="dropcap">
+            At London Harley Street Practice, our mission is to deliver exceptional, patient-centred healthcare that is accessible, comprehensive, and confidential.
+          </p>
+          <p>
+            We are committed to providing prompt, high-quality medical care through our multidisciplinary team, combining expertise in general practice, musculoskeletal health, and psychological therapy.
+          </p>
+          <p>
+            We are guided by excellence, compassion, and integrity in every aspect of care. Located in London's renowned medical district, our ethos is rooted in patient-centred healthcare with respect, confidentiality, and professionalism. We strongly believe in making you at ease and in de-mystifying the often intimidating aura that surrounds the medical field.
+          </p>
+          <p>
+            Our multidisciplinary approach combines GPs, MSK specialists, and psychological therapists to provide holistic support for health and well-being. Prompt diagnosis, personalised treatment, and clear communication define the practice.
+          </p>
+        </div>
+      </div>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <!-- Visit expectations. -->
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="flex items-baseline gap-4 mb-12 md:mb-16">
+        <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>03 / 04</span>
+        <p class="eyebrow" style="--reveal-delay: 80ms;" data-reveal>During your visit</p>
+      </div>
+
+      <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-2">
+        {expectations.map((item, i) => (
+          <article class="bg-bg p-7 md:p-9" data-reveal style={`--reveal-delay: ${160 + i * 80}ms;`}>
+            <p class="font-mono text-text-meta mb-8" style="font-size: 11px; letter-spacing: 0.14em;">{String(i + 1).padStart(2, '0')}</p>
+            <h2
+              class="font-display text-text-strong tracking-[-0.02em] leading-[1.05]"
+              style="font-size: clamp(1.5rem, 2vw + 0.75rem, 2.25rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;"
+            >{item.title}</h2>
+            <p class="mt-5 text-text-muted" style="font-size: 15px; line-height: 1.65;">{item.copy}</p>
+          </article>
+        ))}
+      </div>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <!-- Location. -->
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16 items-start">
+        <aside class="md:col-span-4 mb-10 md:mb-0">
+          <div class="flex md:block items-baseline gap-4">
+            <span class="font-mono text-text-meta block" style="font-size: 11px; letter-spacing: 0.16em;" data-reveal>04 / 04</span>
+            <p class="eyebrow md:mt-3" style="--reveal-delay: 80ms;" data-reveal>Location</p>
+          </div>
+        </aside>
+
+        <div class="md:col-span-8 lg:col-span-7" data-reveal style="--reveal-delay: 180ms;">
+          <h2
+            class="font-display text-text-strong tracking-[-0.025em] leading-[1.02] max-w-[18ch]"
+            style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;"
+          >66 Harley Street, London W1G 7HD.</h2>
+
+          <p class="mt-8 max-w-[58ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.4vw + 0.95rem, 1.1875rem); line-height: 1.65;">
+            Situated in the heart of London's premier medical district, we offer a seamless experience from advanced diagnostics to trusted specialist referrals. The aim is simple: timely, accurate care in a supportive and professional environment.
+          </p>
+
+          <div class="mt-10 grid gap-6 md:grid-cols-3 border-t border-border-soft pt-8">
+            <div>
+              <p class="eyebrow mb-3">Address</p>
+              <p class="text-text-strong text-[15px] leading-[1.55]">{PRACTICE.address.line1}<br />{PRACTICE.address.locality} {PRACTICE.address.postalCode}</p>
+            </div>
+            <div>
+              <p class="eyebrow mb-3">Hours</p>
+              <p class="text-text-strong text-[15px] leading-[1.55]">{PRACTICE.hours.weekdays}<br /><span class="text-text-muted">{PRACTICE.hours.weekends}</span></p>
+            </div>
+            <div>
+              <p class="eyebrow mb-3">Contact</p>
+              <a href={PRACTICE.phone.href} class="text-text-strong text-[15px] hover:text-accent-600 transition-colors">{PRACTICE.phone.display}</a>
+              <p class="mt-1"><a href={PRACTICE.email.href} class="text-text-muted text-[14px] hover:text-accent-600 transition-colors">{PRACTICE.email.display}</a></p>
+            </div>
+          </div>
+
+          <p class="mt-8">
+            <a href="/contact" class="group inline-flex items-center gap-3 text-text-strong hover:text-accent-600 transition-colors">
+              <span class="font-medium underline decoration-1 underline-offset-[6px] decoration-ink-300 group-hover:decoration-accent-400">Plan your visit</span>
+              <Icon name="arrow-up-right" size={16} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <BookingBand />
+</BaseLayout>
+
+<style>
+  .about-prose p {
+    color: var(--ink-700);
+    font-size: clamp(1.0625rem, 0.4vw + 0.95rem, 1.1875rem);
+    line-height: 1.65;
+    margin-bottom: 1.4em;
+    text-wrap: pretty;
+  }
+  .about-prose p:last-child { margin-bottom: 0; }
+</style>
