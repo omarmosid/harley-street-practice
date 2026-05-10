@@ -9,14 +9,19 @@
  *
  * Architecture (Editorial — section by section):
  *   1. Hero                ✓
- *   2. Opening statement   (todo)
- *   3. What we treat       (typographic index — todo)
- *   4. The doctor          (portrait + quote — todo)
- *   5. For who             (split block — todo)
- *   6. Booking band        (todo)
+ *   2. Opening statement   ✓
+ *   3. What we treat       ✓
+ *   4. The doctor          ✓
+ *   5. For who             ✓
+ *   6. Booking band        ✓
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
+import OpeningStatement from '../components/sections/OpeningStatement.astro';
+import WhatWeTreat from '../components/sections/WhatWeTreat.astro';
+import TheDoctor from '../components/sections/TheDoctor.astro';
+import ForWho from '../components/sections/ForWho.astro';
+import BookingBand from '../components/sections/BookingBand.astro';
 import { medicalBusinessSchema, websiteSchema } from '../lib/jsonld';
 
 const title = 'Private health checks & GP — Harley Street, London';
@@ -30,4 +35,9 @@ const description =
   jsonLd={[medicalBusinessSchema(), websiteSchema()]}
 >
   <Hero />
+  <OpeningStatement />
+  <WhatWeTreat />
+  <TheDoctor />
+  <ForWho />
+  <BookingBand />
 </BaseLayout>

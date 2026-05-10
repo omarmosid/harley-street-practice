@@ -1,0 +1,174 @@
+---
+/**
+ * ForWho — section 5 of the homepage.
+ *
+ * The two primary audiences, addressed explicitly in a split editorial
+ * spread. London professionals on the left, international patients on
+ * the right, with a vertical hairline between (desktop).
+ *
+ * Architecture:
+ *   col 1-6  → For London
+ *   col 7-12 → For visitors
+ *
+ * Each half follows the same shape so they read as a diptych:
+ *   - mono eyebrow (location pin + label)
+ *   - large Fraunces heading
+ *   - short editorial paragraph
+ *   - 3 discreet specifics, hairline-separated
+ *   - quiet link out
+ *
+ * Mobile: stacks vertically, with a horizontal hairline between halves.
+ *
+ * Why a 50/50 split: this section's job is to make the visitor self-locate
+ * ("which one am I?"). A symmetrical split removes hierarchy between the
+ * two audiences — neither is positioned as primary visually.
+ */
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+
+type Audience = {
+  eyebrow: string;
+  meta: string;
+  heading: string;
+  paragraph: string;
+  specifics: string[];
+  href: string;
+  linkLabel: string;
+};
+
+const audiences: Audience[] = [
+  {
+    eyebrow: 'For London',
+    meta: 'Marylebone, W1G',
+    heading: 'A doctor who has time, two minutes from your office.',
+    paragraph:
+      'Walk-in distance from Bond Street, Oxford Circus, and Regent\u2019s Park. Same-day GP appointments before, during, and after the working day.',
+    specifics: [
+      'Private GP appointments from £170, with 30-minute consultations',
+      'Annual health checks, diagnostics, and referrals under one roof',
+      'Membership available for individuals, families, and businesses',
+    ],
+    href: '/membership',
+    linkLabel: 'See membership options',
+  },
+  {
+    eyebrow: 'For visitors',
+    meta: 'International patients',
+    heading: 'Healthcare in London, in plain English, without the wait.',
+    paragraph:
+      'A short stay in London need not interrupt your healthcare. Our team is experienced with international patients and embassy referrals, with appointments available within 24 hours.',
+    specifics: [
+      'Visa medicals authorised for over thirty countries',
+      'Same-day diagnostics, blood work, and imaging where required',
+      'English-language care with discreet, central-London access',
+    ],
+    href: '/services/visa-medicals',
+    linkLabel: 'Visa medicals & travel health',
+  },
+];
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+
+    <!-- Section index — single, sits above the diptych. -->
+    <div class="flex items-baseline gap-4 mb-12 md:mb-20">
+      <span
+        class="font-mono text-text-meta block"
+        style="font-size: 11px; letter-spacing: 0.16em;"
+        data-reveal
+      >05 / 06</span>
+      <p
+        class="eyebrow"
+        style="--reveal-delay: 80ms;"
+        data-reveal
+      >For who</p>
+    </div>
+
+    <!-- The diptych. -->
+    <div class="grid md:grid-cols-2 gap-12 md:gap-0">
+      {audiences.map((a, i) => (
+        <article
+          class:list={[
+            'relative md:px-12 lg:px-16',
+            i === 0 ? 'md:pl-0' : 'md:border-l md:border-border md:pr-0',
+          ]}
+        >
+          <!-- Top hairline on mobile only (separates the two halves when stacked) -->
+          {i === 1 && (
+            <hr class="hairline md:hidden -mt-4 mb-8" aria-hidden="true" />
+          )}
+
+          <!-- Eyebrow + meta. -->
+          <header
+            class="flex items-baseline gap-4 mb-6"
+            style={`--reveal-delay: ${160 + i * 100}ms;`}
+            data-reveal
+          >
+            <span
+              class="font-mono text-accent-600"
+              style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;"
+            >{a.eyebrow}</span>
+            <span
+              class="font-mono text-text-meta"
+              style="font-size: 11px; letter-spacing: 0.12em;"
+            >{a.meta}</span>
+          </header>
+
+          <!-- Heading. -->
+          <h3
+            class="font-display text-text-strong tracking-[-0.022em] leading-[1.06] max-w-[18ch]"
+            style={`font-size: clamp(1.625rem, 1.6vw + 1rem, 2.375rem); font-weight: 360; font-variation-settings: 'opsz' 60, 'SOFT' 40; text-wrap: balance; --reveal-delay: ${240 + i * 100}ms;`}
+            data-reveal
+          >
+            {a.heading}
+          </h3>
+
+          <!-- Paragraph. -->
+          <p
+            class="mt-6 max-w-[42ch] text-ink-700"
+            style={`font-size: clamp(1rem, 0.4vw + 0.95rem, 1.125rem); line-height: 1.6; --reveal-delay: ${320 + i * 100}ms;`}
+            data-reveal
+          >
+            {a.paragraph}
+          </p>
+
+          <!-- Specifics: hairline-separated rows, very quiet. -->
+          <ul
+            class="mt-10 border-t border-border-soft"
+            style={`--reveal-delay: ${400 + i * 100}ms;`}
+            data-reveal
+          >
+            {a.specifics.map((s) => (
+              <li class="border-b border-border-soft py-3.5 text-[14px] text-text leading-[1.55] flex gap-3">
+                <Icon name="check" size={14} class="text-accent-600 mt-1 shrink-0" />
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+
+          <!-- Link out. -->
+          <a
+            href={a.href}
+            class="group mt-8 inline-flex items-center gap-2 text-text-strong text-[14px] tracking-tight transition-colors duration-200 hover:text-accent-600"
+            style={`--reveal-delay: ${480 + i * 100}ms;`}
+            data-reveal
+          >
+            <span class="underline decoration-1 underline-offset-[6px] decoration-ink-300 transition-[text-decoration-color] duration-200 group-hover:decoration-accent-400">
+              {a.linkLabel}
+            </span>
+            <Icon name="arrow-up-right" size={14} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <!-- Closing hairline. -->
+    <hr
+      class="hairline mt-20 md:mt-28 lg:mt-32"
+      style="--reveal-delay: 700ms;"
+      data-reveal
+    />
+
+  </Container>
+</section>

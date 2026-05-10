@@ -1,0 +1,145 @@
+---
+/**
+ * BookingBand — section 6 of the homepage.
+ *
+ * The closing conversion moment. By this point in the page the visitor
+ * has read the masthead, the services index, the doctor's portrait, and
+ * the audience-fit copy. The job here is to make booking feel inevitable,
+ * not pushed.
+ *
+ * Architecture:
+ *   - Section index "06 / 06 — VISIT"
+ *   - Massive Fraunces closing headline (slightly larger than the hero)
+ *   - ONE primary CTA + quiet phone link
+ *   - Mono colophon row: address · hours · phone (across the bottom)
+ *   - Final hairline (the last rule on the page before the footer)
+ *
+ * Why we stay on cream (no dark-band invert):
+ *   The whole page commits to a single tonal world. Inverting at the end
+ *   would feel like a different design appended to this one. Restraint
+ *   here is the entire luxury proposition.
+ *
+ * Motion: index → headline → CTA → colophon, with stagger.
+ */
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+import { BOOKING_URL, PRACTICE } from '../../consts';
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-40 pb-12 md:pb-20 lg:pb-24">
+  <Container class="max-w-[var(--container-page)]">
+
+    <!-- Section index. -->
+    <div class="flex items-baseline gap-4 mb-12 md:mb-16">
+      <span
+        class="font-mono text-text-meta block"
+        style="font-size: 11px; letter-spacing: 0.16em;"
+        data-reveal
+      >06 / 06</span>
+      <p
+        class="eyebrow"
+        style="--reveal-delay: 80ms;"
+        data-reveal
+      >Visit</p>
+    </div>
+
+    <!-- Closing headline.
+         Slightly LARGER than the hero (8.5vw vs 8vw) — the closing line
+         carries more weight than the opening. The bronze accent on the
+         period reprises the hero's signature for symmetry. -->
+    <h2
+      class="font-display tracking-[-0.035em] leading-[0.94] text-text-strong"
+      style="font-size: clamp(3rem, 8.5vw, 8rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50, 'WONK' 0; text-wrap: balance; --reveal-delay: 160ms;"
+      data-reveal
+    >
+      <span class="block">Book in under</span>
+      <span class="block">two minutes<span class="text-accent-400">.</span></span>
+    </h2>
+
+    <!-- Sub-paragraph + CTA cluster. -->
+    <div class="md:grid md:grid-cols-12 md:gap-12 lg:gap-16 mt-12 md:mt-16">
+
+      <!-- Sub-paragraph (left). -->
+      <p
+        class="md:col-span-6 lg:col-span-5 max-w-[42ch] text-ink-700"
+        style="font-size: clamp(1.0625rem, 0.4vw + 0.95rem, 1.1875rem); line-height: 1.6; --reveal-delay: 280ms;"
+        data-reveal
+      >
+        Choose a time online, or speak to our team — most appointments are available the same day.
+      </p>
+
+      <!-- CTA cluster (right). -->
+      <div
+        class="md:col-span-6 lg:col-span-7 mt-8 md:mt-0 flex flex-wrap items-center gap-x-10 gap-y-7"
+        style="--reveal-delay: 380ms;"
+        data-reveal
+      >
+        <a
+          href={BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[14px] font-medium tracking-[0.02em] uppercase transition-colors duration-300 hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-4 focus-visible:ring-offset-bg"
+        >
+          <span>Book an appointment</span>
+          <Icon name="arrow-up-right" size={16} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </a>
+
+        <a
+          href={PRACTICE.phone.href}
+          class="group inline-flex items-baseline gap-2 text-text-strong text-[15px] tracking-tight transition-colors duration-200 hover:text-accent-600"
+        >
+          <span class="text-text-meta">Or call</span>
+          <span class="font-medium underline decoration-1 underline-offset-[6px] decoration-ink-300 transition-[text-decoration-color] duration-200 group-hover:decoration-accent-400">
+            {PRACTICE.phone.display}
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Colophon row. The practice's "publishing imprint" at the bottom of
+         the page. Mono throughout, one line on desktop, stacks on mobile. -->
+    <div
+      class="mt-20 md:mt-28 lg:mt-36 pt-8 border-t border-border-soft grid gap-8 md:grid-cols-12 md:gap-8"
+      style="--reveal-delay: 480ms;"
+      data-reveal
+    >
+      <!-- Address -->
+      <div class="md:col-span-4">
+        <p class="eyebrow mb-3">Address</p>
+        <p class="text-text-strong text-[15px] leading-[1.55]">
+          {PRACTICE.address.line1}<br />
+          {PRACTICE.address.locality} {PRACTICE.address.postalCode}
+        </p>
+      </div>
+
+      <!-- Hours -->
+      <div class="md:col-span-4">
+        <p class="eyebrow mb-3">Hours</p>
+        <p class="text-text-strong text-[15px] leading-[1.55]">
+          {PRACTICE.hours.weekdays}<br />
+          <span class="text-text-muted">{PRACTICE.hours.weekends}</span>
+        </p>
+      </div>
+
+      <!-- Telephone -->
+      <div class="md:col-span-4">
+        <p class="eyebrow mb-3">Telephone</p>
+        <a
+          href={PRACTICE.phone.href}
+          class="text-text-strong text-[15px] hover:text-accent-600 transition-colors"
+        >
+          {PRACTICE.phone.display}
+        </a>
+        <p class="mt-1">
+          <a
+            href={PRACTICE.email.href}
+            class="text-text-muted text-[14px] hover:text-accent-600 transition-colors"
+          >
+            {PRACTICE.email.display}
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </Container>
+</section>
