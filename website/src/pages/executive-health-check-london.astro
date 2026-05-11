@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const checks = ['executive-man-health-check', 'executive-woman-health-check', 'healthy-heart-check', 'cancer-health-check', 'well-man-plus-health-check', 'well-woman-plus-health-check'].map(bySlug);
+const primary = bySlug('executive-woman-health-check');
+---
+
+<SeoLandingLayout
+  title="Executive Health Check London | Whole Body MRI Harley Street"
+  description="Compare executive health checks in London with whole-body MRI, broad blood panels, ECG, lung function, cancer markers and follow-up at 66 Harley Street."
+  canonicalPath="/executive-health-check-london"
+  eyebrow="Executive health check London"
+  h1="Executive Health Check London"
+  lede="<strong>Executive health check London</strong> searches usually signal a need for a more comprehensive private medical. London Health Check offers Executive Man and Executive Woman packages on Harley Street, including whole-body MRI, broad laboratory testing, ECG, lung function and extended follow-up."
+  primary={primary}
+  checks={checks}
+  sections={[
+    {
+      heading: 'What makes an executive health check different',
+      body: [
+        'An executive health check is built for people who want the broadest preventative assessment rather than a focused screen. The appointment is longer, the investigation panel is wider and the report is designed to bring multiple findings into one clear plan.',
+        'At London Health Check, the executive packages include whole-body MRI scanning alongside detailed medical history, full system examination, blood panels, hormone markers, cancer-related tests where listed, ECG, lung function and audiometry.',
+        'The goal is not to promise certainty. No screening package can rule out every future illness. The value is in careful clinical review, appropriate testing and clear interpretation by a doctor who can recommend next steps.',
+      ],
+    },
+    {
+      heading: 'Executive Man and Executive Woman packages',
+      body: [
+        'Executive Man includes male hormone profile, testosterone, PSA, sexual health screen, stool test for blood, twelve-lead ECG, lung function, audiometry, whole-body MRI and a thirty-minute follow-up.',
+        'Executive Woman includes breast and gynaecological examination, female hormone profile, CA-125, CA-15-3, sexual health screen, cervical smear with HPV testing, twelve-lead ECG, lung function, audiometry, whole-body MRI and a thirty-minute follow-up.',
+        'If you want a high-value annual check but do not need whole-body MRI, Well Man, Well Woman, Well Man Plus or Well Woman Plus may be more proportionate.',
+      ],
+    },
+    {
+      heading: 'Who chooses executive screening',
+      body: [
+        'Executive health checks are often chosen by time-poor patients, senior leaders, people with complex family histories, or those who want a very broad baseline in one coordinated process.',
+        'They may also suit patients who prefer to combine preventative consultation, blood testing, imaging and follow-up rather than arranging tests piecemeal across several appointments.',
+      ],
+    },
+  ]}
+  faqs={[
+    { question: 'Does the executive health check include whole-body MRI?', answer: 'Yes. The Executive Man and Executive Woman packages both include whole-body MRI scanning.' },
+    { question: 'How long does an executive health check take?', answer: 'The executive packages are listed as two to three hours, with imaging sometimes arranged separately.' },
+    { question: 'Is follow-up included?', answer: 'Yes. The executive packages include a personalised report and thirty-minute follow-up.' },
+    { question: 'What is the price?', answer: 'Executive Man is listed at £4,185 and Executive Woman at £4,585.' },
+  ]}
+/>

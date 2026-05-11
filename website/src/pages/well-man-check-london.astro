@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const checks = ['well-man-health-check', 'well-man-plus-health-check', 'executive-man-health-check', 'healthy-heart-check', 'vitals-health-check'].map(bySlug);
+const primary = bySlug('well-man-health-check');
+---
+
+<SeoLandingLayout
+  title="Well Man Check London | Men's Health Check Harley Street"
+  description="Book a Well Man Check in London at 66 Harley Street, with male-focused blood tests, PSA, testosterone, ECG, lung function, written report and follow-up."
+  canonicalPath="/well-man-check-london"
+  eyebrow="Well man check London"
+  h1="Well Man Check London"
+  lede="<strong>Well Man Check London</strong> searches are usually from men who want more than a quick blood test. The Well Man Health Check at London Health Check is a doctor-led men's health assessment on Harley Street with PSA, testosterone, ECG, lung function and written follow-up."
+  primary={primary}
+  checks={checks}
+  sections={[
+    {
+      heading: 'What the Well Man Health Check includes',
+      body: [
+        'The Well Man Health Check includes a full system examination, a twenty-five-plus marker blood panel, HbA1c, thyroid, testosterone and PSA blood tests, prostate and testicular checks if requested, twelve-lead ECG, lung function tests, a personalised report and free follow-up.',
+        'It is designed to bring male health, cardiovascular risk, metabolic markers and respiratory testing into one structured appointment rather than treating each result separately.',
+        'Your doctor explains what the results mean in context, including whether further imaging, monitoring, lifestyle change or specialist referral would be useful.',
+      ],
+    },
+    {
+      heading: 'Who should consider a Well Man Check',
+      body: [
+        'Many men book a Well Man Check as an annual baseline, particularly from their late thirties, forties or fifties onwards. It may also be useful if there is a family history of cardiovascular disease, diabetes, prostate cancer or other long-term conditions.',
+        'It is not only for men with symptoms. Preventative screening is often about understanding risk while you feel well, then deciding what changes or follow-up are appropriate.',
+        'If you want ultrasound imaging as part of the package, compare Well Man Plus. If you want whole-body MRI and the broadest panel, compare Executive Man.',
+      ],
+    },
+    {
+      heading: 'Choosing between Well Man, Well Man Plus and Executive Man',
+      body: [
+        'Well Man is the core male preventative health assessment. Well Man Plus adds abdominal, pelvic and scrotal ultrasound, usually as a separate appointment.',
+        'Executive Man is a more comprehensive executive medical with whole-body MRI, wider hormone and cancer-marker testing, sexual health screening, stool testing, audiometry and a longer follow-up appointment.',
+      ],
+    },
+  ]}
+  faqs={[
+    { question: 'Does the Well Man Check include PSA?', answer: 'Yes. The Well Man Health Check includes PSA alongside testosterone, thyroid and HbA1c blood tests.' },
+    { question: 'Are prostate and testicular checks compulsory?', answer: 'No. They are included if requested and are discussed with consent and clinical relevance in mind.' },
+    { question: 'Is follow-up included?', answer: 'Yes. The Well Man Health Check includes a free follow-up appointment to discuss results.' },
+    { question: 'What is the price?', answer: 'The Well Man Health Check is listed at £690.' },
+  ]}
+/>

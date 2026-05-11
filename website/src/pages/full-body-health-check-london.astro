@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const checks = ['premium-health-check', 'vitals-health-check', 'well-man-plus-health-check', 'well-woman-plus-health-check', 'executive-man-health-check', 'executive-woman-health-check'].map(bySlug);
+const primary = bySlug('premium-health-check');
+---
+
+<SeoLandingLayout
+  title="Full Body Health Check London | Harley Street Private MOT"
+  description="Compare full body health check options in London, from Premium Health Check to Plus and Executive packages with ultrasound or whole-body MRI."
+  canonicalPath="/full-body-health-check-london"
+  eyebrow="Full body health check London"
+  h1="Full Body Health Check London"
+  lede="<strong>Full body health check London</strong> can mean different things depending on the clinic. At London Health Check, we explain the difference between broad doctor-led health checks, ultrasound-supported packages and executive medicals with whole-body MRI."
+  primary={primary}
+  checks={checks}
+  sections={[
+    {
+      heading: 'What “full body” should mean in practice',
+      body: [
+        'A full body health check should not be a vague promise. It should clearly state which systems are reviewed, which tests are included, what imaging is part of the package and how results will be explained.',
+        'For some patients, a practical full-body baseline is a Premium, Well Man or Well Woman check. For others, ultrasound or whole-body MRI may be appropriate because they want imaging as part of the assessment.',
+        'The important point is proportion. A larger package is not always better; the right package depends on age, symptoms, family history, risk factors and what you want the appointment to answer.',
+      ],
+    },
+    {
+      heading: 'Packages with broader investigation',
+      body: [
+        'Premium Health Check is a strong starting point for a broad annual screen, with cardiovascular, respiratory, abdominal and ENT examination, oxygen saturation, blood panel, urine analysis, ECG and risk calculation.',
+        'Well Man Plus and Well Woman Plus add ultrasound imaging to the relevant Well Man or Well Woman checks. Executive Man and Executive Woman add whole-body MRI and the broadest investigation panel offered by the clinic.',
+        'If your main concern is heart health, Healthy Heart Check may be more targeted than a general full body health check because it includes extended cardiac testing and imaging where indicated.',
+      ],
+    },
+    {
+      heading: 'How to avoid over-testing',
+      body: [
+        'Private screening should be medically cautious. Tests can be useful, but they can also create incidental findings, anxiety and follow-up investigations that may not always be necessary.',
+        'A doctor-led appointment helps keep the process grounded. Your clinician can explain which findings matter, what is reassuring, and where a further test or referral is genuinely appropriate.',
+      ],
+    },
+  ]}
+  faqs={[
+    { question: 'Is a full body health check the same as whole-body MRI?', answer: 'No. Some full-body checks include broad examination and blood testing without MRI. Whole-body MRI is included in the Executive Man and Executive Woman packages.' },
+    { question: 'Which package is the best starting point?', answer: 'For many patients, Premium Health Check, Well Man or Well Woman is the best starting point. Executive packages are broader but not necessary for everyone.' },
+    { question: 'Can I add tests?', answer: 'Yes. Your doctor can advise on additional blood tests, imaging or referrals based on history and findings.' },
+    { question: 'Where is the clinic?', answer: 'Appointments take place at 66 Harley Street, London W1G 7HD.' },
+  ]}
+/>

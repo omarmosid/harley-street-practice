@@ -10,7 +10,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://www.londonhspractice.co.uk",
+  site: "https://londonhealthcheck.uk",
   integrations: [mdx(), sitemap()],
 
   fonts: [

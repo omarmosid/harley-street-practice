@@ -8,6 +8,8 @@
  *                     copy. Frontmatter holds structured fields used by the layout
  *                     template (eyebrow numbering, hero lede, pricing tiers, FAQs).
  *
+ * - `healthChecks`  → one dedicated SEO/conversion page per health check tier.
+ *
  * - `visaCountries` → individual country-specific visa medical pages. We keep one
  *                     entry per country to preserve long-tail SEO ("[country] visa
  *                     medical london").
@@ -52,6 +54,11 @@ const faqSchema = z.object({
   answer: z.string(), // plain markdown allowed inside MDX renderer
 });
 
+const stepSchema = z.object({
+  label: z.string(),
+  description: z.string(),
+});
+
 /* --------------------------------------------------------------------------- */
 /*  Services                                                                   */
 /* --------------------------------------------------------------------------- */
@@ -83,6 +90,36 @@ const services = defineCollection({
       /** Whether to render the visa-country grid below the body (only set on visa-medicals). */
       showVisaCountries: z.boolean().default(false),
     }),
+});
+
+/* --------------------------------------------------------------------------- */
+/*  Health checks                                                              */
+/* --------------------------------------------------------------------------- */
+
+const healthChecks = defineCollection({
+  loader: glob({ base: './src/content/health-checks', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    order: z.number().int().min(1).max(99),
+    group: z.enum(['quick', 'comprehensive', 'specialist', 'executive']),
+    name: z.string(),
+    shortName: z.string().optional(),
+    seoTitle: z.string(),
+    seoDescription: z.string(),
+    price: z.string(),
+    priceValue: z.number().optional(),
+    duration: z.string(),
+    summary: z.string(),
+    whoItsFor: z.array(z.string()).default([]),
+    includes: z.array(z.string()).default([]),
+    howItWorks: z.array(stepSchema).default([]),
+    preparation: z.string().optional(),
+    results: z.string().optional(),
+    followUp: z.string().optional(),
+    faqs: z.array(faqSchema).default([]),
+    related: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+    commercialPriority: z.boolean().default(false),
+  }),
 });
 
 /* --------------------------------------------------------------------------- */
@@ -173,6 +210,7 @@ const insights = defineCollection({
 
 export const collections = {
   services,
+  healthChecks,
   visaCountries,
   team,
   testimonials,

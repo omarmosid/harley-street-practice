@@ -1,0 +1,258 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import BookingBand from '../components/sections/BookingBand.astro';
+import Icon from '../components/ui/Icon.astro';
+import { BOOKING_URL, PRACTICE, SITE_URL } from '../consts';
+import { breadcrumbSchema, faqSchema, medicalProcedureSchema, medicalWebPageSchema } from '../lib/jsonld';
+import { HEALTH_CHECK_GROUPS, healthCheckSlug, healthCheckUrl, type HealthCheck } from '../lib/health-checks';
+
+type Props = {
+  check: HealthCheck;
+  relatedChecks: HealthCheck[];
+};
+
+const { check, relatedChecks } = Astro.props;
+const data = check.data;
+const slug = healthCheckSlug(check);
+const canonical = `${SITE_URL}/health-checks/${slug}`;
+const group = HEALTH_CHECK_GROUPS[data.group];
+const jsonLd = [
+  medicalProcedureSchema({
+    name: data.name,
+    description: data.summary,
+    url: canonical,
+    price: data.price,
+    priceValue: data.priceValue,
+    duration: data.duration,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', href: '/' },
+    { name: 'Health Checks', href: '/health-checks' },
+    { name: data.name, href: `/health-checks/${slug}` },
+  ]),
+  medicalWebPageSchema({
+    name: data.seoTitle,
+    description: data.seoDescription,
+    url: canonical,
+  }),
+  ...(data.faqs.length > 0 ? [faqSchema(data.faqs)] : []),
+];
+---
+
+<BaseLayout title={data.seoTitle} description={data.seoDescription} canonical={canonical} jsonLd={jsonLd}>
+  <section class="relative bg-bg pt-8 md:pt-14 lg:pt-20 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <nav class="mb-10 text-[13px] text-text-meta" aria-label="Breadcrumb" data-reveal style="--reveal-delay: 80ms;">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="hover:text-text-strong">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/health-checks" class="hover:text-text-strong">Health Checks</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-text-strong" aria-current="page">{data.name}</li>
+        </ol>
+      </nav>
+
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16 items-end">
+        <div class="lg:col-span-8">
+          <p class="eyebrow" data-reveal style="--reveal-delay: 120ms;">{group.label}</p>
+          <h1
+            class="mt-8 font-display tracking-[-0.035em] leading-[0.96] text-text-strong max-w-[11ch]"
+            style="font-size: clamp(2.75rem, 7vw, 6.75rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 180ms;"
+            data-reveal
+          >
+            {data.name}<span class="text-accent-400">.</span>
+          </h1>
+          <p
+            class="mt-8 max-w-[62ch] text-ink-700"
+            style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.6; text-wrap: pretty; --reveal-delay: 280ms;"
+            data-reveal
+          >
+            <strong>{data.name}</strong> is a doctor-led private health check in London. {data.summary}
+          </p>
+          <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" data-reveal style="--reveal-delay: 360ms;">
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[13px] font-medium tracking-[0.04em] uppercase transition-colors duration-300 hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-4 focus-visible:ring-offset-bg">
+              <span>Book this check</span>
+              <Icon name="arrow-up-right" size={16} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+            <a href={PRACTICE.phone.href} class="group inline-flex items-baseline gap-2 text-text-strong text-[15px] tracking-tight transition-colors duration-200 hover:text-accent-600">
+              <span class="text-text-meta">Or call</span>
+              <span class="font-medium underline decoration-1 underline-offset-[6px] decoration-ink-300 group-hover:decoration-accent-400">{PRACTICE.phone.display}</span>
+            </a>
+          </div>
+        </div>
+
+        <aside class="lg:col-span-4 border border-border-soft bg-bg-soft p-7 md:p-9" data-reveal style="--reveal-delay: 300ms;">
+          <p class="eyebrow">At a glance</p>
+          <dl class="mt-8 space-y-6">
+            <div>
+              <dt class="text-[12px] font-mono tracking-[0.12em] uppercase text-text-meta">Price</dt>
+              <dd class="mt-2 font-display text-text-strong tracking-[-0.02em]" style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 340; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{data.price}</dd>
+            </div>
+            <div>
+              <dt class="text-[12px] font-mono tracking-[0.12em] uppercase text-text-meta">Duration</dt>
+              <dd class="mt-2 text-text-strong text-[17px]">{data.duration}</dd>
+            </div>
+            <div>
+              <dt class="text-[12px] font-mono tracking-[0.12em] uppercase text-text-meta">Clinic</dt>
+              <dd class="mt-2 text-text-strong text-[15px] leading-[1.55]">{PRACTICE.address.line1}<br />{PRACTICE.address.locality} {PRACTICE.address.postalCode}</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4">
+          <p class="eyebrow" data-reveal>Who it is for</p>
+        </aside>
+        <div class="lg:col-span-8 grid gap-px bg-border-soft border border-border-soft md:grid-cols-3">
+          {data.whoItsFor.map((item, i) => (
+            <article class="bg-bg p-7 md:p-8" data-reveal style={`--reveal-delay: ${120 + i * 70}ms;`}>
+              <Icon name="check-circle" size={22} class="text-accent-600 mb-8" />
+              <p class="text-text-strong leading-[1.6] text-[15px]">{item}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4">
+          <p class="eyebrow" data-reveal>What's included</p>
+          <p class="mt-6 max-w-sm text-text-muted text-[15px] leading-[1.7]" data-reveal style="--reveal-delay: 120ms;">
+            The exact package inclusions are listed clearly before you book. Your doctor can advise if another check would suit you better.
+          </p>
+        </aside>
+        <div class="lg:col-span-8">
+          <ul class="divide-y divide-border-soft border-y border-border-soft">
+            {data.includes.map((item, i) => (
+              <li class="flex gap-4 py-5" data-reveal style={`--reveal-delay: ${120 + i * 45}ms;`}>
+                <Icon name="check" size={18} class="text-accent-600 mt-1 shrink-0" />
+                <span class="text-text-strong leading-[1.6]">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4">
+          <p class="eyebrow" data-reveal>How it works</p>
+        </aside>
+        <div class="lg:col-span-8 grid gap-px bg-border-soft border border-border-soft md:grid-cols-3">
+          {data.howItWorks.map((step, i) => (
+            <article class="bg-bg p-7 md:p-8" data-reveal style={`--reveal-delay: ${120 + i * 80}ms;`}>
+              <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">Step {String(i + 1).padStart(2, '0')}</p>
+              <h2 class="mt-6 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{step.label}</h2>
+              <p class="mt-5 text-text-muted text-[15px] leading-[1.7]">{step.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-10 lg:grid-cols-3">
+        <article class="border-t border-border-soft pt-8" data-reveal>
+          <p class="eyebrow">Preparation</p>
+          <p class="mt-6 text-text-muted text-[15px] leading-[1.7]">{data.preparation}</p>
+        </article>
+        <article class="border-t border-border-soft pt-8" data-reveal style="--reveal-delay: 100ms;">
+          <p class="eyebrow">Results</p>
+          <p class="mt-6 text-text-muted text-[15px] leading-[1.7]">{data.results}</p>
+        </article>
+        <article class="border-t border-border-soft pt-8" data-reveal style="--reveal-delay: 200ms;">
+          <p class="eyebrow">Follow-up</p>
+          <p class="mt-6 text-text-muted text-[15px] leading-[1.7]">{data.followUp}</p>
+        </article>
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4">
+          <p class="eyebrow" data-reveal>Choosing well</p>
+        </aside>
+        <div class="lg:col-span-8 about-prose" data-reveal style="--reveal-delay: 140ms;">
+          <h2>How this health check fits into preventative care</h2>
+          <p>
+            A private health check is most useful when the tests are interpreted alongside your medical history, family history, lifestyle, symptoms, medicines, and examination findings. The aim is not simply to collect results, but to help you understand what they mean and what, if anything, should happen next.
+          </p>
+          <p>
+            This check gives your doctor a structured way to assess relevant risk markers and discuss practical next steps. Some patients use it as an annual baseline, while others book because they have reached a particular age, have a family history of disease, or want a more detailed review than a short GP appointment can usually provide.
+          </p>
+          <p>
+            If the package is too narrow or too broad for your circumstances, the clinic can advise before or during the appointment. You can also compare this check with adjacent options on the pricing page, including shorter screens and more comprehensive packages with imaging or extended follow-up.
+          </p>
+        </div>
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  {data.faqs.length > 0 && (
+    <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+      <Container class="max-w-[var(--container-page)]">
+        <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <aside class="lg:col-span-4">
+            <p class="eyebrow" data-reveal>Questions</p>
+          </aside>
+          <div class="lg:col-span-8 divide-y divide-border-soft border-y border-border-soft">
+            {data.faqs.map((faq, i) => (
+              <details class="group py-6" data-reveal style={`--reveal-delay: ${120 + i * 60}ms;`}>
+                <summary class="flex cursor-pointer list-none items-start justify-between gap-6 text-text-strong">
+                  <h2 class="font-display tracking-[-0.015em] leading-[1.2]" style="font-size: clamp(1.25rem, 1.2vw + 0.9rem, 1.75rem); font-weight: 360; font-variation-settings: 'opsz' 72, 'SOFT' 40;">{faq.question}</h2>
+                  <Icon name="plus" size={18} class="mt-1 shrink-0 text-accent-600 transition-transform group-open:rotate-45" />
+                </summary>
+                <p class="mt-5 max-w-[68ch] text-text-muted text-[15px] leading-[1.7]">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+        <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+      </Container>
+    </section>
+  )}
+
+  {relatedChecks.length > 0 && (
+    <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+      <Container class="max-w-[var(--container-page)]">
+        <div class="mb-12 md:mb-16">
+          <p class="eyebrow" data-reveal>Related checks</p>
+        </div>
+        <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-3">
+          {relatedChecks.map((related, i) => (
+            <a href={healthCheckUrl(related)} class="group bg-bg p-7 md:p-8 transition-colors hover:bg-bg-soft" data-reveal style={`--reveal-delay: ${120 + i * 80}ms;`}>
+              <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">{related.data.price} · {related.data.duration}</p>
+              <h2 class="mt-6 font-display text-text-strong tracking-[-0.02em] leading-[1.08] group-hover:text-accent-600 transition-colors" style="font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{related.data.name}</h2>
+              <p class="mt-5 text-text-muted text-[15px] leading-[1.65]">{related.data.summary}</p>
+            </a>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <BookingBand />
+</BaseLayout>

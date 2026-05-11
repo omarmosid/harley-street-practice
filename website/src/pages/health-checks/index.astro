@@ -1,0 +1,104 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import BookingBand from '../../components/sections/BookingBand.astro';
+import Icon from '../../components/ui/Icon.astro';
+import { BOOKING_URL, PRACTICE, SITE_URL } from '../../consts';
+import { breadcrumbSchema, itemListSchema } from '../../lib/jsonld';
+import { groupHealthChecks, healthCheckUrl, sortHealthChecks } from '../../lib/health-checks';
+
+const checks = sortHealthChecks(await getCollection('healthChecks'));
+const groups = groupHealthChecks(checks);
+const title = 'Health Checks in London | Private Harley Street Screening';
+const description = 'Compare doctor-led private health checks in London, from quick screens to Well Man, Well Woman, specialist, and executive health checks on Harley Street.';
+const jsonLd = [
+  itemListSchema(checks.map((check) => ({ name: check.data.name, url: `${SITE_URL}${healthCheckUrl(check)}`, description: check.data.summary }))),
+  breadcrumbSchema([
+    { name: 'Home', href: '/' },
+    { name: 'Health Checks', href: '/health-checks' },
+  ]),
+];
+---
+
+<BaseLayout title={title} description={description} canonical={`${SITE_URL}/health-checks`} jsonLd={jsonLd}>
+  <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16 items-end">
+        <div class="lg:col-span-8">
+          <p class="eyebrow" data-reveal>Health checks</p>
+          <h1 class="mt-8 font-display tracking-[-0.035em] leading-[0.96] text-text-strong max-w-[12ch]" style="font-size: clamp(2.75rem, 7vw, 6.75rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
+            Private health checks in London<span class="text-accent-400">.</span>
+          </h1>
+          <p class="mt-8 max-w-[64ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.6; text-wrap: pretty; --reveal-delay: 260ms;" data-reveal>
+            Compare doctor-led health checks on Harley Street, from focused 15-minute screens to comprehensive executive medicals with advanced imaging.
+          </p>
+        </div>
+        <aside class="lg:col-span-4 border border-border-soft bg-bg-soft p-7 md:p-9" data-reveal style="--reveal-delay: 300ms;">
+          <p class="eyebrow">Need help choosing?</p>
+          <p class="mt-5 text-text-muted text-[15px] leading-[1.7]">Most patients start with the Premium Health Check, Well Man, or Well Woman check. Call us if you want guidance before booking.</p>
+          <a href={PRACTICE.phone.href} class="mt-7 inline-flex text-text-strong hover:text-accent-600 transition-colors">{PRACTICE.phone.display}</a>
+        </aside>
+      </div>
+
+      <nav class="mt-12 flex flex-wrap gap-3" aria-label="Health check groups" data-reveal style="--reveal-delay: 360ms;">
+        {groups.map((group) => (
+          <a href={`#${group.label.toLowerCase().replaceAll(' ', '-')}`} class="border border-border-soft px-4 py-2 text-[13px] text-text-muted hover:text-text-strong hover:border-accent-400 transition-colors">{group.label}</a>
+        ))}
+      </nav>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  {groups.map((group) => (
+    <section id={group.label.toLowerCase().replaceAll(' ', '-')} class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0 scroll-mt-28">
+      <Container class="max-w-[var(--container-page)]">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <aside class="lg:col-span-4">
+            <p class="eyebrow" data-reveal>{group.label}</p>
+            <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02]" style="font-size: clamp(2rem, 4vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;" data-reveal>{group.label}</h2>
+            <p class="mt-6 max-w-sm text-text-muted text-[15px] leading-[1.7]" data-reveal style="--reveal-delay: 100ms;">{group.lede}</p>
+          </aside>
+          <div class="lg:col-span-8 grid gap-px bg-border-soft border border-border-soft md:grid-cols-2">
+            {group.checks.map((check, i) => (
+              <article class="bg-bg p-7 md:p-8" data-reveal style={`--reveal-delay: ${120 + i * 60}ms;`}>
+                <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">{check.data.price} · {check.data.duration}</p>
+                <h3 class="mt-6 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.5rem, 2vw, 2.15rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{check.data.name}</h3>
+                <p class="mt-5 text-text-muted text-[15px] leading-[1.65]">{check.data.summary}</p>
+                <ul class="mt-6 space-y-2 text-[14px] text-text-muted">
+                  {check.data.includes.slice(0, 3).map((item) => (
+                    <li class="flex gap-2"><Icon name="check" size={15} class="text-accent-600 mt-1 shrink-0" /> <span>{item}</span></li>
+                  ))}
+                </ul>
+                <div class="mt-8 flex flex-wrap gap-4">
+                  <a href={healthCheckUrl(check)} class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">See details</a>
+                  <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-accent-600 transition-colors">Book</a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+        <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+      </Container>
+    </section>
+  ))}
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
+        <div class="lg:col-span-7">
+          <p class="eyebrow" data-reveal>Compare prices</p>
+          <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;" data-reveal>Every tier, price, and duration in one place.</h2>
+        </div>
+        <div class="lg:col-span-5 lg:text-right" data-reveal style="--reveal-delay: 140ms;">
+          <a href="/pricing" class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[13px] font-medium tracking-[0.04em] uppercase transition-colors duration-300 hover:bg-accent-600">
+            <span>View pricing</span>
+            <Icon name="arrow-up-right" size={16} />
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <BookingBand />
+</BaseLayout>

@@ -11,9 +11,9 @@ import Icon from '../components/ui/Icon.astro';
 import harleyStreet from '../assets/images/harley-street.jpg';
 import { BOOKING_URL, PRACTICE, SITE_NAME, SITE_URL } from '../consts';
 
-const title = 'Contact London Harley Street Practice';
+const title = 'Contact London Health Check | Harley Street Health Checks';
 const description =
-  'Contact London Harley Street Practice at 66 Harley Street for private GP appointments, health checks, visa medicals, diagnostics, and medical enquiries.';
+  'Contact London Health Check at 66 Harley Street for private health check bookings, pricing questions, preparation guidance, and medical enquiries.';
 
 const contactItems = [
   {
@@ -39,7 +39,7 @@ const contactItems = [
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
-  name: 'Contact London Harley Street Practice',
+  name: 'Contact London Health Check',
   url: `${SITE_URL}/contact`,
   about: {
     '@type': 'MedicalBusiness',
@@ -72,16 +72,16 @@ const jsonLd = {
           </div>
 
           <h1 class="font-display tracking-[-0.035em] leading-[0.96] text-text-strong max-w-[11ch]" style="font-size: clamp(2.5rem, 7vw, 6.5rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
-            Plan your visit<span class="text-accent-400">.</span>
+            Book or discuss your health check<span class="text-accent-400">.</span>
           </h1>
 
           <p class="mt-8 md:mt-10 max-w-[58ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.55; text-wrap: pretty; --reveal-delay: 280ms;" data-reveal>
-            Contact the practice for private GP appointments, health checks, visa medicals, diagnostics, and clinical enquiries from our Harley Street clinic.
+            Contact London Health Check to book a private health check, compare packages, ask about preparation, or speak to the Harley Street clinic before choosing.
           </p>
 
           <div class="mt-10 flex flex-wrap items-center gap-x-10 gap-y-5" data-reveal style="--reveal-delay: 380ms;">
             <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[14px] font-medium tracking-[0.02em] uppercase transition-colors duration-300 hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-4 focus-visible:ring-offset-bg">
-              <span>Book an appointment</span>
+              <span>Book a health check</span>
               <Icon name="arrow-up-right" size={16} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <a href={PRACTICE.phone.href} class="group inline-flex items-baseline gap-2 text-text-strong text-[15px] tracking-tight transition-colors duration-200 hover:text-accent-600">

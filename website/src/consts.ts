@@ -3,11 +3,17 @@
  * Components MUST import from this file rather than hard-coding values.
  */
 
-export const SITE_NAME = "London Harley Street Practice";
-export const SITE_TAGLINE = "Same-day private GP and multidisciplinary care on Harley Street.";
+export const SITE_NAME = "London Health Check";
+export const SITE_TAGLINE = "Private health checks in London. Doctor-led, on Harley Street.";
 export const SITE_DESCRIPTION =
-  "Private GP clinic at 66 Harley Street, London. Same-day appointments, executive health checks, blood tests, ultrasound, visa medicals, musculoskeletal care, and counselling.";
-export const SITE_URL = "https://www.londonhspractice.co.uk"; // update at cutover
+  "Doctor-led private health checks on Harley Street, London, operated by London Harley Street Practice. Clear pricing, written reports, and HeyDoc online booking.";
+export const SITE_URL = "https://londonhealthcheck.uk";
+
+export const OPERATOR = {
+  name: "London Harley Street Practice",
+  url: "https://www.londonhspractice.co.uk",
+  foundingYear: "2003",
+} as const;
 
 /** External booking provider (HeyDoc). Every "Book" CTA links here. */
 export const BOOKING_URL =
@@ -43,9 +49,8 @@ export const PRACTICE = {
 
 /** Primary navigation — keep to 5 items. */
 export const NAV: ReadonlyArray<{ label: string; href: string }> = [
-  { label: "Services", href: "/services" },
-  { label: "Team", href: "/team" },
-  { label: "Membership", href: "/membership" },
-  { label: "Insights", href: "/insights" },
-  { label: "Contact", href: "/contact" },
+  { label: "Health Checks", href: "/health-checks" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "How it works", href: "/how-it-works" },
+  { label: "About", href: "/about" },
 ];

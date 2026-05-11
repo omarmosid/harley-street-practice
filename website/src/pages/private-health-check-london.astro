@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const checks = ['premium-health-check', 'essential-health-screen', 'well-man-health-check', 'well-woman-health-check', 'healthy-heart-check', 'executive-woman-health-check'].map(bySlug);
+const primary = bySlug('premium-health-check');
+---
+
+<SeoLandingLayout
+  title="Private Health Check London | From £180 | Harley Street"
+  description="Compare private health checks in London at 66 Harley Street, from £180 focused screens to Well Man, Well Woman, specialist, and executive packages."
+  canonicalPath="/private-health-check-london"
+  eyebrow="Private health check London"
+  h1="Private health check London"
+  lede="<strong>Private health checks in London</strong> should be clear, doctor-led and easy to compare. London Health Check brings the Harley Street health check packages operated by London Harley Street Practice into one focused site, with transparent pricing from £180 and online booking through HeyDoc."
+  primary={primary}
+  checks={checks}
+  sections={[
+    {
+      heading: 'What a private health check is designed to do',
+      body: [
+        'A private health check is a structured review of your health, risk factors and screening results. It can include consultation, examination, blood tests, urine analysis, ECG, lung function, ultrasound, MRI or other investigations depending on the package you choose.',
+        'The value comes from interpretation. Your doctor considers your history, family history, symptoms, medicines, lifestyle and examination findings before turning the results into a practical written report and action plan.',
+        'This approach is especially useful if you want an annual baseline, have reached an age where preventative screening feels more important, or want a more detailed appointment than a standard GP consultation usually allows.',
+      ],
+    },
+    {
+      heading: 'How to choose the right London health check',
+      body: [
+        'If you are generally well and want a sensible starting point, the Premium Health Check is usually the most practical first comparison. It includes a broad physical examination, blood markers, urine analysis, ECG and cardiovascular risk calculation in a concise appointment.',
+        'Men who want age-appropriate screening should compare the Well Man and Well Man Plus checks. Women should compare Well Woman, Well Woman Plus and Menopause Health Check depending on life stage, screening history and symptoms.',
+        'Executive packages are built for people who want the broadest investigation panel, including whole-body MRI. They are more expensive and more comprehensive, so they are not automatically the right choice for every patient.',
+      ],
+    },
+    {
+      heading: 'Why Harley Street matters for health screening',
+      body: [
+        'London Health Check appointments take place at 66 Harley Street, a central medical location with rapid access to diagnostics and specialist referral pathways where needed.',
+        'The site is operated by London Harley Street Practice, established in 2003. That operator relationship matters: health checks should sit inside a clinical system that can explain results, arrange follow-up and advise when a specialist opinion is appropriate.',
+      ],
+    },
+  ]}
+  faqs={[
+    { question: 'How much does a private health check cost in London?', answer: 'At London Health Check, prices start from £180 for the Basic Health Screen. Popular annual checks include Premium at £255 and Well Man or Well Woman at £690. Executive packages cost more because they include broader investigations and imaging.' },
+    { question: 'Can I book online?', answer: 'Yes. Booking CTAs link to HeyDoc so you can choose an appointment online. You can also call the clinic if you want help choosing a package.' },
+    { question: 'Is a private health check the same as an NHS Health Check?', answer: 'No. NHS Health Checks are structured public-health assessments for eligible patients. Private health checks vary by package and can include broader blood panels, ECG, imaging or longer doctor-led review.' },
+    { question: 'Do all packages include a written report?', answer: 'Every health check package listed on the site includes a personalised report and action plan.' },
+  ]}
+/>

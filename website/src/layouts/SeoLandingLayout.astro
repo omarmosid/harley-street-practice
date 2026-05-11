@@ -1,0 +1,170 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import BookingBand from '../components/sections/BookingBand.astro';
+import Icon from '../components/ui/Icon.astro';
+import { BOOKING_URL, PRACTICE, SITE_URL } from '../consts';
+import { breadcrumbSchema, faqSchema, itemListSchema, medicalProcedureSchema, medicalWebPageSchema } from '../lib/jsonld';
+import { healthCheckUrl } from '../lib/health-checks';
+
+type HealthCheck = CollectionEntry<'healthChecks'>;
+
+type Props = {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  eyebrow: string;
+  h1: string;
+  lede: string;
+  primary: HealthCheck;
+  checks: HealthCheck[];
+  sections: Array<{ heading: string; body: string[] }>;
+  faqs: Array<{ question: string; answer: string }>;
+};
+
+const { title, description, canonicalPath, eyebrow, h1, lede, primary, checks, sections, faqs } = Astro.props;
+const canonical = `${SITE_URL}${canonicalPath}`;
+const jsonLd = [
+  medicalProcedureSchema({
+    name: h1,
+    description,
+    url: canonical,
+    price: primary.data.price,
+    priceValue: primary.data.priceValue,
+    duration: primary.data.duration,
+  }),
+  itemListSchema(checks.map((check) => ({ name: check.data.name, url: `${SITE_URL}${healthCheckUrl(check)}`, description: check.data.summary }))),
+  breadcrumbSchema([
+    { name: 'Home', href: '/' },
+    { name: h1, href: canonicalPath },
+  ]),
+  faqSchema(faqs),
+  medicalWebPageSchema({ name: title, description, url: canonical }),
+];
+---
+
+<BaseLayout title={title} description={description} canonical={canonical} jsonLd={jsonLd}>
+  <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16 items-end">
+        <div class="lg:col-span-8">
+          <p class="eyebrow" data-reveal>{eyebrow}</p>
+          <h1 class="mt-8 font-display tracking-[-0.04em] leading-[0.94] text-text-strong max-w-[12ch]" style="font-size: clamp(2.75rem, 7vw, 6.75rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
+            {h1}<span class="text-accent-400">.</span>
+          </h1>
+          <p class="mt-8 md:mt-10 max-w-[66ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.6; text-wrap: pretty; --reveal-delay: 260ms;" data-reveal set:html={lede} />
+          <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" data-reveal style="--reveal-delay: 340ms;">
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[13px] font-medium tracking-[0.04em] uppercase transition-colors duration-300 hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-4 focus-visible:ring-offset-bg">
+              <span>Book a health check</span>
+              <Icon name="arrow-up-right" size={16} />
+            </a>
+            <a href={PRACTICE.phone.href} class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">Call {PRACTICE.phone.display}</a>
+          </div>
+        </div>
+        <aside class="lg:col-span-4 border border-border-soft bg-bg-soft p-7 md:p-9" data-reveal style="--reveal-delay: 300ms;">
+          <p class="eyebrow">Recommended starting point</p>
+          <h2 class="mt-7 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.75rem, 2.5vw, 2.75rem); font-weight: 340; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{primary.data.name}</h2>
+          <dl class="mt-8 grid grid-cols-2 gap-6 border-t border-border-soft pt-7">
+            <div>
+              <dt class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">Price</dt>
+              <dd class="mt-2 text-text-strong">{primary.data.price}</dd>
+            </div>
+            <div>
+              <dt class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">Duration</dt>
+              <dd class="mt-2 text-text-strong">{primary.data.duration}</dd>
+            </div>
+          </dl>
+          <p class="mt-7 text-text-muted text-[15px] leading-[1.65]">{primary.data.summary}</p>
+          <a href={healthCheckUrl(primary)} class="mt-8 inline-flex text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">See package details</a>
+        </aside>
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-3">
+        {['Doctor-led', '66 Harley Street since 2003', 'Transparent pricing'].map((item, i) => (
+          <article class="bg-bg p-7 md:p-9" data-reveal style={`--reveal-delay: ${120 + i * 80}ms;`}>
+            <Icon name="check-circle" size={24} class="text-accent-600 mb-8" />
+            <h2 class="font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.5rem, 2vw, 2.25rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{item}</h2>
+          </article>
+        ))}
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  {sections.map((section, index) => (
+    <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+      <Container class="max-w-[var(--container-page)]">
+        <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <aside class="lg:col-span-4">
+            <p class="eyebrow" data-reveal>{index === 0 ? 'Guide' : 'In detail'}</p>
+          </aside>
+          <div class="lg:col-span-8 about-prose" data-reveal style="--reveal-delay: 140ms;">
+            <h2>{section.heading}</h2>
+            {section.body.map((paragraph) => <p set:html={paragraph} />)}
+          </div>
+        </div>
+        <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+      </Container>
+    </section>
+  ))}
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="mb-12 md:mb-16">
+        <p class="eyebrow" data-reveal>Compare options</p>
+      </div>
+      <div class="overflow-x-auto border-y border-border-soft" data-reveal style="--reveal-delay: 140ms;">
+        <table class="w-full min-w-[760px] text-left">
+          <thead class="border-b border-border-soft">
+            <tr class="text-[11px] font-mono uppercase tracking-[0.12em] text-text-meta">
+              <th class="py-4 pr-6 font-normal">Check</th>
+              <th class="py-4 px-6 font-normal">Price</th>
+              <th class="py-4 px-6 font-normal">Duration</th>
+              <th class="py-4 px-6 font-normal">Best for</th>
+              <th class="py-4 pl-6 font-normal">Details</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border-soft">
+            {checks.map((check) => (
+              <tr>
+                <td class="py-6 pr-6 align-top"><a href={healthCheckUrl(check)} class="text-text-strong hover:text-accent-600 transition-colors">{check.data.name}</a></td>
+                <td class="py-6 px-6 align-top text-text-strong font-medium">{check.data.price}</td>
+                <td class="py-6 px-6 align-top text-text-muted">{check.data.duration}</td>
+                <td class="py-6 px-6 align-top text-text-muted max-w-[42ch]">{check.data.summary}</td>
+                <td class="py-6 pl-6 align-top"><a href={healthCheckUrl(check)} class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">View</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4"><p class="eyebrow" data-reveal>FAQs</p></aside>
+        <div class="lg:col-span-8 divide-y divide-border-soft border-y border-border-soft">
+          {faqs.map((faq, i) => (
+            <details class="group py-6" data-reveal style={`--reveal-delay: ${120 + i * 60}ms;`}>
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-6 text-text-strong">
+                <h2 class="font-display tracking-[-0.015em] leading-[1.2]" style="font-size: clamp(1.25rem, 1.2vw + 0.9rem, 1.75rem); font-weight: 360; font-variation-settings: 'opsz' 72, 'SOFT' 40;">{faq.question}</h2>
+                <Icon name="plus" size={18} class="mt-1 shrink-0 text-accent-600 transition-transform group-open:rotate-45" />
+              </summary>
+              <p class="mt-5 max-w-[68ch] text-text-muted text-[15px] leading-[1.7]">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <BookingBand />
+</BaseLayout>

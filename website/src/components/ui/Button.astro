@@ -69,7 +69,7 @@ const sizeClass = variant === 'link' ? '' : sizes[size];
 const classes = cn(base, variants[variant], sizeClass, className);
 
 const isExternal =
-  external ?? (typeof href === 'string' && /^https?:\/\//.test(href) && !href.includes('londonhspractice.co.uk'));
+  external ?? (typeof href === 'string' && /^https?:\/\//.test(href) && !href.includes('londonhealthcheck.uk'));
 
 const externalAttrs = isExternal && href ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 

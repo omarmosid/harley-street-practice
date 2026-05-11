@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import HealthCheckLayout from '../../layouts/HealthCheckLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../../lib/health-checks';
+
+export async function getStaticPaths() {
+  const checks = sortHealthChecks(await getCollection('healthChecks'));
+  return checks.map((check) => {
+    const relatedChecks = check.data.related
+      .map((slug) => checks.find((item) => healthCheckSlug(item) === slug))
+      .filter(Boolean)
+      .slice(0, 3);
+
+    return {
+      params: { slug: healthCheckSlug(check) },
+      props: { check, relatedChecks },
+    };
+  });
+}
+
+const { check, relatedChecks } = Astro.props;
+---
+
+<HealthCheckLayout check={check} relatedChecks={relatedChecks} />

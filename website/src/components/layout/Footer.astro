@@ -1,38 +1,32 @@
 ---
-/**
- * Footer — editorial, ink-on-cream (NOT a dark band).
- *
- * One section, divided by hairlines. Two-column desktop:
- *   left = brand + practice details
- *   right = nav columns (services / practice / legal)
- * Mobile: stacked.
- *
- * No social-media coloured panels, no gradient dividers.
- * The footer should feel like the colophon of a magazine, not a CTA dump.
- */
+/** Footer — health-check-focused colophon. */
 import Container from '../ui/Container.astro';
 import Icon from '../ui/Icon.astro';
 import Logo from './Logo.astro';
-import { PRACTICE, SITE_NAME } from '../../consts';
+import { OPERATOR, PRACTICE, SITE_NAME } from '../../consts';
 
 const year = new Date().getFullYear();
 
-const services = [
-  { label: 'Private GP', href: '/services/private-gp' },
-  { label: 'Health checks', href: '/services/health-checks' },
-  { label: 'Visa medicals', href: '/services/visa-medicals' },
-  { label: 'Musculoskeletal', href: '/services/musculoskeletal' },
-  { label: 'Counselling', href: '/services/counselling' },
-  { label: 'Online doctor', href: '/services/online-doctor' },
+const healthChecks = [
+  { label: 'All health checks', href: '/health-checks' },
+  { label: 'Quick screens', href: '/health-checks#quick-screens' },
+  { label: 'Comprehensive checks', href: '/health-checks#comprehensive-checks' },
+  { label: 'Specialist checks', href: '/health-checks#specialist-checks' },
+  { label: 'Executive checks', href: '/health-checks#executive-checks' },
+  { label: 'Pricing', href: '/pricing' },
 ];
 
 const practice = [
+  { label: 'How it works', href: '/how-it-works' },
   { label: 'About', href: '/about' },
-  { label: 'Our team', href: '/team' },
-  { label: 'Membership', href: '/membership' },
-  { label: 'Corporate', href: '/corporate' },
-  { label: 'Insights', href: '/insights' },
   { label: 'Contact', href: '/contact' },
+];
+
+const library = [
+  { label: 'Health library', href: '/insights' },
+  { label: 'Heart health', href: '/insights/heart-health-101' },
+  { label: 'Vitamin D', href: '/insights/the-sunshine-vitamin' },
+  { label: 'Menopause', href: '/insights/a-flash-of-wisdom-navigating-the-hormone-rollercoaster' },
 ];
 
 const legal = [
@@ -44,16 +38,12 @@ const legal = [
 
 <footer class="bg-bg border-t border-border-soft">
   <Container class="pt-20 md:pt-28 pb-10">
-
-    <!-- Top row: address mark + nav columns -->
     <div class="grid gap-12 md:gap-16 md:grid-cols-12">
-
-      <!-- Brand / address -->
       <div class="md:col-span-5">
         <Logo height={64} />
 
         <p class="mt-6 max-w-sm text-[15px] text-text-muted leading-[1.65]">
-          A doctor-led private practice on Harley Street. Same-day appointments, comprehensive health checks, and multidisciplinary care under one roof.
+          {SITE_NAME} is a dedicated private health check website operated by <a href={OPERATOR.url} target="_blank" rel="noopener noreferrer" class="text-text-strong hover:text-accent-600 transition-colors">{OPERATOR.name}</a> at 66 Harley Street.
         </p>
 
         <ul class="mt-8 space-y-2.5 text-[14px] text-text">
@@ -81,17 +71,12 @@ const legal = [
         </p>
       </div>
 
-      <!-- Nav columns -->
       <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12">
         <div>
-          <h3 class="eyebrow">Services</h3>
+          <h3 class="eyebrow">Health Checks</h3>
           <ul class="mt-5 space-y-2.5 text-[14px]">
-            {services.map((item) => (
-              <li>
-                <a href={item.href} class="text-text-muted hover:text-text-strong transition-colors">
-                  {item.label}
-                </a>
-              </li>
+            {healthChecks.map((item) => (
+              <li><a href={item.href} class="text-text-muted hover:text-text-strong transition-colors">{item.label}</a></li>
             ))}
           </ul>
         </div>
@@ -100,42 +85,28 @@ const legal = [
           <h3 class="eyebrow">Practice</h3>
           <ul class="mt-5 space-y-2.5 text-[14px]">
             {practice.map((item) => (
-              <li>
-                <a href={item.href} class="text-text-muted hover:text-text-strong transition-colors">
-                  {item.label}
-                </a>
-              </li>
+              <li><a href={item.href} class="text-text-muted hover:text-text-strong transition-colors">{item.label}</a></li>
             ))}
           </ul>
         </div>
 
         <div>
-          <h3 class="eyebrow">Follow</h3>
+          <h3 class="eyebrow">Health Library</h3>
           <ul class="mt-5 space-y-2.5 text-[14px]">
-            <li>
-              <a href={PRACTICE.social.instagram} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-text-strong transition-colors">Instagram</a>
-            </li>
-            <li>
-              <a href={PRACTICE.social.twitter} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-text-strong transition-colors">X / Twitter</a>
-            </li>
-            <li>
-              <a href={PRACTICE.social.facebook} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-text-strong transition-colors">Facebook</a>
-            </li>
+            {library.map((item) => (
+              <li><a href={item.href} class="text-text-muted hover:text-text-strong transition-colors">{item.label}</a></li>
+            ))}
           </ul>
         </div>
       </div>
-
     </div>
 
-    <!-- Hairline + meta row -->
     <hr class="hairline mt-20" />
     <div class="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[12px] text-text-meta">
-      <p>&copy; {year} {SITE_NAME}. Registered in England.</p>
+      <p>&copy; {year} {SITE_NAME}. Operated by {OPERATOR.name}. Registered in England.</p>
       <ul class="flex flex-wrap items-center gap-x-6 gap-y-2">
         {legal.map((item) => (
-          <li>
-            <a href={item.href} class="hover:text-text-strong transition-colors">{item.label}</a>
-          </li>
+          <li><a href={item.href} class="hover:text-text-strong transition-colors">{item.label}</a></li>
         ))}
       </ul>
     </div>

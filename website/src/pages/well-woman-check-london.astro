@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const checks = ['well-woman-health-check', 'well-woman-plus-health-check', 'menopause-health-check', 'executive-woman-health-check', 'premium-health-check'].map(bySlug);
+const primary = bySlug('well-woman-health-check');
+---
+
+<SeoLandingLayout
+  title="Well Woman Check London | Women's Health Check Harley Street"
+  description="Book a Well Woman Check in London at 66 Harley Street, with breast and gynaecological checks, hormone profile, CA-125, ECG, lung function, report and follow-up."
+  canonicalPath="/well-woman-check-london"
+  eyebrow="Well woman check London"
+  h1="Well Woman Check London"
+  lede="<strong>Well Woman Check London</strong> searches often come from women who want a structured annual review of general health, hormones and female health screening. The Well Woman Health Check is doctor-led at 66 Harley Street and includes a written report and follow-up."
+  primary={primary}
+  checks={checks}
+  sections={[
+    {
+      heading: 'What the Well Woman Health Check includes',
+      body: [
+        'The Well Woman Health Check includes a full system examination, breast and gynaecological checks, twenty-five-plus marker blood panel, female hormone profile, CA-125 ovarian screen, twelve-lead ECG, lung function tests, personalised report and free follow-up.',
+        'The appointment is designed to review broader health and female-specific markers together, so that results are interpreted in the context of symptoms, cycle history, medicines, screening history and family history.',
+        'Your doctor can advise if a different package, such as Well Woman Plus, Menopause Health Check or Executive Woman, would better match your life stage and priorities.',
+      ],
+    },
+    {
+      heading: 'Who should consider a Well Woman Check',
+      body: [
+        'Many women book this check as an annual baseline when they want more time, broader blood testing and a written report than a routine appointment usually provides.',
+        'It can be useful if you want to review cardiovascular, metabolic, hormone and female health markers in one appointment, or if you want a clearer plan around follow-up screening.',
+        'If menopause symptoms, bone health or imaging are the main concern, the Menopause Health Check may be a better fit. If you want abdominal and pelvic ultrasound, compare Well Woman Plus.',
+      ],
+    },
+    {
+      heading: 'Choosing between women’s health check options',
+      body: [
+        'Well Woman is the core annual women’s health package. Well Woman Plus adds abdominal and pelvic ultrasound. Menopause Health Check focuses on peri- and post-menopause with DEXA, imaging and HRT discussion where relevant.',
+        'Executive Woman is the broadest option and includes whole-body MRI, wider cancer markers, sexual health screening, cervical smear with HPV testing, audiometry and a thirty-minute follow-up.',
+      ],
+    },
+  ]}
+  faqs={[
+    { question: 'Does the Well Woman Check include hormone testing?', answer: 'Yes. It includes a female hormone profile and CA-125 ovarian screen.' },
+    { question: 'Are breast and gynaecological checks included?', answer: 'Yes. They are included with consent and discussion of clinical relevance.' },
+    { question: 'Is follow-up included?', answer: 'Yes. The Well Woman Health Check includes a free follow-up appointment.' },
+    { question: 'What is the price?', answer: 'The Well Woman Health Check is listed at £690.' },
+  ]}
+/>

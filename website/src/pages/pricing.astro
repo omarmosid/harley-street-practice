@@ -1,0 +1,107 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import BookingBand from '../components/sections/BookingBand.astro';
+import Icon from '../components/ui/Icon.astro';
+import { BOOKING_URL, SITE_URL } from '../consts';
+import { breadcrumbSchema, faqSchema, itemListSchema } from '../lib/jsonld';
+import { groupHealthChecks, healthCheckUrl, sortHealthChecks } from '../lib/health-checks';
+
+const checks = sortHealthChecks(await getCollection('healthChecks'));
+const groups = groupHealthChecks(checks);
+const title = 'Private Health Check Prices London | London Health Check';
+const description = 'Compare private health check prices on Harley Street, from £180 quick screens to Well Man, Well Woman, specialist, and executive health checks.';
+const pricingFaqs = [
+  { question: 'What is the cheapest private health check?', answer: 'The Basic Health Screen starts from £180 and is designed as a focused first-line assessment.' },
+  { question: 'Which health checks are best for annual screening?', answer: 'Many patients compare Premium, Well Man and Well Woman checks for annual preventative screening.' },
+  { question: 'Why do executive health checks cost more?', answer: 'Executive packages include a broader investigation panel, whole-body MRI, a longer appointment and a thirty-minute follow-up.' },
+  { question: 'Can I add tests to a package?', answer: 'Yes. Your doctor can advise on additional blood tests, imaging or referrals based on your history and examination findings.' },
+];
+const jsonLd = [
+  itemListSchema(checks.map((check) => ({ name: check.data.name, url: `${SITE_URL}${healthCheckUrl(check)}`, description: `${check.data.price} · ${check.data.duration}` }))),
+  faqSchema(pricingFaqs),
+  breadcrumbSchema([
+    { name: 'Home', href: '/' },
+    { name: 'Pricing', href: '/pricing' },
+  ]),
+];
+---
+
+<BaseLayout title={title} description={description} canonical={`${SITE_URL}/pricing`} jsonLd={jsonLd}>
+  <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <p class="eyebrow" data-reveal>Pricing</p>
+      <h1 class="mt-8 font-display tracking-[-0.035em] leading-[0.96] text-text-strong max-w-[12ch]" style="font-size: clamp(2.75rem, 7vw, 6.75rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
+        Private health check prices<span class="text-accent-400">.</span>
+      </h1>
+      <p class="mt-8 max-w-[64ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.6; text-wrap: pretty; --reveal-delay: 260ms;" data-reveal>
+        Clear pricing for doctor-led health checks on Harley Street. Every check includes a written report and action plan, with follow-up included where listed.
+      </p>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  {groups.map((group) => (
+    <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+      <Container class="max-w-[var(--container-page)]">
+        <div class="mb-10 md:mb-14">
+          <p class="eyebrow" data-reveal>{group.label}</p>
+          <p class="mt-5 max-w-[58ch] text-text-muted text-[15px] leading-[1.7]" data-reveal style="--reveal-delay: 100ms;">{group.lede}</p>
+        </div>
+        <div class="overflow-x-auto border-y border-border-soft" data-reveal style="--reveal-delay: 160ms;">
+          <table class="w-full min-w-[720px] text-left">
+            <thead class="border-b border-border-soft">
+              <tr class="text-[11px] font-mono uppercase tracking-[0.12em] text-text-meta">
+                <th class="py-4 pr-6 font-normal">Check</th>
+                <th class="py-4 px-6 font-normal">Price</th>
+                <th class="py-4 px-6 font-normal">Duration</th>
+                <th class="py-4 px-6 font-normal">Best for</th>
+                <th class="py-4 pl-6 font-normal">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border-soft">
+              {group.checks.map((check) => (
+                <tr>
+                  <td class="py-6 pr-6 align-top">
+                    <a href={healthCheckUrl(check)} class="font-display text-text-strong tracking-[-0.015em] hover:text-accent-600 transition-colors" style="font-size: clamp(1.25rem, 1vw + 1rem, 1.75rem); font-weight: 360; font-variation-settings: 'opsz' 72, 'SOFT' 40;">{check.data.name}</a>
+                  </td>
+                  <td class="py-6 px-6 align-top text-text-strong font-medium">{check.data.price}</td>
+                  <td class="py-6 px-6 align-top text-text-muted">{check.data.duration}</td>
+                  <td class="py-6 px-6 align-top text-text-muted max-w-[36ch]">{check.data.summary}</td>
+                  <td class="py-6 pl-6 align-top">
+                    <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-text-strong hover:text-accent-600 transition-colors">
+                      <span>Book</span>
+                      <Icon name="arrow-up-right" size={14} />
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Container>
+    </section>
+  ))}
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4"><p class="eyebrow" data-reveal>Pricing questions</p></aside>
+        <div class="lg:col-span-8 divide-y divide-border-soft border-y border-border-soft">
+          {pricingFaqs.map((faq, i) => (
+            <details class="group py-6" data-reveal style={`--reveal-delay: ${120 + i * 60}ms;`}>
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-6 text-text-strong">
+                <h2 class="font-display tracking-[-0.015em] leading-[1.2]" style="font-size: clamp(1.25rem, 1.2vw + 0.9rem, 1.75rem); font-weight: 360; font-variation-settings: 'opsz' 72, 'SOFT' 40;">{faq.question}</h2>
+                <Icon name="plus" size={18} class="mt-1 shrink-0 text-accent-600 transition-transform group-open:rotate-45" />
+              </summary>
+              <p class="mt-5 max-w-[68ch] text-text-muted text-[15px] leading-[1.7]">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <BookingBand />
+</BaseLayout>

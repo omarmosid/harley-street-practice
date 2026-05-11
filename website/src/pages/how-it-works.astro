@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import BookingBand from '../components/sections/BookingBand.astro';
+import Icon from '../components/ui/Icon.astro';
+import { BOOKING_URL, PRACTICE, SITE_URL } from '../consts';
+import { breadcrumbSchema, faqSchema, howToSchema } from '../lib/jsonld';
+
+const steps = [
+  { name: 'Choose your check', text: 'Compare the health check tiers by price, duration, and included tests. Call the clinic if you want help choosing.' },
+  { name: 'Book through HeyDoc', text: 'Use the online booking link to choose a convenient appointment, or call the clinic for support.' },
+  { name: 'Attend Harley Street', text: 'Your doctor takes a focused history, completes the relevant examination, and arranges the included tests.' },
+  { name: 'Receive your report', text: 'Your results are reviewed and summarised in a written report with a clear action plan.' },
+];
+
+const faqs = [
+  { question: 'Do I need to fast before a health check?', answer: 'Yes for checks that include blood lipids or HbA1c. We will confirm fasting requirements when you book.' },
+  { question: 'How quickly will I receive results?', answer: 'Routine blood results are typically available within one to three working days. Imaging and specialist tests may take longer.' },
+  { question: 'Can I add extra tests?', answer: 'Yes. Your doctor can advise on additional blood tests, imaging, or referrals based on your history and findings.' },
+  { question: 'Are health checks doctor-led?', answer: 'Yes. The checks are built around a doctor-led consultation, examination, interpretation, and written report.' },
+];
+
+const title = 'How Private Health Checks Work | London Health Check';
+const description = 'How to book and prepare for a private health check on Harley Street, including fasting guidance, appointment steps, results, and follow-up.';
+const jsonLd = [
+  howToSchema({ name: 'How to book a private health check', description, steps }),
+  faqSchema(faqs),
+  breadcrumbSchema([
+    { name: 'Home', href: '/' },
+    { name: 'How it works', href: '/how-it-works' },
+  ]),
+];
+---
+
+<BaseLayout title={title} description={description} canonical={`${SITE_URL}/how-it-works`} jsonLd={jsonLd}>
+  <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <p class="eyebrow" data-reveal>How it works</p>
+      <h1 class="mt-8 font-display tracking-[-0.035em] leading-[0.96] text-text-strong max-w-[12ch]" style="font-size: clamp(2.75rem, 7vw, 6.75rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
+        A clear route from booking to report<span class="text-accent-400">.</span>
+      </h1>
+      <p class="mt-8 max-w-[64ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.6; text-wrap: pretty; --reveal-delay: 260ms;" data-reveal>
+        Private health checks in London should be transparent. You choose the appropriate check, attend Harley Street, and receive a written report with doctor-led interpretation.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" data-reveal style="--reveal-delay: 340ms;">
+        <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[13px] font-medium tracking-[0.04em] uppercase transition-colors duration-300 hover:bg-accent-600">
+          <span>Book a health check</span>
+          <Icon name="arrow-up-right" size={16} />
+        </a>
+        <a href="/health-checks" class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">Compare checks</a>
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-4">
+        {steps.map((step, i) => (
+          <article class="bg-bg p-7 md:p-8" data-reveal style={`--reveal-delay: ${120 + i * 80}ms;`}>
+            <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">Step {String(i + 1).padStart(2, '0')}</p>
+            <h2 class="mt-6 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{step.name}</h2>
+            <p class="mt-5 text-text-muted text-[15px] leading-[1.7]">{step.text}</p>
+          </article>
+        ))}
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-10 lg:grid-cols-3">
+        <article class="border-t border-border-soft pt-8" data-reveal>
+          <p class="eyebrow">Preparation</p>
+          <p class="mt-6 text-text-muted text-[15px] leading-[1.7]">We will confirm fasting requirements after you book. Bring regular medicines, supplements, previous results, and relevant family history.</p>
+        </article>
+        <article class="border-t border-border-soft pt-8" data-reveal style="--reveal-delay: 100ms;">
+          <p class="eyebrow">At the clinic</p>
+          <p class="mt-6 text-text-muted text-[15px] leading-[1.7]">Your appointment is doctor-led. The examination and tests depend on the package you choose and your clinical history.</p>
+        </article>
+        <article class="border-t border-border-soft pt-8" data-reveal style="--reveal-delay: 200ms;">
+          <p class="eyebrow">Results</p>
+          <p class="mt-6 text-text-muted text-[15px] leading-[1.7]">Routine blood results are usually back within one to three working days. Imaging and specialist results may take longer.</p>
+        </article>
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4">
+          <p class="eyebrow" data-reveal>Questions</p>
+          <p class="mt-6 text-text-muted text-[15px] leading-[1.7]" data-reveal style="--reveal-delay: 120ms;">Call {PRACTICE.phone.display} if you are unsure which package fits your situation.</p>
+        </aside>
+        <div class="lg:col-span-8 divide-y divide-border-soft border-y border-border-soft">
+          {faqs.map((faq, i) => (
+            <details class="group py-6" data-reveal style={`--reveal-delay: ${120 + i * 60}ms;`}>
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-6 text-text-strong">
+                <h2 class="font-display tracking-[-0.015em] leading-[1.2]" style="font-size: clamp(1.25rem, 1.2vw + 0.9rem, 1.75rem); font-weight: 360; font-variation-settings: 'opsz' 72, 'SOFT' 40;">{faq.question}</h2>
+                <Icon name="plus" size={18} class="mt-1 shrink-0 text-accent-600 transition-transform group-open:rotate-45" />
+              </summary>
+              <p class="mt-5 max-w-[68ch] text-text-muted text-[15px] leading-[1.7]">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <BookingBand />
+</BaseLayout>

@@ -11,7 +11,7 @@ import { getCollection, render } from 'astro:content';
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
 
 export async function getStaticPaths() {
-  const services = await getCollection('services');
+  const services = (await getCollection('services')).filter((entry) => entry.id !== 'health-checks');
   return services.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },
