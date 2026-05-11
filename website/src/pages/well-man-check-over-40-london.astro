@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const primary = bySlug('well-man-health-check');
+const checks = ['well-man-health-check', 'premium-health-check', 'healthy-heart-check', 'vitals-health-check'].map(bySlug);
+---
+
+<SeoLandingLayout
+  title="Well Man Check Over 40 London | Men's Health Screening"
+  description="A guide to Well Man checks over 40 in London, including PSA, testosterone, HbA1c, ECG, lung function, cardiovascular risk and written follow-up."
+  canonicalPath="/well-man-check-over-40-london"
+  eyebrow="Well man over 40"
+  h1="Well Man Check Over 40 London"
+  lede="<strong>Well Man Check Over 40 London</strong> searches usually come from men who want to understand cardiovascular risk, metabolic health, testosterone, prostate markers and family-history risk in one doctor-led appointment."
+  primary={primary}
+  checks={checks}
+  sections={[
+    { heading: 'Why men over 40 book preventative checks', body: [
+      'The forties are a common time for men to start annual screening. Blood pressure, cholesterol, diabetes risk, family history, sleep, stress, alcohol intake and exercise patterns can all become more important when thinking about long-term risk.',
+      'The Well Man Health Check includes a full system examination, twenty-five-plus marker blood panel, HbA1c, thyroid, testosterone and PSA blood tests, prostate and testicular checks if requested, twelve-lead ECG, lung function tests, report and follow-up.',
+      'It gives your doctor a structured way to interpret results rather than treating each marker as a standalone number.'
+    ] },
+    { heading: 'Well Man vs Premium over 40', body: [
+      'Premium Health Check may be enough if you want a broad general baseline with ECG, urine analysis, blood panel and examination.',
+      'Well Man is more appropriate if male-specific markers such as testosterone and PSA are part of the reason you are booking. Healthy Heart may be worth comparing if your main concern is cardiovascular risk.'
+    ] },
+    { heading: 'What to prepare', body: [
+      'Bring medicines, supplements, family history, previous test results and any specific concerns. The clinic will confirm fasting requirements before your appointment.',
+      'If you are unsure whether PSA testing is appropriate for you, your doctor can discuss its value and limitations in context.'
+    ] },
+  ]}
+  faqs={[
+    { question: 'Does a Well Man Check over 40 include PSA?', answer: 'The Well Man Health Check includes PSA alongside testosterone, thyroid and HbA1c blood tests.' },
+    { question: 'Is 40 too early for a Well Man Check?', answer: 'No. Many men use their forties to establish a baseline and review cardiovascular and metabolic risk.' },
+    { question: 'What is the price?', answer: 'The Well Man Health Check is listed at £690.' },
+  ]}
+/>

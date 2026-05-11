@@ -20,7 +20,7 @@ includes:
   - Personalised report and action plan
 howItWorks:
   - label: Choose your appointment
-    description: Book online through HeyDoc or call the clinic if you would like help choosing the right level of check.
+    description: Book online or call the clinic if you would like help choosing the right level of check.
   - label: Attend Harley Street
     description: Your doctor reviews your history, completes the relevant examination, and arranges the included tests.
   - label: Receive your report

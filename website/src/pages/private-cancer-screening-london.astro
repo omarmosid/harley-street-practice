@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const primary = bySlug('cancer-health-check');
+const checks = ['cancer-health-check', 'executive-man-health-check', 'executive-woman-health-check', 'well-man-plus-health-check', 'well-woman-plus-health-check'].map(bySlug);
+---
+
+<SeoLandingLayout
+  title="Private Cancer Screening London | Trucheck Health Check"
+  description="Compare private cancer screening options in London, including Cancer Health Check with Trucheck and executive health checks with broader imaging."
+  canonicalPath="/private-cancer-screening-london"
+  eyebrow="Cancer screening London"
+  h1="Private Cancer Screening London"
+  lede="<strong>Private cancer screening London</strong> searches often come from people who want a structured conversation about risk, family history and screening options. London Health Check offers a dedicated Cancer Health Check using Trucheck alongside doctor-led interpretation."
+  primary={primary}
+  checks={checks}
+  sections={[
+    { heading: 'What the Cancer Health Check includes', body: [
+      'The Cancer Health Check includes a detailed medical history and examination, Trucheck multi-cancer screen, doctor-led interpretation and personalised report.',
+      'It is described for patients over 40, or over 35 with a strong family history, who want a dedicated screening appointment rather than a standalone laboratory result.',
+      'Screening does not guarantee that cancer is not present. Your doctor will explain what the test can and cannot tell you, and what follow-up would be appropriate if results or symptoms require further assessment.'
+    ] },
+    { heading: 'When to compare executive health checks', body: [
+      'Executive Man and Executive Woman include broader investigation panels and whole-body MRI. They may be relevant if you want cancer-related markers considered alongside cardiovascular, hormone, sexual health, lung function, audiometry and MRI findings.',
+      'Well Man Plus and Well Woman Plus may be useful comparisons if ultrasound imaging is the main additional investigation you want alongside a comprehensive annual check.'
+    ] },
+    { heading: 'If you have symptoms', body: [
+      'Private screening is not a substitute for urgent assessment of symptoms. If you have a new lump, unexplained weight loss, bleeding, persistent pain, change in bowel habit or other worrying symptoms, you should seek medical advice promptly rather than waiting for a screening appointment.',
+      'A doctor-led appointment can help decide whether screening, diagnostic imaging or specialist referral is most appropriate.'
+    ] },
+  ]}
+  faqs={[
+    { question: 'Can you get a full cancer check in the UK?', answer: 'You can book private cancer screening packages, but no test can check for every possible cancer or guarantee certainty. The Cancer Health Check uses Trucheck with doctor-led interpretation.' },
+    { question: 'Who is the Cancer Health Check for?', answer: 'It is described for patients over 40, or over 35 with strong family history.' },
+    { question: 'What is the price?', answer: 'The Cancer Health Check is listed at £1,450.' },
+  ]}
+/>

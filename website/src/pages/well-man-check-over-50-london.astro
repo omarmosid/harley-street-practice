@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const primary = bySlug('well-man-plus-health-check');
+const checks = ['well-man-plus-health-check', 'well-man-health-check', 'healthy-heart-check', 'executive-man-health-check'].map(bySlug);
+---
+
+<SeoLandingLayout
+  title="Well Man Check Over 50 London | Ultrasound Men's Health"
+  description="Compare Well Man checks over 50 in London, including Well Man Plus with abdominal, pelvic and scrotal ultrasound, PSA, ECG and follow-up."
+  canonicalPath="/well-man-check-over-50-london"
+  eyebrow="Well man over 50"
+  h1="Well Man Check Over 50 London"
+  lede="<strong>Well Man Check Over 50 London</strong> intent often includes prostate health, cardiovascular risk, metabolic health and whether imaging should be part of the package. Well Man Plus adds ultrasound to the core Well Man assessment."
+  primary={primary}
+  checks={checks}
+  sections={[
+    { heading: 'Why men over 50 compare broader checks', body: [
+      'After 50, many men want a more complete annual baseline, especially if there is a family history of heart disease, diabetes, prostate cancer or other long-term conditions.',
+      'Well Man Plus includes everything in the Well Man Health Check and adds abdominal, pelvic and scrotal ultrasound, usually as a separate appointment. It also includes a free fifteen-minute follow-up.',
+      'This makes it a useful comparison point if imaging is part of what you want from the check but you do not necessarily need the full Executive Man package.'
+    ] },
+    { heading: 'When to compare Healthy Heart or Executive Man', body: [
+      'Healthy Heart Check is more targeted if cardiovascular disease risk is your main concern. It includes detailed cardiac investigations such as wearable ECG monitoring, echocardiogram and carotid Doppler ultrasound.',
+      'Executive Man is broader than Well Man Plus and includes whole-body MRI, sexual health screen, stool test for blood, audiometry, ECG, lung function and a thirty-minute follow-up.'
+    ] },
+    { heading: 'Choosing proportionately', body: [
+      'A larger package is not always better. Your doctor can help decide whether Well Man, Well Man Plus, Healthy Heart or Executive Man best matches your risk factors and priorities.',
+      'The aim is a clear report and action plan, not unnecessary testing.'
+    ] },
+  ]}
+  faqs={[
+    { question: 'What does Well Man Plus add over 50?', answer: 'Well Man Plus adds abdominal, pelvic and scrotal ultrasound to the Well Man Health Check.' },
+    { question: 'Does Well Man Plus include PSA?', answer: 'Yes. It includes everything in the Well Man Health Check, including PSA blood testing.' },
+    { question: 'What is the price?', answer: 'Well Man Plus is listed at £1,280.' },
+  ]}
+/>

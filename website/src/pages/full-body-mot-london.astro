@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const primary = bySlug('premium-health-check');
+const checks = ['premium-health-check', 'well-man-health-check', 'well-woman-health-check', 'well-man-plus-health-check', 'well-woman-plus-health-check', 'executive-woman-health-check'].map(bySlug);
+---
+
+<SeoLandingLayout
+  title="Full Body MOT London | Private Health MOT Harley Street"
+  description="Compare Full Body MOT options in London, from Premium Health Check to Well Man, Well Woman, Plus and Executive packages at 66 Harley Street."
+  canonicalPath="/full-body-mot-london"
+  eyebrow="Full body MOT London"
+  h1="Full Body MOT London"
+  lede="<strong>Full Body MOT London</strong> is the phrase many people use for a broad private health check. At London Health Check, we use clear package names and transparent pricing so you can compare what is actually included before booking."
+  primary={primary}
+  checks={checks}
+  sections={[
+    { heading: 'What a Full Body MOT should include', body: [
+      'A Full Body MOT should not be a vague promise. It should tell you which examinations, blood tests, urine tests, ECG, lung function, imaging and follow-up are included.',
+      'For many patients, Premium Health Check is the most practical starting point. It includes cardiovascular, respiratory, abdominal and ENT examinations, oxygen saturation, comprehensive blood panel, urine analysis, ECG and cardiovascular risk calculation.',
+      'If you want sex-specific screening, compare Well Man or Well Woman. If you want ultrasound, compare Plus packages. If you want whole-body MRI, compare Executive Man or Executive Woman.'
+    ] },
+    { heading: 'Full Body MOT vs full body health check', body: [
+      'These terms are often used interchangeably. “Full Body MOT” is the everyday phrase; “full body health check” is the more formal phrase. What matters is not the wording but the actual test list and clinical interpretation.',
+      'You can also compare our guide to <a href="/full-body-health-check-london">full body health checks in London</a>, which explains when imaging such as ultrasound or whole-body MRI may be relevant.'
+    ] },
+    { heading: 'Avoiding unnecessary testing', body: [
+      'More tests can sometimes mean more incidental findings and more anxiety. A doctor-led check helps keep the package proportionate to your age, history, family history and priorities.',
+      'If you are unsure, call before booking and ask which package is the most sensible starting point.'
+    ] },
+  ]}
+  faqs={[
+    { question: 'How much does a Full Body MOT cost in London?', answer: 'At London Health Check, broad health checks start from £180, with Premium at £255, Well Man and Well Woman at £690, and executive packages at higher prices.' },
+    { question: 'Does a Full Body MOT include scans?', answer: 'Some packages include imaging and some do not. Plus packages add ultrasound; Executive packages include whole-body MRI.' },
+    { question: 'Is Full Body MOT the same as a private health check?', answer: 'Usually yes. Full Body MOT is the common phrase; private health check is the clinical description.' },
+  ]}
+/>

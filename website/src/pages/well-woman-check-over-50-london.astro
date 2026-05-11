@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const primary = bySlug('menopause-health-check');
+const checks = ['menopause-health-check', 'well-woman-health-check', 'well-woman-plus-health-check', 'healthy-heart-check'].map(bySlug);
+---
+
+<SeoLandingLayout
+  title="Well Woman Check Over 50 London | Menopause Health Review"
+  description="Compare Well Woman and Menopause Health Check options for women over 50 in London, including hormone, bone, cardiovascular and imaging considerations."
+  canonicalPath="/well-woman-check-over-50-london"
+  eyebrow="Well woman over 50"
+  h1="Well Woman Check Over 50 London"
+  lede="<strong>Well Woman Check Over 50 London</strong> intent often overlaps with menopause, bone health, cardiovascular risk and screening history. For many women in this age group, the Menopause Health Check or Well Woman Health Check is the most relevant comparison."
+  primary={primary}
+  checks={checks}
+  sections={[
+    { heading: 'What changes around 50', body: [
+      'Around 50, preventative screening often becomes less about a single symptom and more about the whole pattern: hormones, sleep, mood, weight, blood pressure, cholesterol, bone health, pelvic symptoms and family history.',
+      'The Menopause Health Check includes hormone and wellness blood tests, cardiovascular and bone health review with DEXA scan, pelvic ultrasound, breast imaging and a personalised plan including HRT discussion where relevant.',
+      'Well Woman remains a strong option if you want a comprehensive annual female health check with breast and gynaecological checks, hormone profile, CA-125, ECG, lung function and follow-up.'
+    ] },
+    { heading: 'Which package is the best fit?', body: [
+      'Choose Well Woman if your priority is a broad annual women’s health screen. Choose Menopause Health Check if peri-menopause or post-menopause symptoms, bone health, imaging and HRT discussion are the main focus.',
+      'Well Woman Plus may be worth comparing if you specifically want abdominal and pelvic ultrasound added to the Well Woman package.'
+    ] },
+    { heading: 'What to bring', body: [
+      'Bring your cervical screening history, breast screening history, medicines, HRT history if any, family history and previous results. The more context your doctor has, the more useful the report will be.',
+      'The clinic will confirm fasting or scan-specific preparation after booking.'
+    ] },
+  ]}
+  faqs={[
+    { question: 'Is Menopause Health Check better than Well Woman over 50?', answer: 'It depends on your priorities. Menopause Health Check is more focused on hormones, bone health and menopause-related planning; Well Woman is a broader annual female health screen.' },
+    { question: 'Does the Menopause Health Check include DEXA?', answer: 'Yes. It includes cardiovascular and bone health review with DEXA scan.' },
+    { question: 'Does the Well Woman Health Check include CA-125?', answer: 'Yes. Well Woman includes a female hormone profile and CA-125 ovarian screen.' },
+  ]}
+/>

@@ -31,6 +31,9 @@ export function medicalClinicSchema(offers: OfferItem[] = []) {
       'Harley Street Health Check',
       'Health Screening London',
       'Private Health Screening London',
+      'Full Body MOT London',
+      'Health Screening London Harley Street',
+      'Health Check Harley Street',
     ],
     url: SITE_URL,
     telephone: PRACTICE.phone.display,
@@ -80,6 +83,10 @@ export function medicalClinicSchema(offers: OfferItem[] = []) {
       'Cancer screening',
       'Cardiovascular risk assessment',
       'Preventative medicine',
+      'Full Body MOT London',
+      'Cancer screening London',
+      'Well Man check over 40',
+      'Well Woman check over 50',
     ],
     ...(offers.length > 0 && {
       hasOfferCatalog: {
@@ -251,6 +258,7 @@ export function medicalWebPageSchema(page: {
   name: string;
   description: string;
   url: string;
+  speakableSelectors?: string[];
 }) {
   return {
     '@context': 'https://schema.org',
@@ -268,6 +276,12 @@ export function medicalWebPageSchema(page: {
       '@type': 'WebPageElement',
       cssSelector: 'main',
     },
+    ...(page.speakableSelectors && {
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: page.speakableSelectors,
+      },
+    }),
   };
 }
 

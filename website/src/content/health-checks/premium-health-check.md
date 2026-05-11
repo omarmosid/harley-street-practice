@@ -24,7 +24,7 @@ includes:
   - Personalised report and action plan
 howItWorks:
   - label: Book your health check
-    description: Use HeyDoc to choose a time, or call if you want advice before booking.
+    description: Choose a time online, or call if you want advice before booking.
   - label: Meet your doctor
     description: The appointment combines a focused medical history, physical examination, ECG, urine analysis, and blood testing.
   - label: Understand your results

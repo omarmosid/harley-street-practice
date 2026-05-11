@@ -38,6 +38,10 @@ faqs:
     answer: Yes. They are included as part of the listed package, with consent and clinical discussion.
   - question: How does this differ from Menopause Health Check?
     answer: Menopause Health Check is a specialist package with menopause-focused blood tests, imaging, DEXA scan, and HRT discussion where relevant.
+  - question: What does a Well Woman check include?
+    answer: The Well Woman Health Check includes a full system examination, breast and gynaecological checks, broad blood panel, female hormone profile, CA-125 ovarian screen, twelve-lead ECG, lung function tests, written report and follow-up.
+  - question: How long does a Well Woman check take?
+    answer: The Well Woman Health Check is listed as a 60-minute appointment, with follow-up included to discuss results.
 related:
   - well-woman-plus-health-check
   - menopause-health-check

@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const primary = bySlug('well-woman-plus-health-check');
+const checks = ['well-woman-plus-health-check', 'menopause-health-check', 'healthy-heart-check', 'executive-woman-health-check'].map(bySlug);
+---
+
+<SeoLandingLayout
+  title="Well Woman Check Over 60 London | Ultrasound & Screening"
+  description="Compare Well Woman Check options over 60 in London, including ultrasound-supported Well Woman Plus, Menopause Health Check, Healthy Heart and Executive Woman packages."
+  canonicalPath="/well-woman-check-over-60-london"
+  eyebrow="Well woman over 60"
+  h1="Well Woman Check Over 60 London"
+  lede="<strong>Well Woman Check Over 60 London</strong> searches often involve broader screening priorities: cardiovascular health, bone health, pelvic imaging, breast imaging and a clear plan for follow-up. Well Woman Plus is a useful starting comparison because it adds ultrasound to the core Well Woman package."
+  primary={primary}
+  checks={checks}
+  sections={[
+    { heading: 'Why screening priorities change after 60', body: [
+      'After 60, preventative health checks often focus more strongly on cardiovascular risk, metabolic health, bone health, cancer screening history, medication review and whether symptoms need targeted investigation.',
+      'Well Woman Plus includes everything in the Well Woman Health Check and adds abdominal and pelvic ultrasound, usually as a separate appointment. This can be useful if imaging is part of what you want from the check.',
+      'The Menopause Health Check may be better if bone health, DEXA scan, pelvic ultrasound, breast imaging and HRT discussion are the core questions.'
+    ] },
+    { heading: 'When to compare Healthy Heart or Executive Woman', body: [
+      'Healthy Heart Check is a specialist cardiovascular package. It is worth comparing if your main concern is heart disease risk, family history or cardiac screening rather than general women’s health alone.',
+      'Executive Woman is the broadest package, including whole-body MRI, wider hormone and cancer-marker panel, cervical smear with HPV testing, ECG, lung function, audiometry and a longer follow-up.'
+    ] },
+    { heading: 'Doctor-led interpretation matters', body: [
+      'More tests are not automatically better. As screening becomes broader, interpretation becomes more important. Your doctor can explain what is reassuring, what needs monitoring and what should be referred onwards.',
+      'A written report helps you keep a clear record of results and next steps.'
+    ] },
+  ]}
+  faqs={[
+    { question: 'What is the best Well Woman Check over 60?', answer: 'There is no single best package. Well Woman Plus, Menopause Health Check, Healthy Heart and Executive Woman each suit different priorities.' },
+    { question: 'Does Well Woman Plus include ultrasound?', answer: 'Yes. It adds abdominal and pelvic ultrasound to the Well Woman Health Check.' },
+    { question: 'Should I choose Executive Woman instead?', answer: 'Executive Woman is broader and includes whole-body MRI, but it is not necessary for everyone. It is best compared if you want the broadest screening package.' },
+  ]}
+/>

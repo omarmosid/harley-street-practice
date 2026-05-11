@@ -70,8 +70,8 @@ const jsonLd = [
                   <td class="py-6 px-6 align-top text-text-muted">{check.data.duration}</td>
                   <td class="py-6 px-6 align-top text-text-muted max-w-[36ch]">{check.data.summary}</td>
                   <td class="py-6 pl-6 align-top">
-                    <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-text-strong hover:text-accent-600 transition-colors">
-                      <span>Book</span>
+                    <a href={healthCheckUrl(check)} class="inline-flex items-center gap-2 text-text-strong hover:text-accent-600 transition-colors">
+                      <span>See the {check.data.name}</span>
                       <Icon name="arrow-up-right" size={14} />
                     </a>
                   </td>

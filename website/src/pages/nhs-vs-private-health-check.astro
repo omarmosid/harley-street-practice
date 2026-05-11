@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const primary = bySlug('premium-health-check');
+const checks = ['premium-health-check', 'well-man-health-check', 'well-woman-health-check', 'vitals-health-check', 'healthy-heart-check'].map(bySlug);
+---
+
+<SeoLandingLayout
+  title="NHS vs Private Health Check | London Guide"
+  description="A fair guide to NHS Health Checks vs private health checks in London, including eligibility, appointment time, tests, scans, reports and follow-up."
+  canonicalPath="/nhs-vs-private-health-check"
+  eyebrow="NHS vs private"
+  h1="NHS vs Private Health Check"
+  lede="<strong>NHS vs private health check</strong> is not a question of good versus bad. NHS Health Checks are valuable public-health assessments for eligible people. Private health checks add choice, speed, appointment time and broader testing for people who want a more detailed review."
+  primary={primary}
+  checks={checks}
+  sections={[
+    { heading: 'What an NHS Health Check is for', body: [
+      'The NHS Health Check is designed to assess risk of conditions such as heart disease, stroke, type 2 diabetes and kidney disease in eligible adults. It is an important public-health service and can be the right starting point for many people.',
+      'Eligibility, frequency and availability depend on NHS criteria and local arrangements. It is not designed to be a comprehensive private medical, and it does not usually include broad imaging or highly personalised package selection.'
+    ] },
+    { heading: 'What a private health check adds', body: [
+      'A private health check can offer longer appointment time, package choice, broader blood panels, ECG, lung function, ultrasound, MRI or specialist screening depending on the package.',
+      'It also gives you a written report and action plan, with follow-up included in many packages. This can be helpful if you want all findings interpreted together rather than receiving isolated results.'
+    ] },
+    { heading: 'How to choose between them', body: [
+      'If you are eligible for an NHS Health Check, it can be a useful baseline. If you want a broader review, faster appointment, sex-specific screening, imaging or more time with a doctor, a private health check may be appropriate.',
+      'The two options can complement each other. A private check is not a replacement for NHS care, emergency care or symptom-led assessment.'
+    ] },
+  ]}
+  faqs={[
+    { question: 'Is a private health check better than an NHS Health Check?', answer: 'Not automatically. NHS Health Checks are valuable for eligible people. Private checks add breadth, speed, package choice and more detailed reporting.' },
+    { question: 'Does an NHS Health Check include prostate testing?', answer: 'NHS Health Checks are not usually designed as prostate screening appointments. Private Well Man packages may include PSA where listed.' },
+    { question: 'Can I have both?', answer: 'Yes. Many people use NHS services and private screening for different reasons.' },
+  ]}
+/>

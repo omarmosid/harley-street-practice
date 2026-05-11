@@ -4,6 +4,8 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
 import BookingBand from '../components/sections/BookingBand.astro';
+import CredentialsStrip from '../components/sections/CredentialsStrip.astro';
+import DoctorCredibility from '../components/sections/DoctorCredibility.astro';
 import Icon from '../components/ui/Icon.astro';
 import harleyStreet from '../assets/images/harley-street.jpg';
 import { BOOKING_URL, OPERATOR, PRACTICE, SITE_URL } from '../consts';
@@ -38,7 +40,7 @@ const homeFaqs = [
   },
   {
     question: 'Where can I book a private health check in London?',
-    answer: 'Appointments take place at 66 Harley Street, London W1G 7HD, operated by London Harley Street Practice. You can book online through HeyDoc or call the clinic.',
+    answer: 'Appointments take place at 66 Harley Street, London W1G 7HD, operated by London Harley Street Practice. You can book online or call the clinic.',
   },
   {
     question: 'What is included in a full health check?',
@@ -69,7 +71,7 @@ const jsonLd = [
   itemListSchema(checks.map((check) => ({ name: check.data.name, url: `${SITE_URL}${healthCheckUrl(check)}`, description: check.data.summary }))),
   breadcrumbSchema([{ name: 'Home', href: '/' }]),
   faqSchema(homeFaqs),
-  medicalWebPageSchema({ name: title, description, url: SITE_URL }),
+  medicalWebPageSchema({ name: title, description, url: SITE_URL, speakableSelectors: ['#home-faqs'] }),
 ];
 ---
 
@@ -80,10 +82,10 @@ const jsonLd = [
         <div class="lg:col-span-8">
           <p class="eyebrow" data-reveal>By {OPERATOR.name}</p>
           <h1 class="mt-8 font-display tracking-[-0.04em] leading-[0.94] text-text-strong max-w-[12ch]" style="font-size: clamp(3rem, 8vw, 7.75rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
-            Private health checks in London — Harley Street<span class="text-accent-400">.</span>
+            Private health checks in London, on Harley Street<span class="text-accent-400">.</span>
           </h1>
           <p class="mt-8 md:mt-10 max-w-[64ch] text-ink-700" style="font-size: clamp(1.125rem, 0.6vw + 1rem, 1.35rem); line-height: 1.55; text-wrap: pretty; --reveal-delay: 260ms;" data-reveal>
-            <strong>Private health checks in London</strong>, from focused health screens to Well Man, Well Woman, specialist, and executive medicals at 66 Harley Street.
+            <strong>Private health checks in London</strong>, sometimes called a Full Body MOT or health MOT, from focused health screens to Well Man, Well Woman, specialist, and executive medicals at 66 Harley Street.
           </p>
           <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" data-reveal style="--reveal-delay: 340ms;">
             <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-3 bg-ink-900 text-bg px-7 py-4 rounded-[2px] text-[13px] font-medium tracking-[0.04em] uppercase transition-colors duration-300 hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-4 focus-visible:ring-offset-bg">
@@ -121,7 +123,26 @@ const jsonLd = [
     </Container>
   </section>
 
-  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <CredentialsStrip />
+
+  <section class="relative bg-bg pt-10 md:pt-14 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <nav class="flex flex-wrap gap-3" aria-label="Health check shortcuts" data-reveal>
+        {[
+          ['Quick screens', '/health-checks#quick-screens'],
+          ['Comprehensive', '/health-checks#comprehensive-checks'],
+          ['Specialist', '/health-checks#specialist-checks'],
+          ['Executive', '/health-checks#executive-checks'],
+          ['Pricing', '/pricing'],
+          ['FAQs', '#home-faqs'],
+        ].map(([label, href]) => (
+          <a href={href} class="border border-border-soft px-4 py-2 text-[13px] text-text-muted hover:text-text-strong hover:border-accent-400 transition-colors">{label}</a>
+        ))}
+      </nav>
+    </Container>
+  </section>
+
+  <section id="home-faqs" class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0 scroll-mt-28">
     <Container class="max-w-[var(--container-page)]">
       <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-3">
         {[
@@ -139,6 +160,8 @@ const jsonLd = [
       <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
     </Container>
   </section>
+
+  <DoctorCredibility />
 
   <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
     <Container class="max-w-[var(--container-page)]">
@@ -247,7 +270,7 @@ const jsonLd = [
           <p class="mt-6 text-text-muted text-[15px] leading-[1.7]" data-reveal style="--reveal-delay: 120ms;">Your check is designed to lead to a clear written report, not a pile of unexplained numbers.</p>
         </div>
         <div class="lg:col-span-7 grid gap-px bg-border-soft border border-border-soft md:grid-cols-2">
-          {['Choose your check', 'Book through HeyDoc', 'Attend Harley Street', 'Receive your report'].map((step, i) => (
+          {['Choose your check', 'Book online', 'Attend Harley Street', 'Receive your report'].map((step, i) => (
             <article class="bg-bg p-7 md:p-8" data-reveal style={`--reveal-delay: ${120 + i * 80}ms;`}>
               <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">Step {String(i + 1).padStart(2, '0')}</p>
               <h3 class="mt-6 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{step}</h3>
@@ -271,7 +294,7 @@ const jsonLd = [
         <div class="lg:col-span-7" data-reveal style="--reveal-delay: 120ms;">
           <p class="eyebrow">Operated by {OPERATOR.name}</p>
           <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02] max-w-[15ch]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;">A dedicated health check site, backed by a Harley Street practice.</h2>
-          <p class="mt-8 max-w-[58ch] text-text-muted text-[15px] leading-[1.7]">London Health Check is the dedicated preventative screening site operated by London Harley Street Practice. Appointments take place at 66 Harley Street, with booking handled through HeyDoc.</p>
+          <p class="mt-8 max-w-[58ch] text-text-muted text-[15px] leading-[1.7]">London Health Check is the dedicated preventative screening site operated by London Harley Street Practice. Appointments take place at 66 Harley Street and can be booked online.</p>
           <p class="mt-8"><a href="/about" class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">About the clinic</a></p>
         </div>
       </div>

@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+import drBachelani from '../../assets/team/ahmed-bachelani.png';
+
+type Props = {
+  compact?: boolean;
+};
+
+const { compact = false } = Astro.props;
+---
+
+<section class:list={['relative bg-bg pb-0', compact ? 'pt-14 md:pt-20' : 'pt-16 md:pt-28 lg:pt-36']}>
+  <Container class="max-w-[var(--container-page)]">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-16 items-center border-y border-border-soft py-10 md:py-14">
+      <div class="lg:col-span-4" data-reveal>
+        <figure class="grid grid-cols-[96px_1fr] items-center gap-5 md:block">
+          <div class="relative aspect-square overflow-hidden border border-border-soft bg-bg-soft md:w-44 md:aspect-[4/5]">
+            <Image
+              src={drBachelani}
+              alt="Dr Ahmed Bachelani"
+              class="h-full w-full object-cover grayscale-[8%]"
+              loading="lazy"
+              widths={[160, 240, 360, 520]}
+              sizes="(min-width: 1024px) 14vw, 96px"
+            />
+          </div>
+          <figcaption class="md:mt-5">
+            <p class="font-display text-text-strong tracking-[-0.015em] leading-[1.05]" style="font-size: clamp(1.5rem, 2vw, 2.25rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">Dr Ahmed Bachelani</p>
+            <p class="mt-2 text-[13px] font-mono uppercase tracking-[0.1em] text-text-meta">Medical Director · GP</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="lg:col-span-8" data-reveal style="--reveal-delay: 140ms;">
+        <p class="eyebrow">Doctor-led interpretation</p>
+        <h2 class="mt-7 font-display text-text-strong tracking-[-0.025em] leading-[1.02] max-w-[18ch]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;">
+          Results reviewed in clinical context.
+        </h2>
+        <p class="mt-7 max-w-[66ch] text-text-muted text-[15px] leading-[1.75]">
+          Health checks are most useful when results are interpreted by an experienced doctor. Dr Ahmed Bachelani is Medical Director and a General Practitioner at London Harley Street Practice, with over 25 years of medical expertise and qualifications including MBBS, MRCP, MRCGP, DOccMed and BSc.
+        </p>
+        <div class="mt-8 grid gap-4 md:grid-cols-3">
+          {['Over 25 years medical expertise', 'Member of RCP and RCGP', 'Occupational health experience'].map((item) => (
+            <p class="flex gap-3 text-[14px] text-text-strong leading-[1.5]">
+              <Icon name="check-circle" size={18} class="mt-0.5 shrink-0 text-accent-600" />
+              <span>{item}</span>
+            </p>
+          ))}
+        </div>
+        <p class="mt-8">
+          <a href="/team" class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">Read about the clinical team</a>
+        </p>
+      </div>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import SeoLandingLayout from '../layouts/SeoLandingLayout.astro';
+import { healthCheckSlug, sortHealthChecks } from '../lib/health-checks';
+
+const all = sortHealthChecks(await getCollection('healthChecks'));
+const bySlug = (slug: string) => all.find((check) => healthCheckSlug(check) === slug)!;
+const primary = bySlug('well-woman-health-check');
+const checks = ['well-woman-health-check', 'premium-health-check', 'well-woman-plus-health-check', 'menopause-health-check'].map(bySlug);
+---
+
+<SeoLandingLayout
+  title="Well Woman Check Over 40 London | Harley Street"
+  description="A guide to Well Woman checks over 40 in London, including hormone profile, CA-125, ECG, lung function, written report and follow-up at 66 Harley Street."
+  canonicalPath="/well-woman-check-over-40-london"
+  eyebrow="Well woman over 40"
+  h1="Well Woman Check Over 40 London"
+  lede="<strong>Well Woman Check Over 40 London</strong> searches usually come from women who want a broader preventative baseline than a routine appointment. At London Health Check, the Well Woman Health Check brings general health, female health markers and cardiovascular screening into one doctor-led appointment."
+  primary={primary}
+  checks={checks}
+  sections={[
+    { heading: 'Why women over 40 often book a health check', body: [
+      'The forties are a common time to take stock. Work, family, sleep, stress, menstrual change, blood pressure, cholesterol and family history can all become more relevant when thinking about long-term health.',
+      'A Well Woman Check over 40 is not about assuming something is wrong. It is a structured way to establish a baseline, discuss risk factors and decide whether any screening or follow-up should happen sooner rather than later.',
+      'The Well Woman Health Check includes a full system examination, breast and gynaecological checks, a twenty-five-plus marker blood panel, female hormone profile, CA-125 ovarian screen, twelve-lead ECG, lung function tests, written report and free follow-up.',
+    ] },
+    { heading: 'Well Woman vs Premium at this age', body: [
+      'Premium Health Check may suit women over 40 who want a broad general screen without a female-health focus. It includes cardiovascular, respiratory, abdominal and ENT examinations, urine analysis, ECG and blood markers.',
+      'Well Woman is more appropriate if you want breast and gynaecological checks, female hormone profile and CA-125 included. The right choice depends on your screening history, symptoms, family history and what you want the appointment to answer.',
+    ] },
+    { heading: 'Preparing for your appointment', body: [
+      'Bring details of medicines, supplements, previous screening, family history and the date of your last period if relevant. The clinic will confirm whether fasting is needed for blood markers.',
+      'If you are unsure whether Well Woman, Well Woman Plus or Menopause Health Check is the right level, call before booking. A smaller, well-chosen package is often better than an unnecessarily broad one.',
+    ] },
+  ]}
+  faqs={[
+    { question: 'What does a Well Woman Check over 40 include?', answer: 'The Well Woman Health Check includes examination, breast and gynaecological checks, blood panel, female hormone profile, CA-125, ECG, lung function, report and follow-up.' },
+    { question: 'Is 40 too early for a private Well Woman Check?', answer: 'No. Many women use the forties to establish a baseline and discuss family history, cardiovascular risk, hormones and screening history.' },
+    { question: 'How much does it cost?', answer: 'The Well Woman Health Check is listed at £690.' },
+  ]}
+/>

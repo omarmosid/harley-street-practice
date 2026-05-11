@@ -37,6 +37,10 @@ faqs:
     answer: They are included if requested. Your doctor will discuss comfort, consent, and clinical relevance.
   - question: How does this differ from Executive Man?
     answer: Executive Man is a longer, broader package that includes whole-body MRI and a wider investigation panel.
+  - question: What do they do in a Well Man check?
+    answer: The Well Man Health Check includes a full system examination, broad blood panel, male-focused markers including PSA and testosterone, twelve-lead ECG, lung function tests, written report and follow-up.
+  - question: How often should I have a Well Man check?
+    answer: Many patients use it as an annual baseline, but the right timing depends on age, family history, symptoms, risk factors and previous results.
 related:
   - well-man-plus-health-check
   - executive-man-health-check
