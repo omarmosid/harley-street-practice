@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../../ui/Container.astro';
+import Icon from '../../ui/Icon.astro';
+import { BOOKING_URL } from '../../../consts';
+import { healthCheckUrl } from '../../../lib/health-checks';
+
+type Props = { checks: CollectionEntry<'healthChecks'>[] };
+const { checks } = Astro.props;
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+    <div class="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+      <div>
+        <p class="eyebrow" data-reveal>Compare packages</p>
+        <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02] max-w-[15ch]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;" data-reveal>Compare our health checks.</h2>
+      </div>
+      <a href="/pricing" class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors" data-reveal>Full pricing</a>
+    </div>
+
+    <div class="md:hidden grid gap-px bg-border-soft border border-border-soft" data-reveal style="--reveal-delay: 160ms;">
+      {checks.map((check) => (
+        <article class="bg-bg p-6">
+          <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">{check.data.price} · {check.data.duration}</p>
+          <h3 class="mt-5 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.45rem, 6vw, 2rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{check.data.name}</h3>
+          <ul class="mt-5 space-y-2 text-[14px] text-text-muted leading-[1.55]">
+            {check.data.includes.slice(0, 3).map((item) => <li class="flex gap-2"><Icon name="check" size={15} class="text-accent-600 mt-1 shrink-0" /> <span>{item}</span></li>)}
+          </ul>
+          <div class="mt-7 flex flex-wrap gap-4">
+            <a href={healthCheckUrl(check)} class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">See the {check.data.name}</a>
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-accent-600 transition-colors">Book</a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="hidden md:block overflow-x-auto border-y border-border-soft" data-reveal style="--reveal-delay: 160ms;">
+      <table class="w-full min-w-[760px] text-left">
+        <thead class="border-b border-border-soft">
+          <tr class="text-[11px] font-mono uppercase tracking-[0.12em] text-text-meta">
+            <th class="py-4 pr-6 font-normal">Health check</th>
+            <th class="py-4 px-6 font-normal">Price</th>
+            <th class="py-4 px-6 font-normal">Duration</th>
+            <th class="py-4 px-6 font-normal">Includes</th>
+            <th class="py-4 pl-6 font-normal">Book</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border-soft">
+          {checks.map((check) => (
+            <tr>
+              <td class="py-6 pr-6 align-top"><a href={healthCheckUrl(check)} class="font-display text-text-strong tracking-[-0.015em] hover:text-accent-600 transition-colors" style="font-size: clamp(1.2rem, 1vw + 1rem, 1.65rem); font-weight: 360; font-variation-settings: 'opsz' 72, 'SOFT' 40;">{check.data.name}</a></td>
+              <td class="py-6 px-6 align-top text-text-strong font-medium">{check.data.price}</td>
+              <td class="py-6 px-6 align-top text-text-muted">{check.data.duration}</td>
+              <td class="py-6 px-6 align-top text-text-muted max-w-[36ch]"><ul class="space-y-1.5">{check.data.includes.slice(0, 3).map((item) => <li>{item}</li>)}</ul></td>
+              <td class="py-6 pl-6 align-top"><a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-text-strong hover:text-accent-600 transition-colors"><span>Book</span><Icon name="arrow-up-right" size={14} /></a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </Container>
+</section>

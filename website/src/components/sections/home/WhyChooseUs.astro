@@ -1,0 +1,37 @@
+---
+import Container from '../../ui/Container.astro';
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+    <div class="mb-12 md:mb-16 max-w-[70ch]">
+      <p class="eyebrow" data-reveal>Why choose us</p>
+      <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;" data-reveal>Doctor-led screening, clear interpretation, and practical next steps.</h2>
+    </div>
+    <div class="grid gap-px bg-border-soft border border-border-soft lg:grid-cols-2">
+      <article class="bg-bg p-7 md:p-10" data-reveal>
+        <p class="eyebrow">Why early detection matters</p>
+        <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02]" style="font-size: clamp(2rem, 4vw, 3.75rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;">A health check is only useful if it leads to clarity.</h2>
+        <p class="mt-7 text-text-muted text-[15px] leading-[1.75]">Screening can help identify risk markers before symptoms are obvious, but the value is in understanding what the results mean. Your report should give context, priorities and next steps.</p>
+      </article>
+      <article class="bg-bg p-7 md:p-10" data-reveal style="--reveal-delay: 120ms;">
+        <p class="eyebrow">Evidence-based care</p>
+        <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02]" style="font-size: clamp(2rem, 4vw, 3.75rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;">Doctor-led, not algorithm-led.</h2>
+        <p class="mt-7 text-text-muted text-[15px] leading-[1.75]">A clinician reviews your history, performs the examination and interprets investigations in context, so your report is connected to a clear care plan.</p>
+      </article>
+    </div>
+    <div class="grid gap-px bg-border-soft border-x border-b border-border-soft sm:grid-cols-2 lg:grid-cols-4" data-reveal style="--reveal-delay: 180ms;">
+      {[
+        ['2003', 'Practice established'],
+        ['£180', 'Entry checks from'],
+        ['66', 'Harley Street address'],
+        ['Online', 'Booking available'],
+      ].map(([value, label]) => (
+        <div class="bg-bg-soft p-6 md:p-7">
+          <p class="font-display text-text-strong tracking-[-0.025em]" style="font-size: clamp(2rem, 3vw, 3rem); font-weight: 340; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{value}</p>
+          <p class="mt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-text-meta">{label}</p>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

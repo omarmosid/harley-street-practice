@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../../ui/Container.astro';
+import Icon from '../../ui/Icon.astro';
+import { healthCheckUrl } from '../../../lib/health-checks';
+
+type HealthCheck = CollectionEntry<'healthChecks'>;
+type Props = { checks: HealthCheck[] };
+const { checks } = Astro.props;
+const specialistSlugs = ['cancer-health-check', 'healthy-heart-check', 'menopause-health-check', 'sports-health-check'];
+const specialists = specialistSlugs.map((slug) => checks.find((check) => check.id === slug)).filter(Boolean);
+const chips = ['Lung', 'Breast', 'Bowel', 'Prostate', 'Gynaecological', 'Testicular'];
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <aside class="lg:col-span-4">
+        <p class="eyebrow" data-reveal>Specialist screening</p>
+        <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;" data-reveal>Cancer and focused health concerns.</h2>
+        <p class="mt-6 text-text-muted text-[15px] leading-[1.7]" data-reveal style="--reveal-delay: 120ms;">If you have a specific concern, start with the appropriate specialist check and speak to the clinic before booking.</p>
+        <div class="mt-8 flex flex-wrap gap-2" data-reveal style="--reveal-delay: 180ms;">
+          {chips.map((chip) => <a href={`/private-cancer-screening-london#${chip.toLowerCase()}`} class="border border-border-soft px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-text-meta hover:border-accent-400 hover:text-text-strong transition-colors">{chip}</a>)}
+        </div>
+      </aside>
+      <div class="lg:col-span-8 grid gap-px bg-border-soft border border-border-soft md:grid-cols-2">
+        {specialists.map((check, i) => (
+          <a href={healthCheckUrl(check)} class="group bg-bg p-7 md:p-8 transition-colors hover:bg-bg-soft" data-reveal style={`--reveal-delay: ${140 + i * 70}ms;`}>
+            <Icon name="heart" size={24} class="text-accent-600 mb-8" />
+            <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">{check.data.price} · {check.data.duration}</p>
+            <h3 class="mt-5 font-display text-text-strong tracking-[-0.02em] leading-[1.08] group-hover:text-accent-600 transition-colors" style="font-size: clamp(1.45rem, 2vw, 2.1rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{check.data.name}</h3>
+            <p class="mt-5 text-text-muted text-[15px] leading-[1.65]">{check.data.summary}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>

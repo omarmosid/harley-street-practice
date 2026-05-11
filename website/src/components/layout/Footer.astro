@@ -3,7 +3,7 @@
 import Container from '../ui/Container.astro';
 import Icon from '../ui/Icon.astro';
 import Logo from './Logo.astro';
-import { OPERATOR, PRACTICE, SITE_NAME } from '../../consts';
+import { PRACTICE, SITE_NAME } from '../../consts';
 
 const year = new Date().getFullYear();
 
@@ -19,6 +19,7 @@ const healthChecks = [
 const practice = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'About', href: '/about' },
+  { label: 'Team', href: '/team' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -43,7 +44,7 @@ const legal = [
         <Logo height={64} />
 
         <p class="mt-6 max-w-sm text-[15px] text-text-muted leading-[1.65]">
-          {SITE_NAME} is a dedicated private health check website operated by <a href={OPERATOR.url} target="_blank" rel="noopener noreferrer" class="text-text-strong hover:text-accent-600 transition-colors">{OPERATOR.name}</a> at 66 Harley Street.
+          Private health checks, written reports and clear next steps from 66 Harley Street.
         </p>
 
         <ul class="mt-8 space-y-2.5 text-[14px] text-text">
@@ -103,7 +104,7 @@ const legal = [
 
     <hr class="hairline mt-20" />
     <div class="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[12px] text-text-meta">
-      <p>&copy; {year} {SITE_NAME}. Operated by {OPERATOR.name}. Registered in England.</p>
+      <p>&copy; {year} {SITE_NAME}. Registered in England.</p>
       <ul class="flex flex-wrap items-center gap-x-6 gap-y-2">
         {legal.map((item) => (
           <li><a href={item.href} class="hover:text-text-strong transition-colors">{item.label}</a></li>

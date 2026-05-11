@@ -1,0 +1,21 @@
+---
+import Container from '../../ui/Container.astro';
+---
+
+<section class="relative bg-bg pt-10 md:pt-14 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+    <div class="grid gap-px bg-border-soft border border-border-soft lg:grid-cols-12" data-reveal>
+      <div class="bg-bg-soft p-7 md:p-9 lg:col-span-7">
+        <p class="eyebrow">Continuity of care</p>
+        <p class="mt-6 font-display text-text-strong tracking-[-0.025em] leading-[1.08]" style="font-size: clamp(1.75rem, 3.5vw, 3.5rem); font-weight: 340; font-variation-settings: 'opsz' 120, 'SOFT' 40; text-wrap: balance;">
+          Results are only useful when you know what to do next.
+        </p>
+      </div>
+      <div class="grid bg-border-soft gap-px sm:grid-cols-3 lg:col-span-5">
+        {['Doctor-led', '66 Harley Street', 'From £180'].map((item) => (
+          <p class="bg-bg px-5 py-5 text-[11px] font-mono uppercase tracking-[0.12em] text-text-meta md:py-7">{item}</p>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>

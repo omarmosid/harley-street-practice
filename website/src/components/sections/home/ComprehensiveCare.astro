@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../../ui/Container.astro';
+import Icon from '../../ui/Icon.astro';
+import { healthCheckUrl } from '../../../lib/health-checks';
+
+type HealthCheck = CollectionEntry<'healthChecks'>;
+type Props = { checks: HealthCheck[] };
+const { checks } = Astro.props;
+const items = [
+  { label: 'Private health checks', slug: 'premium-health-check', copy: 'A practical private health check with doctor-led examination, ECG, blood markers, urine analysis and written next steps.' },
+  { label: 'Well Man', slug: 'well-man-health-check', copy: 'Male-focused screening with PSA, testosterone, ECG, lung function, written report and follow-up.' },
+  { label: 'Well Woman', slug: 'well-woman-health-check', copy: 'Female health screening with breast and gynaecological checks, hormone profile, CA-125, ECG and follow-up.' },
+  { label: 'Executive Checks', slug: 'executive-woman-health-check', copy: 'Broad executive medicals with whole-body MRI and the clinic’s most comprehensive investigation panel.' },
+].map((item) => ({ ...item, check: checks.find((check) => check.id === item.slug) }));
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+    <div class="mb-12 md:mb-16 max-w-[62ch]">
+      <p class="eyebrow" data-reveal>Comprehensive care</p>
+      <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;" data-reveal>Select the pathway that suits your current health question.</h2>
+    </div>
+    <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-2 lg:grid-cols-4">
+      {items.map((item, i) => (
+        <a href={item.check ? healthCheckUrl(item.check) : '/health-checks'} class="group bg-bg p-7 md:p-8 transition-colors hover:bg-bg-soft" data-reveal style={`--reveal-delay: ${120 + i * 70}ms;`}>
+          <Icon name="check-circle" size={24} class="text-accent-600 mb-8" />
+          <h3 class="font-display text-text-strong tracking-[-0.02em] leading-[1.08] group-hover:text-accent-600 transition-colors" style="font-size: clamp(1.5rem, 2vw, 2.25rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{item.label}</h3>
+          <p class="mt-5 text-text-muted text-[15px] leading-[1.7]">{item.copy}</p>
+        </a>
+      ))}
+    </div>
+  </Container>
+</section>

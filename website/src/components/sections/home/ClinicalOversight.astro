@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Container from '../../ui/Container.astro';
+
+type Props = { lead: CollectionEntry<'team'> };
+const { lead } = Astro.props;
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+    <div class="grid gap-px bg-border-soft border border-border-soft lg:grid-cols-12">
+      <div class="bg-bg p-7 md:p-10 lg:col-span-7" data-reveal>
+        <p class="eyebrow">Clinical oversight</p>
+        <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02] max-w-[15ch]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;">
+          Health checks interpreted by clinicians, not just delivered as data.
+        </h2>
+        <p class="mt-7 max-w-[64ch] text-text-muted text-[15px] leading-[1.75]">
+          Your appointment is designed around medical history, examination, investigation results and clear follow-up advice, so abnormal or borderline findings can be put into clinical context.
+        </p>
+      </div>
+      <a href="/team" class="group bg-bg-soft p-7 md:p-10 lg:col-span-5 transition-colors hover:bg-bg" data-reveal style="--reveal-delay: 140ms;">
+        <div class="flex gap-5">
+          {lead.data.portrait && (
+            <Image src={lead.data.portrait} alt={lead.data.portraitAlt ?? lead.data.name} class="h-24 w-24 shrink-0 object-cover grayscale-[10%]" widths={[96, 160, 240]} sizes="96px" loading="lazy" />
+          )}
+          <div>
+            <p class="font-mono text-[10px] uppercase tracking-[0.12em] text-text-meta">Medical Director</p>
+            <h3 class="mt-3 font-display text-text-strong tracking-[-0.02em] leading-[1.08] group-hover:text-accent-600 transition-colors" style="font-size: clamp(1.5rem, 2vw, 2.25rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{lead.data.name}</h3>
+            <p class="mt-2 text-[13px] text-text-muted">{lead.data.credentials.join(', ')}</p>
+          </div>
+        </div>
+        <p class="mt-7 text-[15px] leading-[1.7] text-text-muted">{lead.data.summary}</p>
+        <p class="mt-8 text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 group-hover:text-accent-600 group-hover:decoration-accent-400 transition-colors">Meet the clinical team</p>
+      </a>
+    </div>
+  </Container>
+</section>

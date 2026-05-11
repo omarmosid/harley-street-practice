@@ -6,7 +6,7 @@
 export const SITE_NAME = "London Health Check";
 export const SITE_TAGLINE = "Private health checks in London. Doctor-led, on Harley Street.";
 export const SITE_DESCRIPTION =
-  "Doctor-led private health checks on Harley Street, London, operated by London Harley Street Practice. Clear pricing, written reports, and online booking.";
+  "Doctor-led private health checks on Harley Street, London. Clear pricing, written reports, and online booking.";
 export const SITE_URL = "https://londonhealthcheck.uk";
 
 export const OPERATOR = {
@@ -53,4 +53,5 @@ export const NAV: ReadonlyArray<{ label: string; href: string }> = [
   { label: "Pricing", href: "/pricing" },
   { label: "How it works", href: "/how-it-works" },
   { label: "About", href: "/about" },
+  { label: "Team", href: "/team" },
 ];

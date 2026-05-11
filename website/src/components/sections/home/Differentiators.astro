@@ -1,0 +1,33 @@
+---
+import Container from '../../ui/Container.astro';
+import Icon from '../../ui/Icon.astro';
+
+const items = [
+  {
+    title: 'Detailed, doctor-led diagnostics',
+    copy: 'Every health check is built around consultation, examination and clinical interpretation, not a disconnected list of results.',
+  },
+  {
+    title: 'Joined-up care on Harley Street',
+    copy: 'If a result needs further investigation, the clinic can advise on additional tests, imaging or specialist referral pathways.',
+  },
+  {
+    title: 'Established in 2003',
+    copy: 'Appointments take place at 66 Harley Street, with health checks designed around consultation, examination and clear next steps.',
+  },
+];
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+    <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-3">
+      {items.map((item, i) => (
+        <article class="bg-bg p-7 md:p-9" data-reveal style={`--reveal-delay: ${120 + i * 80}ms;`}>
+          <Icon name="shield-check" size={24} class="text-accent-600 mb-8" />
+          <h2 class="font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.5rem, 2vw, 2.25rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{item.title}</h2>
+          <p class="mt-5 text-text-muted text-[15px] leading-[1.7]">{item.copy}</p>
+        </article>
+      ))}
+    </div>
+  </Container>
+</section>

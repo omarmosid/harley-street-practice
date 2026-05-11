@@ -25,29 +25,30 @@
  * ========================================================================== */
 :root {
   /* ---- Neutrals (warm grayscale, NOT cool) ----
-   * Background is a warm cream, text is a near-black ink with a hint of brown.
-   * The whole palette sits on the same warm hue so nothing feels clinical-cold.
-   */
-  --ink-bg:        #F6F1E7;  /* page background — warm cream */
-  --ink-bg-soft:   #EFE9DB;  /* alt-band, hairline cards */
-  --ink-surface:   #FBF7EE;  /* slightly lighter than bg for raised surfaces */
-  --ink-line:      #E2D9C6;  /* hairlines & borders */
-  --ink-line-soft: #ECE4D2;  /* even softer separators */
+   * Background is a deep ink blue, text is warm ivory, and the accent is gold.
+   * The palette should feel like a premium evening editorial, not a generic
+   * dark-mode inversion.
+    */
+  --ink-bg:        #001B2E;  /* page background — reference ink blue */
+  --ink-bg-soft:   #05263E;  /* alt-band, hairline cards */
+  --ink-surface:   #0A314D;  /* raised dark surface */
+  --ink-line:      #25445C;  /* hairlines & borders */
+  --ink-line-soft: #173650;  /* softer separators */
 
-  --ink-900: #15141A;  /* near-black, body text */
-  --ink-700: #2B2A2F;  /* secondary heavy text */
-  --ink-500: #5C5A60;  /* muted text */
-  --ink-300: #8E8B91;  /* meta / captions */
+  --ink-900: #EBEBE9;  /* warm off-white, primary text */
+  --ink-700: #D6D4CC;  /* secondary heavy text */
+  --ink-500: #B8C0C4;  /* muted text */
+  --ink-300: #8395A1;  /* meta / captions */
 
   /* ---- Accent (warm bronze) ----
    * Used for: eyebrow labels, hover underlines, primary CTA, decorative rules,
    * the occasional icon. Never for body text.
    */
-  --accent-50:   #F7F1E3;
-  --accent-100:  #EAD8A8;
-  --accent-400:  #C6A15B;  /* the brand colour */
-  --accent-600:  #9A742E;  /* hover / dark variant */
-  --accent-900:  #5A431B;  /* deep, used as text on gold surfaces */
+  --accent-50:   #FFF4D2;
+  --accent-100:  #F4D47D;
+  --accent-400:  #D6A94A;  /* the brand colour */
+  --accent-600:  #F0C76A;  /* bright hover / text accent */
+  --accent-900:  #2A1B05;  /* deep, used as text on gold surfaces */
 
   /* ---- Semantic ---- */
   --success: #4A6B3F;
@@ -69,8 +70,8 @@
   --text-invert:  var(--ink-bg);
 
   /* selection */
-  --selection-bg:   var(--accent-100);
-  --selection-text: var(--ink-900);
+  --selection-bg:   var(--accent-400);
+  --selection-text: var(--ink-bg);
 }
 
 ::selection {
@@ -94,6 +95,13 @@
   --color-accent-400: var(--accent-400);
   --color-accent-600: var(--accent-600);
   --color-accent-900: var(--accent-900);
+
+  /* Legacy component aliases retained for hidden-but-live support pages. */
+  --color-brand-50:  var(--accent-50);
+  --color-brand-100: var(--accent-100);
+  --color-brand-300: var(--accent-400);
+  --color-brand-700: var(--accent-400);
+  --color-brand-900: var(--accent-600);
 
   --color-bg:          var(--bg);
   --color-bg-soft:     var(--bg-soft);

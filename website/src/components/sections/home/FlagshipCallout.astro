@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Container from '../../ui/Container.astro';
+import Icon from '../../ui/Icon.astro';
+import { BOOKING_URL } from '../../../consts';
+import { healthCheckUrl } from '../../../lib/health-checks';
+import healthChecksImage from '../../../assets/images/health-checks.jpg';
+
+type Props = { check: CollectionEntry<'healthChecks'> };
+const { check } = Astro.props;
+---
+
+<section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+  <Container class="max-w-[var(--container-page)]">
+    <article class="grid gap-px bg-border-soft border border-border-soft lg:grid-cols-12">
+      <div class="bg-bg-soft p-7 md:p-10 lg:col-span-7" data-reveal>
+        <p class="eyebrow">Flagship health check</p>
+        <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02] max-w-[15ch]" style="font-size: clamp(2.25rem, 5vw, 5rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance;">{check.data.name}</h2>
+        <p class="mt-7 max-w-[64ch] text-text-muted text-[15px] leading-[1.75]">{check.data.summary}</p>
+        <ul class="mt-8 grid gap-3 text-[14px] leading-[1.55] text-text-muted sm:grid-cols-2">
+          {check.data.includes.slice(0, 6).map((item) => (
+            <li class="flex gap-3"><Icon name="check" size={15} class="mt-1 shrink-0 text-accent-600" /> <span>{item}</span></li>
+          ))}
+        </ul>
+        <div class="mt-8 flex flex-wrap gap-3 font-mono text-[11px] uppercase tracking-[0.12em] text-text-meta">
+          <span class="border border-border-soft px-3 py-2">{check.data.price}</span>
+          <span class="border border-border-soft px-3 py-2">{check.data.duration}</span>
+          <span class="border border-border-soft px-3 py-2">Written report</span>
+        </div>
+        <div class="mt-10 flex flex-wrap gap-5">
+          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-accent-400 text-accent-900 px-7 py-4 rounded-[2px] text-[13px] font-medium tracking-[0.04em] uppercase transition-colors hover:bg-accent-100">
+            Book this check
+            <Icon name="arrow-up-right" size={16} />
+          </a>
+          <a href="/pricing" class="inline-flex items-center text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">Compare all packages</a>
+        </div>
+      </div>
+      <figure class="relative min-h-[320px] bg-bg lg:col-span-5" data-reveal style="--reveal-delay: 140ms;">
+        <Image src={healthChecksImage} alt="Private health check consultation" class="h-full w-full object-cover grayscale-[10%] opacity-90" widths={[520, 720, 960]} sizes="(min-width: 1024px) 38vw, 100vw" loading="lazy" />
+        <figcaption class="absolute bottom-4 left-4 bg-bg/80 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-text-meta backdrop-blur">Harley Street health screening</figcaption>
+      </figure>
+    </article>
+  </Container>
+</section>

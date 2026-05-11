@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../../ui/Container.astro';
+
+type Props = { insights: CollectionEntry<'insights'>[] };
+const { insights } = Astro.props;
+---
+
+{insights.length > 0 && (
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+        <div>
+          <p class="eyebrow" data-reveal>Health library</p>
+          <h2 class="mt-8 font-display text-text-strong tracking-[-0.025em] leading-[1.02] max-w-[14ch]" style="font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 340; font-variation-settings: 'opsz' 144, 'SOFT' 40; text-wrap: balance;" data-reveal>Reading from our clinicians.</h2>
+        </div>
+        <a href="/insights" class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors" data-reveal>All articles</a>
+      </div>
+      <div class="grid gap-px bg-border-soft border border-border-soft md:grid-cols-3">
+        {insights.map((article, i) => {
+          const slug = article.id.replace(/\/index$/, '');
+          return (
+            <a href={`/insights/${slug}`} class="group bg-bg p-7 md:p-8 transition-colors hover:bg-bg-soft" data-reveal style={`--reveal-delay: ${120 + i * 80}ms;`}>
+              <p class="eyebrow">Health library</p>
+              <h3 class="mt-6 font-display text-text-strong tracking-[-0.02em] leading-[1.08] group-hover:text-accent-600 transition-colors" style="font-size: clamp(1.35rem, 1.6vw, 1.9rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{article.data.title}</h3>
+              <p class="mt-5 text-text-muted text-[15px] leading-[1.65]">{article.data.lede}</p>
+            </a>
+          );
+        })}
+      </div>
+    </Container>
+  </section>
+)}
