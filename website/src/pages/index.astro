@@ -81,7 +81,7 @@ const jsonLd = [
       <div class="grid gap-12 lg:grid-cols-12 lg:gap-16 items-end">
         <div class="lg:col-span-8">
           <p class="eyebrow" data-reveal>By {OPERATOR.name}</p>
-          <h1 class="mt-8 font-display tracking-[-0.04em] leading-[0.94] text-text-strong max-w-[12ch]" style="font-size: clamp(3rem, 8vw, 7.75rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
+          <h1 class="mt-8 font-display tracking-[-0.04em] leading-[0.94] text-text-strong md:max-w-[12ch]" style="font-size: clamp(2.25rem, 8vw, 7.75rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
             Private health checks in London, on Harley Street<span class="text-accent-400">.</span>
           </h1>
           <p class="mt-8 md:mt-10 max-w-[64ch] text-ink-700" style="font-size: clamp(1.125rem, 0.6vw + 1rem, 1.35rem); line-height: 1.55; text-wrap: pretty; --reveal-delay: 260ms;" data-reveal>
@@ -113,9 +113,9 @@ const jsonLd = [
           </dl>
         </aside>
       </div>
-      <div class="mt-14 grid gap-px bg-border-soft border border-border-soft md:grid-cols-3" data-reveal style="--reveal-delay: 420ms;">
+      <div class="mt-12 flex flex-wrap gap-2 md:grid md:gap-px md:bg-border-soft md:border md:border-border-soft md:grid-cols-3" data-reveal style="--reveal-delay: 420ms;">
         {['Doctor-led', '66 Harley Street since 2003', 'From £180'].map((item) => (
-          <p class="bg-bg px-5 py-4 text-[12px] font-mono uppercase tracking-[0.12em] text-text-meta">{item}</p>
+          <p class="border border-border-soft bg-bg px-3.5 py-2 text-[11px] font-mono uppercase tracking-[0.1em] text-text-meta md:border-0 md:px-5 md:py-4 md:text-[12px] md:tracking-[0.12em]">{item}</p>
         ))}
       </div>
 
@@ -125,7 +125,7 @@ const jsonLd = [
 
   <CredentialsStrip />
 
-  <section class="relative bg-bg pt-10 md:pt-14 pb-0">
+  <section class="relative bg-bg pt-10 md:pt-14 pb-0 hidden md:block">
     <Container class="max-w-[var(--container-page)]">
       <nav class="flex flex-wrap gap-3" aria-label="Health check shortcuts" data-reveal>
         {[
@@ -173,7 +173,23 @@ const jsonLd = [
         <a href="/pricing" class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors" data-reveal>Full pricing</a>
       </div>
 
-      <div class="overflow-x-auto border-y border-border-soft" data-reveal style="--reveal-delay: 160ms;">
+      <div class="md:hidden grid gap-px bg-border-soft border border-border-soft" data-reveal style="--reveal-delay: 160ms;">
+        {comparisonChecks.map((check) => (
+          <article class="bg-bg p-6">
+            <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">{check.data.price} · {check.data.duration}</p>
+            <h3 class="mt-5 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.45rem, 6vw, 2rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{check.data.name}</h3>
+            <ul class="mt-5 space-y-2 text-[14px] text-text-muted leading-[1.55]">
+              {check.data.includes.slice(0, 3).map((item) => <li class="flex gap-2"><Icon name="check" size={15} class="text-accent-600 mt-1 shrink-0" /> <span>{item}</span></li>)}
+            </ul>
+            <div class="mt-7 flex flex-wrap gap-4">
+              <a href={healthCheckUrl(check)} class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">See the {check.data.name}</a>
+              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-accent-600 transition-colors">Book</a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="hidden md:block overflow-x-auto border-y border-border-soft" data-reveal style="--reveal-delay: 160ms;">
         <table class="w-full min-w-[760px] text-left">
           <thead class="border-b border-border-soft">
             <tr class="text-[11px] font-mono uppercase tracking-[0.12em] text-text-meta">

@@ -15,20 +15,21 @@ const { compact = false } = Astro.props;
   <Container class="max-w-[var(--container-page)]">
     <div class="grid gap-10 lg:grid-cols-12 lg:gap-16 items-center border-y border-border-soft py-10 md:py-14">
       <div class="lg:col-span-4" data-reveal>
-        <figure class="grid grid-cols-[96px_1fr] items-center gap-5 md:block">
-          <div class="relative aspect-square overflow-hidden border border-border-soft bg-bg-soft md:w-44 md:aspect-[4/5]">
+        <figure>
+          <div class="relative aspect-[4/5] w-full overflow-hidden border border-border-soft bg-bg-soft md:w-44">
             <Image
               src={drBachelani}
               alt="Dr Ahmed Bachelani"
               class="h-full w-full object-cover grayscale-[8%]"
               loading="lazy"
-              widths={[160, 240, 360, 520]}
-              sizes="(min-width: 1024px) 14vw, 96px"
+              widths={[240, 360, 520, 720]}
+              sizes="(min-width: 1024px) 14vw, 100vw"
             />
           </div>
-          <figcaption class="md:mt-5">
+          <figcaption class="mt-5">
             <p class="font-display text-text-strong tracking-[-0.015em] leading-[1.05]" style="font-size: clamp(1.5rem, 2vw, 2.25rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">Dr Ahmed Bachelani</p>
             <p class="mt-2 text-[13px] font-mono uppercase tracking-[0.1em] text-text-meta">Medical Director · GP</p>
+            <p class="mt-2 text-[11px] font-mono uppercase tracking-[0.1em] text-text-meta">MBBS · MRCP · MRCGP · DOccMed · BSc</p>
           </figcaption>
         </figure>
       </div>

@@ -49,7 +49,20 @@ const jsonLd = [
           <p class="eyebrow" data-reveal>{group.label}</p>
           <p class="mt-5 max-w-[58ch] text-text-muted text-[15px] leading-[1.7]" data-reveal style="--reveal-delay: 100ms;">{group.lede}</p>
         </div>
-        <div class="overflow-x-auto border-y border-border-soft" data-reveal style="--reveal-delay: 160ms;">
+        <div class="md:hidden grid gap-px bg-border-soft border border-border-soft" data-reveal style="--reveal-delay: 160ms;">
+          {group.checks.map((check) => (
+            <article class="bg-bg p-6">
+              <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">{check.data.price} · {check.data.duration}</p>
+              <h3 class="mt-5 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.45rem, 6vw, 2rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">{check.data.name}</h3>
+              <p class="mt-5 text-text-muted text-[14px] leading-[1.65]">{check.data.summary}</p>
+              <p class="mt-7">
+                <a href={healthCheckUrl(check)} class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">See the {check.data.name}</a>
+              </p>
+            </article>
+          ))}
+        </div>
+
+        <div class="hidden md:block overflow-x-auto border-y border-border-soft" data-reveal style="--reveal-delay: 160ms;">
           <table class="w-full min-w-[720px] text-left">
             <thead class="border-b border-border-soft">
               <tr class="text-[11px] font-mono uppercase tracking-[0.12em] text-text-meta">
