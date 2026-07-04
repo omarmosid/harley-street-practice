@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import Container from '../../ui/Container.astro';
 import Icon from '../../ui/Icon.astro';
-import { BOOKING_URL } from '../../../consts';
+import { bookingUrl } from '../../../consts';
 import { healthCheckUrl } from '../../../lib/health-checks';
 
 type Props = { checks: CollectionEntry<'healthChecks'>[] };
@@ -29,7 +29,7 @@ const { checks } = Astro.props;
           </ul>
           <div class="mt-7 flex flex-wrap gap-4">
             <a href={healthCheckUrl(check)} class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">See the {check.data.name}</a>
-            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-accent-600 transition-colors">Book</a>
+            <a href={bookingUrl('comparison-table-mobile')} target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-accent-600 transition-colors">Book</a>
           </div>
         </article>
       ))}
@@ -53,7 +53,7 @@ const { checks } = Astro.props;
               <td class="py-6 px-6 align-top text-text-strong font-medium">{check.data.price}</td>
               <td class="py-6 px-6 align-top text-text-muted">{check.data.duration}</td>
               <td class="py-6 px-6 align-top text-text-muted max-w-[36ch]"><ul class="space-y-1.5">{check.data.includes.slice(0, 3).map((item) => <li>{item}</li>)}</ul></td>
-              <td class="py-6 pl-6 align-top"><a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-text-strong hover:text-accent-600 transition-colors"><span>Book</span><Icon name="arrow-up-right" size={14} /></a></td>
+              <td class="py-6 pl-6 align-top"><a href={bookingUrl('comparison-table')} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-text-strong hover:text-accent-600 transition-colors"><span>Book</span><Icon name="arrow-up-right" size={14} /></a></td>
             </tr>
           ))}
         </tbody>

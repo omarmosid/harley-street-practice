@@ -2,7 +2,7 @@
  * analytics.ts — GA4 lead generation event tracking.
  *
  * Fires `generate_lead` when users interact with lead-generation CTAs:
- * - Online booking (HeyDoc)
+ * - Online booking / appointments page
  * - Phone calls
  * - Email enquiries
  *
@@ -38,6 +38,23 @@ function getLinkText(anchor: HTMLAnchorElement): string | undefined {
   );
 }
 
+function isOnlineBookingHref(href: string, bookingUrl: string): boolean {
+  if (href === bookingUrl || href.includes('heydoc.co.uk')) {
+    return true;
+  }
+
+  try {
+    const url = new URL(href, window.location.href);
+    return (
+      (url.hostname === 'londonhspractice.co.uk' ||
+        url.hostname === 'www.londonhspractice.co.uk') &&
+      url.pathname.replace(/\/$/, '') === '/appointments'
+    );
+  } catch {
+    return false;
+  }
+}
+
 export function initLeadTracking() {
   const bookingUrl = document.body.dataset.bookingUrl;
   if (!bookingUrl) return;
@@ -51,7 +68,7 @@ export function initLeadTracking() {
     const href = anchor.getAttribute('href') || '';
     const text = getLinkText(anchor);
 
-    if (href === bookingUrl || href.includes('heydoc.co.uk')) {
+    if (isOnlineBookingHref(href, bookingUrl)) {
       fireGenerateLead('online_booking', text);
       return;
     }

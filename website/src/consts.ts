@@ -15,9 +15,26 @@ export const OPERATOR = {
   foundingYear: "2003",
 } as const;
 
-/** External booking provider (HeyDoc). Every "Book" CTA links here. */
-export const BOOKING_URL =
-  "https://online-booking.heydoc.co.uk/?token=4fJrtP4N6GUYmSSUFkUWDOsDBJ28ON4vaxz6wL16";
+/** Operator appointments page. Every "Book" CTA links here. */
+export const APPOINTMENTS_URL =
+  "https://www.londonhspractice.co.uk/appointments";
+
+export function bookingUrl(content?: string): string {
+  const params = new URLSearchParams({
+    utm_source: "londonhealthcheck",
+    utm_medium: "referral",
+    utm_campaign: "appointments",
+  });
+
+  if (content) {
+    params.set("utm_content", content);
+  }
+
+  return `${APPOINTMENTS_URL}?${params.toString()}`;
+}
+
+/** Default tagged booking URL for shared metadata and fallback usage. */
+export const BOOKING_URL = bookingUrl();
 
 export const PRACTICE = {
   phone: {

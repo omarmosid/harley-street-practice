@@ -6,7 +6,7 @@
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Button from '../ui/Button.astro';
-import { BOOKING_URL, PRACTICE } from '../../consts';
+import { PRACTICE, bookingUrl } from '../../consts';
 
 type Props = {
   heading?: string;
@@ -25,7 +25,7 @@ const {
 
     <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
       <Button
-        href={BOOKING_URL}
+        href={bookingUrl('final-cta')}
         variant="primary"
         size="lg"
         icon="calendar-check"

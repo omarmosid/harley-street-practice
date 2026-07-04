@@ -8,7 +8,7 @@
  * Editorial styling: cream pill on cream bar, ink-on-cream button. No noise.
  */
 import Icon from '../ui/Icon.astro';
-import { PRACTICE, BOOKING_URL } from '../../consts';
+import { PRACTICE, bookingUrl } from '../../consts';
 
 const path = Astro.url.pathname;
 const hide = path.startsWith('/contact');
@@ -31,7 +31,7 @@ const hide = path.startsWith('/contact');
       </a>
 
       <a
-        href={BOOKING_URL}
+        href={bookingUrl('mobile-sticky')}
         target="_blank"
         rel="noopener noreferrer"
         class="group flex-1 inline-flex items-center justify-center gap-2 bg-accent-400 text-accent-900 h-11 rounded-[2px] text-[12px] font-medium tracking-[0.04em] uppercase"

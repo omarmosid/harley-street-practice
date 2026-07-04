@@ -15,7 +15,7 @@
  */
 import Container from '../ui/Container.astro';
 import Icon from '../ui/Icon.astro';
-import { BOOKING_URL } from '../../consts';
+import { bookingUrl } from '../../consts';
 
 type Tier = {
   name: string;
@@ -146,7 +146,7 @@ const { eyebrow, heading, groups } = Astro.props;
 
               <!-- CTA pinned to bottom of cell. -->
               <a
-                href={BOOKING_URL}
+                href={bookingUrl('tier-grid')}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="mt-7 pt-5 border-t border-border-soft inline-flex items-center justify-between gap-3 text-text-strong transition-colors duration-200 hover:text-accent-600"

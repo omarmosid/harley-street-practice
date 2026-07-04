@@ -11,7 +11,7 @@
 import Container from '../ui/Container.astro';
 import Icon from '../ui/Icon.astro';
 import Logo from './Logo.astro';
-import { NAV, PRACTICE, BOOKING_URL } from '../../consts';
+import { NAV, PRACTICE, bookingUrl } from '../../consts';
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 function isActive(href: string) {
@@ -59,7 +59,7 @@ function isActive(href: string) {
         <span>{PRACTICE.phone.display}</span>
       </a>
       <a
-        href={BOOKING_URL}
+        href={bookingUrl('header')}
         target="_blank"
         rel="noopener noreferrer"
         class="group inline-flex items-center gap-2 bg-accent-400 text-accent-900 px-4 md:px-5 h-10 rounded-[2px] text-[12px] font-medium tracking-[0.04em] uppercase transition-colors duration-300 hover:bg-accent-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
@@ -132,7 +132,7 @@ function isActive(href: string) {
     </nav>
     <div class="p-5 border-t border-border-soft space-y-3">
       <a
-        href={BOOKING_URL}
+        href={bookingUrl('mobile-nav')}
         target="_blank"
         rel="noopener noreferrer"
         class="group flex items-center justify-center gap-2 w-full bg-accent-400 text-accent-900 py-3.5 rounded-[2px] text-[12px] font-medium tracking-[0.04em] uppercase"

@@ -7,7 +7,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
 import BookingBand from '../components/sections/BookingBand.astro';
 import Icon from '../components/ui/Icon.astro';
-import { BOOKING_URL, PRACTICE, SITE_NAME, SITE_URL } from '../consts';
+import { PRACTICE, SITE_NAME, SITE_URL, bookingUrl } from '../consts';
 
 const title = 'Private GP membership - London Harley Street Practice';
 const description =
@@ -123,7 +123,7 @@ const jsonLd = {
           <Icon name="arrow-up-right" size={16} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </a>
 
-        <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" class="group inline-flex items-baseline gap-2 text-text-strong text-[15px] tracking-tight transition-colors duration-200 hover:text-accent-600">
+        <a href={bookingUrl('membership')} target="_blank" rel="noopener noreferrer" class="group inline-flex items-baseline gap-2 text-text-strong text-[15px] tracking-tight transition-colors duration-200 hover:text-accent-600">
           <span class="text-text-meta">Or book a consultation</span>
           <Icon name="arrow-up-right" size={14} />
         </a>

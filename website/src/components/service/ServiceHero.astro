@@ -11,7 +11,7 @@
  */
 import Container from '../ui/Container.astro';
 import Icon from '../ui/Icon.astro';
-import { BOOKING_URL, PRACTICE } from '../../consts';
+import { PRACTICE, bookingUrl } from '../../consts';
 
 type Props = {
   /** Eyebrow label, e.g. "Private GP". */
@@ -63,7 +63,7 @@ const { eyebrow, title, lede, supportLine } = Astro.props;
       data-reveal
     >
       <a
-        href={BOOKING_URL}
+        href={bookingUrl('service-hero')}
         target="_blank"
         rel="noopener noreferrer"
         class="group inline-flex items-center gap-3 bg-accent-400 text-accent-900 px-7 py-4 rounded-[2px] text-[14px] font-medium tracking-[0.02em] uppercase transition-colors duration-300 hover:bg-accent-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-4 focus-visible:ring-offset-bg"
