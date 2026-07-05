@@ -31,12 +31,12 @@ const jsonLd = [
             Private health checks in London<span class="text-accent-400">.</span>
           </h1>
           <p class="mt-8 max-w-[64ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.6; text-wrap: pretty; --reveal-delay: 260ms;" data-reveal>
-            Compare doctor-led health checks on Harley Street, from focused 15-minute screens to comprehensive executive medicals with advanced imaging.
+            Our Harley Street health checks provide a comprehensive, doctor-led assessment of your overall health. Whether you are seeking an annual health check or more in-depth screening, we offer fast access, same-day appointments where available, and personalised medical advice. Choose from focused 15-minute screens to comprehensive executive medicals with advanced imaging.
           </p>
         </div>
         <aside class="lg:col-span-4 border border-border-soft bg-bg-soft p-7 md:p-9" data-reveal style="--reveal-delay: 300ms;">
           <p class="eyebrow">Need help choosing?</p>
-          <p class="mt-5 text-text-muted text-[15px] leading-[1.7]">Most patients start with the Premium Health Check, Well Man, or Well Woman check. Call us if you want guidance before booking.</p>
+          <p class="mt-5 text-text-muted text-[15px] leading-[1.7]">Most patients start with the Premium Health Check, Well Man, or Well Woman check. We also offer TruCheck multi-cancer screening, Healthy Heart, Menopause, and Sports checks. Call us if you want guidance before booking.</p>
           <a href={PRACTICE.phone.href} class="mt-7 inline-flex text-text-strong hover:text-accent-600 transition-colors">{PRACTICE.phone.display}</a>
         </aside>
       </div>
@@ -82,6 +82,34 @@ const jsonLd = [
       </Container>
     </section>
   ))}
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4">
+          <p class="eyebrow" data-reveal>How to book</p>
+        </aside>
+        <div class="lg:col-span-8 grid gap-px bg-border-soft border border-border-soft md:grid-cols-3">
+          <article class="bg-bg p-7 md:p-8" data-reveal style="--reveal-delay: 120ms;">
+            <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">Step 01</p>
+            <h2 class="mt-6 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">Choose your check</h2>
+            <p class="mt-5 text-text-muted text-[15px] leading-[1.7]">Select the appointment type that matches your needs, or call us if you would like help deciding.</p>
+          </article>
+          <article class="bg-bg p-7 md:p-8" data-reveal style="--reveal-delay: 200ms;">
+            <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">Step 02</p>
+            <h2 class="mt-6 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">Pick a time</h2>
+            <p class="mt-5 text-text-muted text-[15px] leading-[1.7]">Book online for a date and time that works for you. For packages with imaging, call us if you need everything on the same day.</p>
+          </article>
+          <article class="bg-bg p-7 md:p-8" data-reveal style="--reveal-delay: 280ms;">
+            <p class="font-mono text-text-meta text-[11px] tracking-[0.12em] uppercase">Step 03</p>
+            <h2 class="mt-6 font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.5rem, 2vw, 2rem); font-weight: 360; font-variation-settings: 'opsz' 96, 'SOFT' 40;">Attend Harley Street</h2>
+            <p class="mt-5 text-text-muted text-[15px] leading-[1.7]">Complete your appointment and any included tests. Your doctor will send a written report with clear next steps.</p>
+          </article>
+        </div>
+      </div>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
 
   <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
     <Container class="max-w-[var(--container-page)]">

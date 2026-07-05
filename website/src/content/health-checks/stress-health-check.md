@@ -13,12 +13,18 @@ whoItsFor:
   - Patients who want physical contributors reviewed alongside a therapy consultation.
   - Anyone seeking structured next steps rather than general reassurance alone.
 includes:
+  - 45-minute physician consultation (part one)
   - Cardiovascular, respiratory, abdominal, and neurological examinations
-  - Blood panel including cortisol, vitamin D, and inflammatory markers
-  - Thyroid hormone profile
-  - Six-lead ECG
-  - Sixty-minute psychotherapy consultation (video)
-  - Personalised report and action plan
+  - Height, weight, and BMI
+  - Blood tests with more than 20 specific lab readings including haematology profile, full biochemistry profile, iron status, uric acid, bone profile with magnesium, glucose, and total cholesterol
+  - Vitamin D levels
+  - Inflammatory markers including ESR and CRP
+  - Cortisol blood level
+  - Thyroid hormone profile test
+  - Urine analysis to check for blood, white cells, protein, glucose, and ketones
+  - Six-lead ECG for heart rate and rhythm
+  - 60-minute online psychotherapy consultation (part two)
+  - Combined personalised report and action plan
 howItWorks:
   - label: Medical appointment
     description: Your doctor reviews symptoms, history, examination findings, ECG, and relevant blood markers.

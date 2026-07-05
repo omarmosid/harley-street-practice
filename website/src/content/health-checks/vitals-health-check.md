@@ -13,11 +13,17 @@ whoItsFor:
   - Patients who want a 12-lead ECG and lung function testing included.
   - Anyone wanting a more targeted check than a general short screen.
 includes:
-  - Full cardiovascular and respiratory work-up
-  - Twelve-lead ECG
+  - Cardiovascular and respiratory examinations
+  - Blood oxygen saturation levels
+  - Full body composition measuring height, weight, muscle mass, visceral fat rating, BMI, body fat percentage, metabolic rate, and metabolic age
+  - Blood tests with more than 25 specific lab readings including haematology profile, full biochemistry profile, iron status, gout, bone profile with magnesium, glucose, and full cholesterol profile
+  - HbA1c blood test measuring average blood sugar levels over the past three months
+  - Urine analysis to check for blood, white cells, protein, glucose, and ketones
+  - Ten-year calculation of Type 2 diabetes mellitus risk (ages 25–84)
+  - Ten-year calculation of cardiovascular event risk (stroke and heart attack)
+  - Twelve-lead ECG for heart rate, rhythm, and electrical activity
   - Lung function tests
-  - HbA1c blood test for average glucose
-  - Ten-year diabetes and cardiovascular risk calculations
+  - Personalised report highlighting problems, health advice, and an action plan
 howItWorks:
   - label: Book your appointment
     description: Choose a suitable time online or call the clinic if you need guidance.

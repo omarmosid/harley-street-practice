@@ -15,12 +15,22 @@ whoItsFor:
   - Patients who want hormone, cardiovascular, respiratory, and female health markers reviewed together.
   - Women comparing Well Woman, Well Woman Plus, Menopause, and Executive Woman options.
 includes:
-  - Full system examination
-  - Breast and gynaecological checks
-  - Twenty-five-plus marker blood panel
-  - Female hormone profile and CA-125 ovarian screen
-  - Twelve-lead ECG and lung function tests
-  - Personalised report and free follow-up
+  - Detailed medical history taken by an experienced physician, addressing your specific health concerns
+  - Full system examination covering cardiovascular, respiratory, abdominal, neurological, musculoskeletal, and ear, nose, and throat systems
+  - Breast check, with mammogram or breast ultrasound available if required and indicated at extra cost
+  - Gynaecological examination, with cervical smear and HPV status available if required at additional cost
+  - Full body composition measuring height, weight, muscle mass, visceral fat rating, BMI, body fat percentage, metabolic rate, and metabolic age
+  - Blood tests with more than 25 specific lab readings including haematology profile, full biochemistry profile, iron status, gout, bone profile with magnesium, diabetes, and full cholesterol profile
+  - Diabetes screen with HbA1c blood test
+  - Thyroid hormone profile test
+  - Female hormone profile including oestradiol (17-beta)
+  - Ovarian cancer screening blood test (CA-125)
+  - Urine analysis to check for blood, white cells, protein, glucose, and ketones
+  - Ten-year calculation of cardiovascular event risk (stroke and heart attack)
+  - Twelve-lead ECG for heart rate, rhythm, and electrical activity
+  - Lung function tests and blood oxygen saturation levels
+  - Personalised report highlighting problems, health advice, and an action plan
+  - Free follow-up appointment
 howItWorks:
   - label: Choose your appointment
     description: Book online or call if you want advice about the most appropriate women's health check.

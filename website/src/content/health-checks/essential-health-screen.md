@@ -14,11 +14,11 @@ whoItsFor:
   - Anyone who wants more time for an unhurried doctor-led review.
 includes:
   - Cardiovascular and respiratory examinations
-  - Body composition with metabolic age and rate
-  - Twenty-five-marker blood panel
-  - Urine analysis
-  - Ten-year cardiovascular risk calculation
-  - Personalised report and action plan
+  - Full body composition measuring height, weight, muscle mass, visceral fat rating, BMI, body fat percentage, metabolic rate, and metabolic age
+  - Blood tests with 25 specific lab readings including full biochemistry profile, iron status, gout, bone profile with magnesium, diabetes, and full cholesterol profile
+  - Urine analysis to check for blood, white cells, protein, glucose, and ketones
+  - Ten-year calculation of cardiovascular event risk (stroke and heart attack)
+  - Personalised report highlighting problems, health advice, and an action plan
 howItWorks:
   - label: Choose your slot
     description: Book online or speak to the clinic if you are unsure whether Essential or Premium is more appropriate.

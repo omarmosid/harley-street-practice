@@ -14,12 +14,22 @@ whoItsFor:
   - Patients who want prostate, testosterone, cardiovascular, and respiratory markers reviewed together.
   - Men comparing Well Man, Well Man Plus, and Executive Man options.
 includes:
-  - Full system examination
-  - Twenty-five-plus marker blood panel
-  - HbA1c, thyroid, testosterone, and PSA blood tests
-  - Prostate and testicular checks (if requested)
-  - Twelve-lead ECG and lung function tests
-  - Personalised report and free follow-up
+  - Detailed medical history taken by an experienced physician
+  - Full system examination covering cardiovascular, respiratory, abdominal, neurological, musculoskeletal, and ear, nose, and throat systems
+  - Full body composition measuring height, weight, muscle mass, visceral fat rating, BMI, body fat percentage, metabolic rate, and metabolic age
+  - Blood tests with more than 25 specific lab readings including haematology profile, full biochemistry profile, iron status, gout, bone profile with magnesium, glucose, and full cholesterol profile
+  - Diabetes screen with HbA1c blood test
+  - Thyroid hormone profile test
+  - Testosterone blood level
+  - Prostate specific antigen (PSA) blood test
+  - Prostate examination if requested
+  - Testicular checks if requested
+  - Urine analysis to check for blood, white cells, protein, glucose, and ketones
+  - Ten-year calculation of cardiovascular event risk (stroke and heart attack)
+  - Twelve-lead ECG for heart rate, rhythm, and electrical activity
+  - Lung function tests and blood oxygen saturation levels
+  - Personalised report highlighting problems, health advice, and an action plan
+  - Free 15-minute follow-up appointment
 howItWorks:
   - label: Book your appointment
     description: Choose a time online or call if you want to compare Well Man packages before booking.

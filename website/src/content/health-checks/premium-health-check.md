@@ -15,13 +15,14 @@ whoItsFor:
   - Patients who want ECG, urine analysis, and a broader examination in one appointment.
   - Anyone who wants a clear written report and practical next steps from a Harley Street doctor.
 includes:
-  - Cardiovascular, respiratory, abdominal and ENT examinations
-  - Blood oxygen saturation
-  - Comprehensive twenty-five-plus marker blood panel
-  - Urine analysis
-  - Six-lead ECG
-  - Ten-year cardiovascular risk calculation
-  - Personalised report and action plan
+  - Cardiovascular, respiratory, abdominal, and ear, nose, and throat examinations
+  - Blood oxygen saturation levels
+  - Full body composition measuring height, weight, muscle mass, visceral fat rating, BMI, body fat percentage, metabolic rate, and metabolic age
+  - Blood tests with more than 25 specific lab readings including haematology profile, full biochemistry profile, iron status, gout, bone profile with magnesium, diabetes, and full cholesterol profile
+  - Urine analysis to check for blood, white cells, protein, glucose, and ketones
+  - Ten-year calculation of cardiovascular event risk (stroke and heart attack)
+  - Six-lead ECG for heart rate and rhythm
+  - Personalised report highlighting problems, health advice, and an action plan
 howItWorks:
   - label: Book your health check
     description: Choose a time online, or call if you want advice before booking.

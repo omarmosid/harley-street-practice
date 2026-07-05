@@ -14,8 +14,13 @@ whoItsFor:
   - Anyone seeking a practical first step before a fuller annual medical.
 includes:
   - Everything in the Basic Health Screen
-  - Six-lead ECG for heart rate and rhythm
+  - Cardiovascular and respiratory system checks
+  - Full body composition measuring height, weight, fat content, hydration, metabolism, and BMI
+  - Blood profile with 21 specific lab readings covering liver, kidney, diabetes, total cholesterol, and iron
   - Urine analysis
+  - Six-lead ECG for heart rate and rhythm
+  - Ten-year calculation of cardiovascular event risk (stroke and heart attack)
+  - Personalised report and action plan where appropriate
 howItWorks:
   - label: Book online or by phone
     description: Choose a convenient appointment and we will confirm any preparation before your visit.

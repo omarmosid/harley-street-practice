@@ -13,11 +13,13 @@ whoItsFor:
   - Families who want growth, general health, and blood markers checked in one appointment.
   - Parents who want a written report and clear follow-up advice.
 includes:
-  - Detailed medical history and full system examination
+  - Detailed medical history taken by an experienced physician
+  - Full system examination covering cardiovascular, respiratory, abdominal, neurological, musculoskeletal, and ear, nose, and throat systems
   - Growth charts for weight and height percentiles
-  - Twenty-five-marker blood panel
-  - Urine analysis
-  - Personalised report and free fifteen-minute follow-up
+  - Blood tests with more than 25 specific lab readings including haematology profile, full biochemistry profile, iron status, gout, bone profile with magnesium, glucose, and full cholesterol profile
+  - Urine analysis to check for blood, white cells, protein, glucose, and ketones
+  - Personalised report highlighting problems, health advice, and an action plan
+  - Free 15-minute follow-up appointment
 howItWorks:
   - label: Book with parent or guardian details
     description: The clinic confirms what to bring and whether any preparation is required.
@@ -27,7 +29,7 @@ howItWorks:
     description: Findings are summarised clearly with practical next steps and a follow-up where included.
 preparation: Bring details of immunisations, medicines, allergies, previous results, and any specific parental concerns.
 results: Blood and urine results are reviewed in context with growth and examination findings.
-followUp: A free fifteen-minute follow-up is included to discuss results and next steps.
+followUp: A free 15-minute follow-up is included to discuss results and next steps.
 faqs:
   - question: What age range is this for?
     answer: The Well Child Health Check is for ages five to sixteen.
