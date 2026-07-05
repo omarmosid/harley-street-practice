@@ -8,6 +8,12 @@ export const SITE_TAGLINE = "Private health checks in London. Doctor-led, on Har
 export const SITE_DESCRIPTION =
   "Doctor-led private health checks on Harley Street, London. Clear pricing, written reports, and online booking.";
 export const SITE_URL = "https://londonhealthcheck.uk";
+export const GTM_CONTAINER_ID = "GTM-5BHDVB6D";
+
+export const COOKIE_CONSENT = {
+  name: "lhc_cookie_consent",
+  maxAgeDays: 180,
+} as const;
 
 export const OPERATOR = {
   name: "London Harley Street Practice",

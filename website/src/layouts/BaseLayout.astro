@@ -14,6 +14,7 @@ import BaseHead from '../components/layout/BaseHead.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import MobileStickyCTA from '../components/layout/MobileStickyCTA.astro';
+import CookieConsent from '../components/layout/CookieConsent.astro';
 import { BOOKING_URL } from '../consts';
 
 type Props = {
@@ -43,6 +44,7 @@ const { hasMobileCTA = true, ...head } = Astro.props;
     </main>
     <Footer />
     {hasMobileCTA && <MobileStickyCTA />}
+    <CookieConsent />
 
     <!-- Reveal-on-scroll observer + lead tracking -->
     <script>

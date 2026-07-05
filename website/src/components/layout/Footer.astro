@@ -109,7 +109,20 @@ const legal = [
         {legal.map((item) => (
           <li><a href={item.href} class="hover:text-text-strong transition-colors">{item.label}</a></li>
         ))}
+        <li>
+          <button type="button" data-cookie-settings class="appearance-none bg-transparent p-0 text-inherit hover:text-text-strong transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-bg rounded-[2px]">
+            Cookie settings
+          </button>
+        </li>
       </ul>
     </div>
   </Container>
 </footer>
+
+<script>
+  import { openConsentBanner } from '../../lib/consent';
+
+  document.querySelector('[data-cookie-settings]')?.addEventListener('click', () => {
+    openConsentBanner();
+  });
+</script>

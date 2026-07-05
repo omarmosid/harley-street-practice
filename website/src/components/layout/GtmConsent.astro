@@ -1,0 +1,60 @@
+---
+/**
+ * Consent Mode v2 + GTM bootstrap.
+ *
+ * This must run before the GTM container so Google tags start from a denied
+ * consent state and only upgrade analytics storage after an explicit opt-in.
+ */
+import { COOKIE_CONSENT, GTM_CONTAINER_ID } from '../../consts';
+
+const script = `
+(function() {
+  var consentCookieName = ${JSON.stringify(COOKIE_CONSENT.name)};
+  var gtmId = ${JSON.stringify(GTM_CONTAINER_ID)};
+
+  function readCookie(name) {
+    var parts = document.cookie ? document.cookie.split('; ') : [];
+    for (var i = 0; i < parts.length; i++) {
+      var pair = parts[i].split('=');
+      if (decodeURIComponent(pair[0]) === name) {
+        return decodeURIComponent(pair.slice(1).join('='));
+      }
+    }
+    return null;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+
+  window.gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500
+  });
+  window.gtag('set', 'ads_data_redaction', true);
+
+  if (readCookie(consentCookieName) === 'granted') {
+    window.gtag('consent', 'update', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'granted'
+    });
+  }
+
+  (function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer',gtmId);
+})();
+`;
+---
+
+<script is:inline set:html={script}></script>

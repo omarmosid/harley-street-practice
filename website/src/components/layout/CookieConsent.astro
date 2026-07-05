@@ -1,0 +1,48 @@
+---
+/** Cookie consent banner for UK PECR / Google Consent Mode. */
+---
+
+<section
+  data-cookie-banner
+  data-open="false"
+  hidden
+  role="dialog"
+  aria-label="Cookie preferences"
+  aria-live="polite"
+  class="fixed inset-x-4 bottom-24 z-[60] max-w-md border border-border-soft bg-bg/95 backdrop-blur-md shadow-[0_18px_60px_rgba(0,27,46,0.16)] md:inset-x-auto md:right-6 md:bottom-6 lg:right-8"
+>
+  <div class="p-5 md:p-6">
+    <div class="space-y-4">
+      <div>
+        <p class="font-display text-text-strong tracking-[-0.015em]" style="font-size: clamp(1.1rem, 0.5vw + 1rem, 1.35rem); font-weight: 360; font-variation-settings: 'opsz' 72, 'SOFT' 40;">
+          Cookies and analytics
+        </p>
+        <p class="mt-2 text-text-muted text-[13.5px] leading-[1.6]">
+          We use Google Analytics to understand site use and improve booking journeys. Analytics storage is off by default and only turns on if you accept.
+          <a href="/privacy#cookies" class="text-text-strong underline decoration-1 underline-offset-[5px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">Read our cookie policy</a>.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <button
+          type="button"
+          data-cookie-reject
+          class="inline-flex min-h-11 items-center justify-center border border-text-strong px-4 py-3 rounded-[2px] text-[11px] font-medium tracking-[0.08em] uppercase text-text-strong transition-colors hover:bg-ink-950 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+        >
+          Reject
+        </button>
+        <button
+          type="button"
+          data-cookie-accept
+          class="inline-flex min-h-11 items-center justify-center border border-accent-400 bg-accent-400 px-4 py-3 rounded-[2px] text-[11px] font-medium tracking-[0.08em] uppercase text-accent-900 transition-colors hover:bg-accent-100 hover:border-accent-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+        >
+          Accept
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../lib/consent';
+</script>

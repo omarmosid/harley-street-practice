@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import { OPERATOR, PRACTICE, SITE_NAME, SITE_URL } from '../consts';
+
+const title = 'Privacy and Cookie Policy | London Health Check';
+const description = 'Privacy and cookie information for London Health Check, including Google Analytics consent, cookies used, and how to change your cookie settings.';
+---
+
+<BaseLayout title={title} description={description} canonical={`${SITE_URL}/privacy`}>
+  <section class="relative bg-bg pt-10 md:pt-24 lg:pt-32 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <p class="eyebrow" data-reveal>Privacy</p>
+      <h1 class="mt-8 font-display tracking-[-0.035em] leading-[0.96] text-text-strong max-w-[12ch]" style="font-size: clamp(2.75rem, 7vw, 6.75rem); font-weight: 320; font-variation-settings: 'opsz' 144, 'SOFT' 50; text-wrap: balance; --reveal-delay: 160ms;" data-reveal>
+        Privacy and cookie policy<span class="text-accent-400">.</span>
+      </h1>
+      <p class="mt-8 max-w-[64ch] text-ink-700" style="font-size: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem); line-height: 1.6; text-wrap: pretty; --reveal-delay: 260ms;" data-reveal>
+        This page explains how {SITE_NAME} uses personal information and cookies on this website, the lawful basis for processing it, the cookies we set, and how you can change your cookie choices or exercise your data protection rights at any time.
+      </p>
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4">
+          <p class="eyebrow" data-reveal>Controller</p>
+        </aside>
+        <div class="lg:col-span-8 space-y-7 text-text-muted text-[15px] leading-[1.75]" data-reveal style="--reveal-delay: 120ms;">
+          <p>
+            {SITE_NAME} is a dedicated health-check website operated by {OPERATOR.name}. Appointments take place at {PRACTICE.address.line1}, {PRACTICE.address.locality} {PRACTICE.address.postalCode}.
+          </p>
+          <p>
+            {OPERATOR.name} is the data controller responsible for personal information collected through this website. Established in {OPERATOR.foundingYear}, the practice operates from {PRACTICE.address.line1}, {PRACTICE.address.locality} {PRACTICE.address.postalCode}, {PRACTICE.address.country}.
+          </p>
+          <p>
+            For any privacy or data protection query, including a request to access or update your information, please contact us by email at <a href={PRACTICE.email.href} class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">{PRACTICE.email.display}</a> or by telephone on <a href={PRACTICE.phone.href} class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">{PRACTICE.phone.display}</a>. Please mark email enquiries for the attention of the data protection contact.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4">
+          <p class="eyebrow" data-reveal>Personal information</p>
+        </aside>
+        <div class="lg:col-span-8 space-y-7 text-text-muted text-[15px] leading-[1.75]" data-reveal style="--reveal-delay: 120ms;">
+          <p>
+            This website may process personal information when you contact the practice by telephone or email, click to book an appointment, or use the website. This may include contact details, appointment enquiry information, device information, page views, and website interaction events.
+          </p>
+          <p>
+            The legal basis for handling appointment or enquiry information is usually to respond to your request and take steps before entering into a service relationship. Analytics information is only stored on your device with your consent.
+          </p>
+          <p>
+            This website does not provide a native booking form. When you choose to book, you are taken to the {OPERATOR.name} appointment journey, and any information you enter there is handled under the operator's own privacy notice. Clinical records, appointment data, retention periods, and processor relationships relating to your care are described in that notice, which forms part of your relationship with the practice.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section id="cookies" class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0 scroll-mt-28">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4">
+          <p class="eyebrow" data-reveal>Cookies</p>
+        </aside>
+        <div class="lg:col-span-8" data-reveal style="--reveal-delay: 120ms;">
+          <h2 class="font-display text-text-strong tracking-[-0.02em] leading-[1.08]" style="font-size: clamp(1.75rem, 2vw + 1rem, 3rem); font-weight: 340; font-variation-settings: 'opsz' 96, 'SOFT' 40;">
+            How we use cookies
+          </h2>
+          <div class="mt-7 space-y-7 text-text-muted text-[15px] leading-[1.75]">
+            <p>
+              We use a small first-party cookie to remember your cookie choice. With your consent, Google Tag Manager and Google Analytics help us understand website use, including page views and lead-generation actions such as booking, phone, and email clicks.
+            </p>
+            <p>
+              Google Tag Manager is loaded with Google Consent Mode v2. Analytics storage is denied by default. Until you accept analytics cookies, Google Analytics should not set analytics cookies on your device. Google may receive cookieless consent-mode pings for measurement modelling while analytics storage is denied.
+            </p>
+            <p>
+              Google Search Console is used to understand search performance. It does not set cookies on visitors to this website.
+            </p>
+          </div>
+
+          <div class="mt-10 overflow-x-auto border-y border-border-soft">
+            <table class="w-full min-w-[720px] text-left text-[14px]">
+              <thead class="border-b border-border-soft text-[11px] font-mono uppercase tracking-[0.12em] text-text-meta">
+                <tr>
+                  <th class="py-4 pr-6 font-normal">Cookie</th>
+                  <th class="py-4 px-6 font-normal">Provider</th>
+                  <th class="py-4 px-6 font-normal">Purpose</th>
+                  <th class="py-4 px-6 font-normal">Duration</th>
+                  <th class="py-4 pl-6 font-normal">Type</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border-soft text-text-muted">
+                <tr>
+                  <td class="py-5 pr-6 align-top font-mono text-text-strong">lhc_cookie_consent</td>
+                  <td class="py-5 px-6 align-top">London Health Check</td>
+                  <td class="py-5 px-6 align-top">Remembers whether you accepted or rejected analytics storage.</td>
+                  <td class="py-5 px-6 align-top">180 days</td>
+                  <td class="py-5 pl-6 align-top">Strictly necessary</td>
+                </tr>
+                <tr>
+                  <td class="py-5 pr-6 align-top font-mono text-text-strong">_ga</td>
+                  <td class="py-5 px-6 align-top">Google Analytics</td>
+                  <td class="py-5 px-6 align-top">Helps distinguish visitors for aggregated analytics reporting after consent.</td>
+                  <td class="py-5 px-6 align-top">Usually 2 years</td>
+                  <td class="py-5 pl-6 align-top">Analytics, optional</td>
+                </tr>
+                <tr>
+                  <td class="py-5 pr-6 align-top font-mono text-text-strong">_gid</td>
+                  <td class="py-5 px-6 align-top">Google Analytics</td>
+                  <td class="py-5 px-6 align-top">Helps distinguish visitors for short-term aggregated analytics reporting after consent.</td>
+                  <td class="py-5 px-6 align-top">Usually 24 hours</td>
+                  <td class="py-5 pl-6 align-top">Analytics, optional</td>
+                </tr>
+                <tr>
+                  <td class="py-5 pr-6 align-top font-mono text-text-strong">_ga_*</td>
+                  <td class="py-5 px-6 align-top">Google Analytics</td>
+                  <td class="py-5 px-6 align-top">Maintains session state for a GA4 property after consent. The asterisk is replaced by the GA4 property identifier, so the cookie appears as <span class="font-mono text-text-strong">_ga_&lt;property-id&gt;</span>.</td>
+                  <td class="py-5 px-6 align-top">Usually 2 years</td>
+                  <td class="py-5 pl-6 align-top">Analytics, optional</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-10 space-y-7 text-text-muted text-[15px] leading-[1.75]">
+            <p>
+              You can change your choice at any time using the Cookie settings link in the footer. If you reject analytics after previously accepting, the website will ask Google tags to treat analytics storage as denied and will make a best-effort attempt to remove existing Google Analytics cookies set on this domain.
+            </p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="relative bg-bg pt-16 md:pt-28 lg:pt-36 pb-0">
+    <Container class="max-w-[var(--container-page)]">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-4">
+          <p class="eyebrow" data-reveal>Your rights</p>
+        </aside>
+        <div class="lg:col-span-8 space-y-7 text-text-muted text-[15px] leading-[1.75]" data-reveal style="--reveal-delay: 120ms;">
+          <p>
+            Under UK data protection law you may request access to, correction of, deletion of, or restriction of your personal information, and you may object to certain processing or ask us to transfer information you have provided. Where processing relies on consent, such as analytics cookies, you can withdraw that consent at any time using the Cookie settings link in the footer.
+          </p>
+          <p>
+            To exercise any of these rights, contact us at <a href={PRACTICE.email.href} class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">{PRACTICE.email.display}</a>. We will respond within one month, as required by law. If you are not satisfied with our response, you have the right to complain to the Information Commissioner's Office at <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer" class="text-text-strong underline decoration-1 underline-offset-[6px] decoration-ink-300 hover:text-accent-600 hover:decoration-accent-400 transition-colors">ico.org.uk</a> or by calling 0303 123 1113.
+          </p>
+          <p>
+            This policy was last reviewed on 4 July 2026 and may be updated from time to time to reflect changes in our practices or legal requirements.
+          </p>
+        </div>
+      </div>
+
+      <hr class="hairline mt-16 md:mt-24 lg:mt-32" />
+    </Container>
+  </section>
+</BaseLayout>

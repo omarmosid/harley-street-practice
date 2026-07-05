@@ -1,28 +1,31 @@
 /**
- * analytics.ts — GA4 lead generation event tracking.
+ * analytics.ts — GTM / GA4 lead generation event tracking.
  *
  * Fires `generate_lead` when users interact with lead-generation CTAs:
  * - Online booking / appointments page
  * - Phone calls
  * - Email enquiries
  *
- * Assumes GA4/gtag is already loaded on the page.
+ * Pushes a `generate_lead` event to the GTM dataLayer. Google Consent Mode
+ * controls whether GA4 receives cookieless or full analytics data.
  */
 
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
+    dataLayer?: unknown[];
   }
 }
 
 type LeadType = 'online_booking' | 'phone_call' | 'email_enquiry';
 
 function fireGenerateLead(leadType: LeadType, linkText?: string) {
-  if (typeof window === 'undefined' || typeof window.gtag !== 'function') {
+  if (typeof window === 'undefined') {
     return;
   }
 
-  window.gtag('event', 'generate_lead', {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'generate_lead',
     lead_type: leadType,
     page_location: window.location.href,
     page_path: window.location.pathname,

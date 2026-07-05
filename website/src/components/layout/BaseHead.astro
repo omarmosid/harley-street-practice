@@ -6,6 +6,7 @@
  * Pass `jsonLd` as a single object or array to inject JSON-LD schemas.
  */
 import { Font } from 'astro:assets';
+import GtmConsent from './GtmConsent.astro';
 import { SITE_NAME, SITE_URL } from '../../consts';
 import { pageTitle, absoluteUrl, DEFAULT_DESCRIPTION } from '../../lib/seo';
 import '../../styles/global.css';
@@ -38,6 +39,7 @@ const schemas = !jsonLd ? [] : Array.isArray(jsonLd) ? jsonLd : [jsonLd];
 <!-- Charset / viewport -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<GtmConsent />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Primary -->
